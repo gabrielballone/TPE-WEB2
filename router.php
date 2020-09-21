@@ -29,17 +29,6 @@ switch ($params[0]) {
         $controller->show($params);
         break;
     case 'categorias':
-        //mostrar categorias
-        break;
-    case 'eliminar': // eliminar/:ID
-        $controller = new TaskController();
-        $id = $params[1];
-        $controller->deleteTask($id);
-        break;
-    case 'finalizar':
-        $controller = new TaskController();
-        $id = $params[1];
-        $controller->finalizeTask($id);
         break;
     default:
         header("HTTP/1.0 404 Not Found");
