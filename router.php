@@ -29,6 +29,8 @@ switch ($params[0]) {
         $controller->show($params);
         break;
     case 'categorias':
+       $controller = new CategoryController();
+       $controller->show($params);
         break;
     default:
         header("HTTP/1.0 404 Not Found");
