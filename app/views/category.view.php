@@ -9,13 +9,15 @@ class CategoryView {
         $this->smarty = new Smarty();
     }
 
-    function showCourses($courses) {
-        $this->smarty->assign('courses', $courses);
-        $this->smarty->display('templates/courses.tpl');
+    function showCategories($categories) {
+        $this->smarty->assign('categories', $categories);
+        $this->smarty->display('templates/category_all.tpl');
     }
 
-    function showCourse($course) {
-        $this->smarty->display('templates/courses.tpl');
+    function showCategory($categoryName, $courses) {
+        $this->smarty->assign('name', $categoryName);
+        $this->smarty->assign('courses', $courses);
+        $this->smarty->display('templates/category_one.tpl');
     }
 
 }
