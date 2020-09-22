@@ -11,8 +11,8 @@
     <title>Cursando-online</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+    {* <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> *}
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 
 <body>
@@ -25,15 +25,15 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarResponsive">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="home.php">Home
+                        <a class="nav-link" href="inicio">Inicio
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="courses.php">Cursos</a>
+                        <a class="nav-link" href="cursos">Cursos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Nosotros</a>
+                        <a class="nav-link" href="nosotros">Nosotros</a>
                     </li>
                 </ul>
                 <div>
