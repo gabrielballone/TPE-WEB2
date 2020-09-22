@@ -1,13 +1,13 @@
-{include file="templates/navbar.tpl"}
+{include file="templates/navbar.tpl" BASE_URL=BASE_URL}
 <!-- Page Content -->
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-lg-3">
-            <h1 class="my-4">Cursos</h1>
+            <h1 class="my-4">Categorias</h1>
             <div class="list-group">
-                <a href="courses.php" class="list-group-item active">Todos los cursos</a>
+                <a href="curso" class="list-group-item active">Todos los cursos</a>
                 {foreach from=$categories item=$category}
-                    <a href="courses_category.php" class="list-group-item">{$category->nombre}</a>
+                    <a href="categoria/{$category->id}" class="list-group-item">{$category->nombre}</a>
                 {/foreach}
             </div>
         </div>
@@ -20,7 +20,7 @@
                 {foreach from=$courses item=$course}
                     {if $course->id_categoria == $category->id}
                     <div class="card mt-4">
-                        <img class="card-img-top img-fluid" src="images/java.jpg" alt="java">
+                        <img class="card-img-top img-fluid" src="https://placehold.it/900x350">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <h3 class="card-title">{$course->nombre}</h3>
@@ -36,7 +36,6 @@
                 {/foreach}
             {/foreach}
         </div>
-
     </div>
 </div>
 

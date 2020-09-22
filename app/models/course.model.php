@@ -31,7 +31,7 @@ class CourseModel {
     }
 
     /**
-     * Devuelve el curso con el id por parametro de la base de datos.
+     * Devuelve el curso con el id por parametro de la base de datos
      */
     function getCourse($id) { 
         $query = $this->db->prepare('SELECT * FROM curso WHERE id = ?');
@@ -39,6 +39,17 @@ class CourseModel {
 
         //Obtengo la respuesta con un fetchAll (porque son muchos)
         $curso = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de cursos
+
+        return $curso[0]; //devuelve el elemento solo, fuera de array
+    }
+    /**
+     * Devuelve los cursos de la categoria pasada por parametro
+     */
+    function getCoursesByCategory($id_categoria) { 
+        $query = $this->db->prepare('SELECT * FROM curso WHERE id_categoria=?');
+        $query->execute([$id_categoria]);
+        
+        $curso = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de cursos por categoria
 
         return $curso;
     }

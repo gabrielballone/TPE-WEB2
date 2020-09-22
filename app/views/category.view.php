@@ -7,12 +7,13 @@ class CategoryView {
     function __construct()
     {
         $this->smarty = new Smarty();
+        $this->smarty->assign('BASE_URL', BASE_URL);
     }
 
-    function showCategories($categories) {
-        $this->smarty->assign('categories', $categories);
-        $this->smarty->display('templates/category_all.tpl');
-    }
+    // function showCategories($categories) {
+    //     $this->smarty->assign('categories', $categories);
+    //     $this->smarty->display('templates/categories_all.tpl');
+    // }
 
     function showCategory($categoryName, $courses) {
         $this->smarty->assign('categoryName', $categoryName);

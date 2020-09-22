@@ -14,8 +14,14 @@ class MainController {
      * Imprime home
      */
     function showHome() {
-        // muestra Home
-       // actualizo la vista
        $this->view->showHome();
+    }
+
+    function showRegister(){
+        $this->view->showRegister();
+    }
+
+    function showLogin(){
+        $this->view->showLogin();
     }
 }

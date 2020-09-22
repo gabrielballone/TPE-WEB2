@@ -16,32 +16,26 @@ class CategoryController {
     }
 
 
-    function show(){ 
-        //parametros: cursos ,  , cursos/:id
-        if(isset($params[1])){
-            $this->showCategory($params[1]);
-        }
-        else{
-            $this->showCategories();
-        }
-    }
+    // function show(){ 
+    //     //parametros: categorias, categorias/:id
+    //     if(isset($params[1])){
+    //         $this->showCategory($params[1]);
+    //     }
+    //     else{
+    //         $this->showCategories();
+    //     }
+    // }
  
-    function showCategories() {
-        // obtiene las tareas del modelo
-        $categories = $this->model->getAll();
-        // actualizo la vista
-        $this->view->showCategory($categories);
-    }   
+    // function showCategories() {
+    //     $categories = $this->model->getAll();
+    //     $this->view->showCategories($categories);
+    // }   
 
     function showCategory($id) {
-    /*
-    ** PARA REVISAR. Debe recibir parametros. Uso de getAll
-    */
-        // obtiene las tareas del modelo
         $category = $this->model->getCategory($id);
-        $courses = $this->modelCourse->getAll();
+        // $courses = $this->modelCourse->getAll();
+        $courses = $this->modelCourse->getCoursesByCategory($id);
 
-       // actualizo la vista
        $this->view->showCategory($category,$courses);
     }
 

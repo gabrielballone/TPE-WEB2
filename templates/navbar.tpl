@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <base href="{$BASE_URL}">
 
     <title>Cursando-online</title>
 
@@ -30,7 +31,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cursos">Cursos</a>
+                        <a class="nav-link" href="curso">Cursos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="nosotros">Nosotros</a>

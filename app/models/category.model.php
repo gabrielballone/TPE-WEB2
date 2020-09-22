@@ -40,8 +40,9 @@ class CategoryModel {
         //Obtengo la respuesta con un fetchAll (porque son muchos)
         $categoria = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de categorias
 
-        return $categoria[0];
+        return $categoria;
     }
+    
 
     /**
      * Inserta la categoria en la base de datos

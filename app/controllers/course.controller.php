@@ -16,8 +16,8 @@ class CourseController {
     }
 
 
-    function show(){ 
-        //parametros: cursos ,  , cursos/:id
+    function show($params){ 
+        //parametros: cursos, cursos/:id
         if(isset($params[1])){
             $this->showCourse($params[1]);
         }
@@ -34,9 +34,9 @@ class CourseController {
         $this->view->showCourses($courses, $categories);
     }   
 
-    function showCourse() {
+    function showCourse($id) {
         // obtiene las tareas del modelo
-        $course = $this->model->getCourse();
+        $course = $this->model->getCourse($id);
         $categories = $this->modelCategory->getAll();
 
        // actualizo la vista
