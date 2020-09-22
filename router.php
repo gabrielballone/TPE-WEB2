@@ -27,7 +27,7 @@ switch ($params[0]) {
         $controller = new CourseController();
         $controller->show($params);
         break;
-    case 'categorias':
+    case 'categorias': //categorias  categorias/:id
        $controller = new CategoryController();
        $controller->show($params);
         break;
