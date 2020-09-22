@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-09-2020 a las 16:21:01
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.6
+-- Tiempo de generación: 23-09-2020 a las 01:03:55
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -38,7 +38,9 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'Informática', 'Cursos de ciencias de la información');
+(1, 'Informática', 'Cursos de ciencias de la información'),
+(2, 'Cocina', 'Cursos con las mejores recetas'),
+(3, 'Idiomas', 'Aprende nuevos idiomas');
 
 -- --------------------------------------------------------
 
@@ -60,7 +62,13 @@ CREATE TABLE `curso` (
 --
 
 INSERT INTO `curso` (`id`, `nombre`, `descripcion`, `duracion`, `precio`, `id_categoria`) VALUES
-(3, 'Java desde cero', 'La plataforma Java es el nombre de un entorno o plataforma de computación originaria de Sun Microsystems', 8, 1500, 1);
+(3, 'Java desde cero', 'La plataforma Java es el nombre de un entorno o plataforma de computación originaria de Sun Microsystems', 8, 1500, 1),
+(4, 'C++', 'Curso del lenguaje c++', 4, 2500, 1),
+(5, 'Github', 'Domina la tecnologia git', 2, 2800, 1),
+(6, 'Ingles', 'Aprende idioma ingles', 6, 1450, 3),
+(7, 'Frances', 'Aprende idioma frances', 6, 2480, 3),
+(8, 'Dulces', 'Recetas dulces', 3, 1200, 2),
+(9, 'Salados', 'Recetas saladas', 4, 2200, 2);
 
 -- --------------------------------------------------------
 
@@ -108,13 +116,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
