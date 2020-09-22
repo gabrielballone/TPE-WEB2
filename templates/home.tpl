@@ -8,7 +8,7 @@
             <p class="lead">El mejor sitio de cursos online.</p>
             <hr class="my-4">
             <p>El mejor sitio para aprender</p>
-            <a class="btn btn-primary btn-lg" href="curso" role="button">Ver todos los cursos</a>
+            <a class="btn btn-primary btn-lg" href="cursos" role="button">Ver todos los cursos</a>
         </div>
     </div>
 </div>

@@ -15,9 +15,10 @@ class CategoryView {
     //     $this->smarty->display('templates/categories_all.tpl');
     // }
 
-    function showCategory($categoryName, $courses) {
-        $this->smarty->assign('categoryName', $categoryName);
+    function showCategory($categories, $courses, $id) {
+        $this->smarty->assign('categories', $categories);
         $this->smarty->assign('courses', $courses);
+        $this->smarty->assign('idCategoryActive', $id);
         $this->smarty->display('templates/category_one.tpl');
     }
 

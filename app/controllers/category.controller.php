@@ -31,12 +31,14 @@ class CategoryController {
     //     $this->view->showCategories($categories);
     // }   
 
-    function showCategory($id) {
-        $category = $this->model->getCategory($id);
-        // $courses = $this->modelCourse->getAll();
-        $courses = $this->modelCourse->getCoursesByCategory($id);
-
-       $this->view->showCategory($category,$courses);
+    function showCategory($params) {
+        if(isset($params[1])){
+            $id = $params[1];
+            $categories = $this->model->getAll();
+            $courses = $this->modelCourse->getCoursesByCategory($id);
+            $this->view->showCategory($categories,$courses, $id);
+        }
+       
     }
 
     

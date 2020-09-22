@@ -27,17 +27,17 @@ switch ($params[0]) {
         $controller = new MainController();
         $controller->showRegister();
         break;
-    case 'login':
+    case 'ingreso':
         $controller = new MainController();
         $controller->showLogin();
         break;
-    case 'curso': //cursos  cursos/:id
+    case 'cursos': //cursos  cursos/:id
         $controller = new CourseController();
         $controller->show($params);
         break;
-    case 'categoria': //categorias  categorias/:id
+    case 'categorias': //categorias/:id
        $controller = new CategoryController();
-       $controller->showCategory($params[1]);
+       $controller->showCategory($params); 
         break;
     default:
         header("HTTP/1.0 404 Not Found");
