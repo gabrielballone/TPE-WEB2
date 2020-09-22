@@ -12,7 +12,7 @@ class CategoryController {
     function __construct() {
         $this->model = new CategoryModel();
         $this->modelCourse = new CourseModel();
-        $this->view = new CourseView();
+        $this->view = new CategoryView();
     }
 
 
@@ -33,15 +33,16 @@ class CategoryController {
         $this->view->showCategory($categories);
     }   
 
-    function showCategory() {
+    function showCategory($id) {
     /*
     ** PARA REVISAR. Debe recibir parametros. Uso de getAll
     */
         // obtiene las tareas del modelo
-        $category = $this->modelCategory->getAll();
+        $category = $this->model->getCategory($id);
+        $courses = $this->modelCourse->getAll();
 
        // actualizo la vista
-       $this->view->showCategory($category);
+       $this->view->showCategory($category,$courses);
     }
 
     
