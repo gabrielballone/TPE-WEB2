@@ -35,8 +35,15 @@ class CategoryController {
         if(isset($params[1])){
             $id = $params[1];
             $categories = $this->model->getAll();
+
+            //filtra el array de categorias, lo convierte en un array de ids
+            $arrayId = array_column($categories, 'id');
+
+            //busca el id pasado en el array de ids y devuelve la posicion
+            $category = $categories[array_search($id, $arrayId)];
+
             $courses = $this->modelCourse->getCoursesByCategory($id);
-            $this->view->showCategory($categories,$courses, $id);
+            $this->view->showCategory($categories,$courses, $category);
         }
        
     }

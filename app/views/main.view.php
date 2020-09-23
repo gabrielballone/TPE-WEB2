@@ -14,7 +14,8 @@ class MainView {
         $this->smarty->display('templates/home.tpl');
     }
 
-    function showRegister(){
+    function showRegister()
+    {
         $this->smarty->display('templates/register.tpl');
     }
 

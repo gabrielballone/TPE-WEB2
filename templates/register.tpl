@@ -5,18 +5,11 @@
             <div class="card card-signin my-5">
                 <div class="card-body">
                     <h5 class="card-title text-center">Registrate</h5>
-                    <form class="form-signin">
-                        <div class="form-label-group">
-                            <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-                            <label for="inputEmail">Email</label>
-                        </div>
-
-                        <div class="form-label-group">
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
-                            <label for="inputPassword">Contraseña</label>
-                        </div>
-
-
+                    <form class="form-signin" action="usuario/nuevo" method="POST">
+                        <input name="email" type="email" id="inputEmail" class="form-control mb-2" placeholder="Correo electrónico" required autofocus>
+                        <input name="password" type="password" id="inputPassword" class="form-control mb-2" placeholder="Contraseña" required>
+                        <input name="nombre" type="text" id="inputNombre" class" class="form-control mb-2" placeholder="Nombre" required>                        
+                        <input name="telefono" type="text" id="inputTelefono" class="form-control mb-2" placeholder="Teléfono" required>
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Registro</button>
                     </form>
                 </div>

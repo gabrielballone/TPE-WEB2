@@ -2,10 +2,11 @@
 include_once 'app/controllers/main.controller.php';
 include_once 'app/controllers/course.controller.php';
 include_once 'app/controllers/category.controller.php';
+include_once 'app/controllers/user.controller.php';
 
 
 // defino la base url para la construccion de links con urls semánticas
-define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
+define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
 // lee la acción
 if (!empty($_GET['action'])) {
@@ -36,11 +37,15 @@ switch ($params[0]) {
         $controller->show($params);
         break;
     case 'categorias': //categorias/:id
-       $controller = new CategoryController();
-       $controller->showCategory($params); 
+        $controller = new CategoryController();
+        $controller->showCategory($params);
+        break;
+    case 'usuarios':
+        $controller = new UserController();
+        $controller->show();
         break;
     default:
         header("HTTP/1.0 404 Not Found");
-        echo('404 Page not found');
+        echo ('404 Page not found');
         break;
 }
