@@ -11,6 +11,11 @@ class UserView
         $this->smarty->assign('BASE_URL', BASE_URL);
     }
 
+    function showError($message){
+        $this->smarty->assign('messageError', $message);
+        $this->smarty->display('templates/register.tpl');
+    }
+
     
     
 }

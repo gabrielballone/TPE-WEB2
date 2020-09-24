@@ -1,6 +1,5 @@
 {include file="templates/navbar.tpl" BASE_URL=BASE_URL}
 
-<!-- Page Content -->
 <div class="container">
     <div class="row">
         <div class="jumbotron">
@@ -11,6 +10,7 @@
             <a class="btn btn-primary btn-lg" href="cursos" role="button">Ver todos los cursos</a>
         </div>
     </div>
+    <img src="images/fondo-bienvenida.jpg" alt="fondo">
 </div>
 
 {include file="templates/footer.tpl"}

@@ -16,6 +16,7 @@ class MainView {
 
     function showRegister()
     {
+        $this->smarty->assign('messageError', "");
         $this->smarty->display('templates/register.tpl');
     }
 

@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header">
                 <h2 class="mb-0">
-                    <a href="cursos" class="btn btn-link btn-block text-left" role="button" type="button">
+                    <a href="cursos" class="btn btn-link btn-block text-left font-weight-bold" role="button" type="button">
                         Todos los cursos
                     </a>
                 </h2>
@@ -42,7 +42,7 @@
                     {foreach from=$courses item=$course}
                         {if $course->id_categoria == $category->id}
                             <div class="card m-2 anchoTarjetas">
-                                <img src="https://placehold.it/900x350" class="card-img-top img-fluid" alt="">
+                                <img src="images/new.png" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
                                 <div class="card-body">
                                     <a href="categorias/{$category->id}">
                                         <h4><span class="badge badge-primary">{$category->nombre}</span></h4>
@@ -51,7 +51,6 @@
                                     <h4>${$course->precio}</h4>
                                     <h4>Duración en meses: {$course->duracion} </h4>
                                     <p class="card-text">{$course->descripcion}</p>
-                                    {* <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span> 4.0 stars *}
                                     <div class="text-center mt-2">
                                         <a class="btn btn-info p-2" href="cursos/{$course->id}">Más info</a>
                                     </div>

@@ -40,6 +40,17 @@ class UserModel
         return $usuario;
     }
 
+    function exist($email)
+    {
+        $query = $this->db->prepare('SELECT * FROM usuario WHERE email = ?');
+        $query->execute([$email]);
+
+        //Obtengo la respuesta con un fetchAll (porque son muchos)
+        $usuario = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de usuarios
+        
+        return count($usuario) != 0;
+    }
+
 
     
     function insert($email, $password, $nombre, $telefono)

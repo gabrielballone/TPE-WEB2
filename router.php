@@ -34,15 +34,15 @@ switch ($params[0]) {
         break;
     case 'cursos': //cursos  cursos/:id
         $controller = new CourseController();
-        $controller->show($params);
+        $controller->process($params);
         break;
     case 'categorias': //categorias/:id
         $controller = new CategoryController();
-        $controller->showCategory($params);
+        $controller->process($params);
         break;
     case 'usuarios':
         $controller = new UserController();
-        $controller->show();
+        $controller->process($params);
         break;
     default:
         header("HTTP/1.0 404 Not Found");

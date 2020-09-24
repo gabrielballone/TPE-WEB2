@@ -24,4 +24,5 @@ class MainController {
     function showLogin(){
         $this->view->showLogin();
     }
+
 }

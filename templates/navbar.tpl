@@ -12,7 +12,8 @@
     <title>Cursando-online</title>
 
     <!-- Bootstrap core CSS -->
-    {* <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> *}
+    {*
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> *}
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
@@ -36,8 +37,31 @@
                     </li>
                 </ul>
                 <div>
-                    <a href="registro" class="btn btn-primary mx-2">Registro</a>
-                    <a href="ingreso" class="btn btn-primary">Ingresa</a>
+                    {if false}
+                        <a href="registro" class="btn btn-primary mx-2">Registro</a>
+                        <a href="ingreso" class="btn btn-primary">Ingresa</a>
+                    {else}
+                        <div class="d-flex">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-outline-light dropdown-toggle ml-4 mt-1" data-toggle="dropdown">
+                                    Administrar
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="categorias/administrar">Categorias</a>
+                                    <a class="dropdown-item" href="cursos/administrar">Cursos</a>
+                                    <a class="dropdown-item" href="usuarios/administrar">Usuarios</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-outline-light dropdown-toggle ml-4 mt-1" data-toggle="dropdown">
+                                    admin@cursandoonline.com
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="logout">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    {/if}
                 </div>
             </div>
         </div>

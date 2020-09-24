@@ -15,16 +15,41 @@ class CourseController {
         $this->view = new CourseView();
     }
 
-
-    function show($params){ 
-        //parametros: cursos, cursos/:id
-        if(isset($params[1])){
-            $this->showCourse($params[1]);
-        }
-        else{
+    public function process($params)
+    {
+        if (isset($params[1])) {
+            switch ($params[1]) {
+                case "administrar": //categorias
+                    $this->showManageCourses();
+                    break;
+                case "nuevo": //categorias/nuevo
+                    $this->createCourse();
+                    break;
+                case "modificar": //categorias/modificar/[id]
+                    $this->updateCourse($params[2]);
+                    break;
+                case "eliminar": //categorias/eliminar/[id]
+                    $this->removeCourse($params[2]);
+                    break;
+                default:
+                    $this->showCourse($params[1]);
+                    break;
+            }
+        } else {
             $this->showCourses();
         }
     }
+
+
+    // function show($params){ 
+    //     //parametros: cursos, cursos/:id
+    //     if(isset($params[1])){
+    //         $this->showCourse($params[1]);
+    //     }
+    //     else{
+    //         $this->showCourses();
+    //     }
+    // }
  
     function showCourses() {
         // obtiene las tareas del modelo
@@ -43,5 +68,29 @@ class CourseController {
        $this->view->showCourse($course, $categories);
     }
 
+    public function showManageCourses()
+    {
+        $courses = $this->model->getAll();
+        $this->view->showManageCourses($categories);
+    }
+
+    public function createCourse()
+    {
+        if (isset($_POST['nombre'], $_POST['descripcion'], $_POST['precio'], $_POST['duracion'], $_POST['id_categoria'])) {
+            $this->model->insert($_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['id_categoria']);
+        }
+    }
+
+    public function updateCourse($id)
+    {
+        if (isset($_POST['nombre'], $_POST['descripcion'], $_POST['precio'], $_POST['duracion'], $_POST['id_categoria'])) {
+            $this->model->update($id, $_POST['nombre'], $_POST['descripcion'], $_POST['precio'], $_POST['duracion'], $_POST['id_categoria']);
+        }
+    }
+
+    public function removeCourse($id)
+    {
+        $this->model->remove($id);
+    }
     
 }
