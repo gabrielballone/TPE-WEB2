@@ -17,9 +17,13 @@ class CategoryView {
         $this->smarty->display('templates/category_one.tpl');
     }
 
-    function showManageCategories($categories){
-        $this->smarty->assign('categories', $categories);
-        $this->smarty->display('templates/category_manage.tpl');
+    function showManageCategories($categories, $category=false){
+        $this->smarty->assign('arrayEntity', $categories);
+        $this->smarty->assign('objectEntity', $category);
+        // $this->smarty->assign('category', $category);
+        $this->smarty->assign('title', "Categorias");
+        $this->smarty->assign('entityName', "categorias");
+        $this->smarty->display('templates/manage.tpl');
     }
 
 }

@@ -24,6 +24,15 @@ class CourseView {
         $this->smarty->display('templates/course_one.tpl');
     }
 
+    function showManageCourses($courses, $categories=false, $course=false){
+        $this->smarty->assign('arrayEntity', $courses);
+        $this->smarty->assign('objectEntity', $course);
+        $this->smarty->assign('title', "Cursos");
+        $this->smarty->assign('entityName', "cursos");
+        $this->smarty->assign('arrayRelatedEntity', $categories);
+        $this->smarty->display('templates/manage.tpl');
+    }
+
 
 
 }

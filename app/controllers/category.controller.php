@@ -28,7 +28,12 @@ class CategoryController
                     $this->createCategory();
                     break;
                 case "modificar": //categorias/modificar/[id]
-                    $this->updateCategory($params[2]);
+                    if(isset($params[2])){ 
+                        $this->updateCategory($params[2]);
+                    }
+                    else{
+                        header("Location: " . BASE_URL . "categorias/administrar");
+                    }
                     break;
                 case "eliminar": //categorias/eliminar/[id]
                     $this->removeCategory($params[2]);
@@ -64,20 +69,28 @@ class CategoryController
 
     public function createCategory()
     {
-        if(isset($_POST['nombre'], $_POST['descripcion'])){
+        if(!empty($_POST['nombre']) && !empty($_POST['descripcion'])){
             $this->model->insert($_POST['nombre'], $_POST['descripcion']);
+            header('Location: '. BASE_URL.'categorias/administrar');
         }
     }
 
     public function updateCategory($id)
     {
-        if(isset($_POST['nombre'], $_POST['descripcion'])){
-            $this->model->insert($_POST['nombre'], $_POST['descripcion']);
+        if(!empty($_POST['nombre']) && !empty($_POST['descripcion'])){
+            $this->model->update($id, $_POST['nombre'], $_POST['descripcion']);
+            header('Location: '. BASE_URL.'categorias/administrar');
+        }
+        else{
+            $categories = $this->model->getAll();
+            $category = $this->model->getCategory($id);
+            $this->view->showManageCategories($categories, $category);
         }
     }
 
     public function removeCategory($id)
     {
         $this->model->remove($id);
+        header('Location: '. BASE_URL.'categorias/administrar');
     }
 }

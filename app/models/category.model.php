@@ -34,13 +34,13 @@ class CategoryModel {
      * Devuelve la categoria con el id por parametro de la base de datos.
      */
     function getCategory($id) { 
-        $query = $this->db->prepare('SELECT * FROM category WHERE id = ?');
+        $query = $this->db->prepare('SELECT * FROM categoria WHERE id = ?');
         $query->execute([$id]);
 
         //Obtengo la respuesta con un fetchAll (porque son muchos)
         $categoria = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de categorias
 
-        return $categoria;
+        return $categoria[0];
     }
     
 
