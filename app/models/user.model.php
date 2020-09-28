@@ -51,8 +51,6 @@ class UserModel
         return count($usuario) != 0;
     }
 
-
-    
     function insert($email, $password, $nombre, $telefono)
     {
         $query = $this->db->prepare('INSERT INTO usuario (email, pass, nombre, telefono, administrador) VALUES (?,?,?,?,0)');
@@ -61,7 +59,12 @@ class UserModel
         // 3. Obtengo y devuelo el ID del categoria nuevo
         return $this->db->lastInsertId();
     }
-
+    
+    function update($id, $email, $password, $nombre, $telefono, $administrador)
+    {
+        $query = $this->db->prepare('UPDATE usuario SET email = ?, pass = ?, nombre = ?, telefono = ?, administrador=? WHERE id = ?');
+        $query->execute([$email, $password, $nombre, $telefono, $administrador, $id]);
+    }
     
     function remove($id)
     {
@@ -69,12 +72,4 @@ class UserModel
         $query->execute([$id]);
     }
 
-    /**
-     * Actualiza el usuario con el id por parametro en la base de datos
-     */
-    function update($id, $email, $password, $nombre, $telefono)
-    {
-        $query = $this->db->prepare('UPDATE usuario SET email = ?, password = ?, nombre = ?, telefono = ? WHERE id = ?');
-        $query->execute([$email, $password, $nombre, $telefono, $id]);
-    }
 }

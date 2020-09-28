@@ -25,7 +25,7 @@ class CourseController {
                 case "nuevo": 
                     $this->createCourse();
                     break;
-                case "modificar": //categorias/modificar/[id]
+                case "modificar": //categorias/modificar/[id] 
                     if(isset($params[2])){ 
                         $this->updateCourse($params[2]);
                     }
@@ -33,8 +33,23 @@ class CourseController {
                         header("Location: " . BASE_URL . "cursos/administrar");
                     }
                     break;
-                case "eliminar": 
-                    $this->removeCourse($params[2]);
+                case "eliminar": //categorias/eliminar/[id]
+                    if(isset($params[2])){
+                        if($params[2] == "confirmar"){
+                            if(isset($params[3])){
+                                $this->showConfirmation($params[3]);
+                            }
+                            else{
+                                header("Location: " . BASE_URL . "cursos/administrar");
+                            }     
+                        }
+                        else{
+                            $this->removeCourse($params[2]);
+                        }
+                    }
+                    else{
+                        header("Location: " . BASE_URL . "cursos/administrar");
+                    }
                     break;
                 default:
                     $this->showCourse($params[1]);
@@ -59,26 +74,34 @@ class CourseController {
 
     public function showManageCourses()
     {
-        $courses = $this->model->getAll();
+        $courses = $this->model->getAllInnerCategoyName();
         $categories = $this->modelCategory->getAll();
         $this->view->showManageCourses($courses, $categories);
     }
 
+    public function showConfirmation($id)
+    {
+        $course = $this->model->getCourse($id);
+        $name = $course->nombre;
+        $this->view->confirmCourseRemove($id, $name);
+    }
+
     public function createCourse()
     {
-        if (!empty($_POST['nombre']) &&  !empty($_POST['descripcion']) && !empty($_POST['precio']) && !empty($_POST['duracion']) && !empty($_POST['selectCategoria'])) {
-            $this->model->insert($_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['id_categoria']);
+        if (!empty($_POST['nombre']) &&  !empty($_POST['descripcion']) && !empty($_POST['precio']) && !empty($_POST['duracion']) && !empty($_POST['categoria'])) {
+            $this->model->insert($_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['categoria']);
+            header('Location: '. BASE_URL.'cursos/administrar');
         }
     }
 
     public function updateCourse($id)
     {
-        if (!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['precio']) && !empty($_POST['duracion']) && !empty($_POST['selectCategoria'])) {
-            $this->model->update($id, $_POST['nombre'], $_POST['descripcion'], $_POST['precio'], $_POST['duracion'], $_POST['selectCategoria']);
+        if (!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['precio']) && !empty($_POST['duracion']) && !empty($_POST['categoria'])) {
+            $this->model->update($id, $_POST['nombre'], $_POST['descripcion'], $_POST['precio'], $_POST['duracion'], $_POST['categoria']);
             header('Location: '. BASE_URL.'cursos/administrar');
         }
         else{
-            $courses = $this->model->getAll();
+            $courses = $this->model->getAllInnerCategoyName();
             $categories = $this->modelCategory->getAll();
             $couse = $this->model->getCourse($id);
             $this->view->showManageCourses($courses, $categories, $couse);
@@ -88,6 +111,7 @@ class CourseController {
     public function removeCourse($id)
     {
         $this->model->remove($id);
+        header('Location: '. BASE_URL.'cursos/administrar');
     }
     
 }

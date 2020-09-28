@@ -30,6 +30,16 @@ class CourseModel {
         return $cursos;
     }
 
+    function getAllInnerCategoyName() {
+        $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id');
+        $query->execute();
+
+        //Obtengo la respuesta con un fetchAll (porque son muchos)
+        $cursos = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de cursos
+
+        return $cursos;
+    }
+
     /**
      * Devuelve el curso con el id por parametro de la base de datos
      */

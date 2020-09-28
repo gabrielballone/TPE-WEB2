@@ -13,6 +13,7 @@ class CourseView {
     function showCourses($courses, $categories) {
         $this->smarty->assign('courses', $courses);
         $this->smarty->assign('categories', $categories);
+        // $this->smarty->debugging=true;
 
         $this->smarty->display('templates/courses_all.tpl');
     }
@@ -25,12 +26,22 @@ class CourseView {
     }
 
     function showManageCourses($courses, $categories=false, $course=false){
-        $this->smarty->assign('arrayEntity', $courses);
-        $this->smarty->assign('objectEntity', $course);
-        $this->smarty->assign('title', "Cursos");
+        //$this->smarty->assign('arrayEntity', $courses);
+        $this->smarty->assign('courses', $courses);
+        //$this->smarty->assign('objectEntity', $course);
+        $this->smarty->assign('course', $course);
+        // $this->smarty->assign('title', "Cursos");
         $this->smarty->assign('entityName', "cursos");
-        $this->smarty->assign('arrayRelatedEntity', $categories);
-        $this->smarty->display('templates/manage.tpl');
+        //$this->smarty->assign('arrayRelatedEntity', $categories);
+        $this->smarty->assign('categories', $categories);
+        $this->smarty->display('templates/manage_courses.tpl');
+    }
+
+    function confirmCourseRemove($id, $name) {
+        $this->smarty->assign('entityToRemove', "cursos");
+        $this->smarty->assign('name', $name);
+        $this->smarty->assign('id', $id);
+        $this->smarty->display('templates/confirmation_remove.tpl');
     }
 
 

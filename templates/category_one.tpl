@@ -55,6 +55,8 @@
                             </div>
                         </div>
                     </div>
+                {foreachelse}
+                    <h2>Aún no hay cursos disponibles para esta categoría</h2>
                 {/foreach}
             </div>
         </div>

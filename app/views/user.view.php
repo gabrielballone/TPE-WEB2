@@ -11,11 +11,21 @@ class UserView
         $this->smarty->assign('BASE_URL', BASE_URL);
     }
 
-    function showError($message){
+    function showErrorRegister($message){
         $this->smarty->assign('messageError', $message);
         $this->smarty->display('templates/register.tpl');
     }
 
-    
+    function showManageUser($users){
+        $this->smarty->assign('users', $users);
+        $this->smarty->display('templates/manage_users.tpl');
+    }
+
+    function confirmUserRemove($id, $name) {
+        $this->smarty->assign('entityToRemove', "usuarios");
+        $this->smarty->assign('name', $name);
+        $this->smarty->assign('id', $id);
+        $this->smarty->display('templates/confirmation_remove.tpl');
+    }
     
 }

@@ -35,8 +35,23 @@ class CategoryController
                         header("Location: " . BASE_URL . "categorias/administrar");
                     }
                     break;
-                case "eliminar": //categorias/eliminar/[id]
-                    $this->removeCategory($params[2]);
+                case "eliminar": //categorias/eliminar/[id]  categorias/eliminar/confirmar/[id]
+                    if(isset($params[2])){
+                        if($params[2] == "confirmar"){
+                            if(isset($params[3])){
+                                $this->showConfirmation($params[3]);
+                            }
+                            else{
+                                header("Location: " . BASE_URL . "categorias/administrar");
+                            }     
+                        }
+                        else{
+                            $this->removeCategory($params[2]);
+                        }
+                    }
+                    else{
+                        header("Location: " . BASE_URL . "categorias/administrar");
+                    }
                     break;
                 default:
                     $this->showCategory($params[1]);
@@ -88,9 +103,21 @@ class CategoryController
         }
     }
 
+    public function showConfirmation($id)
+    {
+        $category = $this->model->getCategory($id);
+        $name = $category->nombre;
+        $this->view->confirmCategoryRemove($id, $name);
+    }
+
     public function removeCategory($id)
     {
-        $this->model->remove($id);
-        header('Location: '. BASE_URL.'categorias/administrar');
+        if(!count($this->modelCourse->getCoursesByCategory($id))){
+            $this->model->remove($id);
+            header('Location: '. BASE_URL.'categorias/administrar');
+        }
+        else{
+            $this->view->showError("No puedes eliminar la categoria, tiene cursos referenciados");
+        }
     }
 }
