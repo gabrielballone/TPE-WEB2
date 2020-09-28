@@ -18,86 +18,95 @@ class UserController
     {
         if (isset($params[1])) {
             switch ($params[1]) {
-                case "administrar": 
+                case "administrar":
                     $this->showManageUsers();
                     break;
-                case "nuevo": 
+                case "nuevo":
                     $this->createUser();
                     break;
-                case "modificar": 
-                    if(isset($params[2])){ 
+                case "modificar":
+                    if (isset($params[2])) {
                         $this->updateUser($params[2]);
-                    }
-                    else{
+                    } else {
                         header("Location: " . BASE_URL . "usuarios/administrar");
                     }
                     break;
-                case "eliminar": 
-                    if($params[2] == "confirmar"){
-                        if(isset($params[3])){
-                            $this->showConfirmation($params[3]);
-                        }
-                        else{
-                            header("Location: " . BASE_URL . "usuarios/administrar");
-                        }     
+                case "set_administrador":
+                    if (isset($params[2]) && isset($params[3])) {
+                        $this->setAdministrador($params[2], $params[3]);
+                    } else {
+                        header("Location: " . BASE_URL . "usuarios/administrar");
                     }
-                    else{
+                    break;
+                case "eliminar":
+                    if (isset($params[2]) && $params[2] == "confirmar") {
+                        if (isset($params[3])) {
+                            $this->showConfirmation($params[3]);
+                        } else {
+                            header("Location: " . BASE_URL . "usuarios/administrar");
+                        }
+                    } else {
                         $this->removeUser($params[2]);
                     }
                     break;
                 default:
-                    $this->showUser($params[1]);
+                    header("Location: " . BASE_URL . "usuarios/administrar");
                     break;
             }
-        }
-        else {
-            header("Location: ".BASE_URL."inicio");
+        } else {
+            header("Location: " . BASE_URL . "inicio");
         }
     }
-    
+
     public function showManageUsers()
-    { 
+    {
         $users = $this->model->getAll();
         $this->view->showManageUsers($users);
     }
-    
+
     function createUser()
     {
         if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['nombre']) && !empty($_POST['telefono'])) {
-            if(!$this->model->exist($_POST['email'])){
+            if (!$this->model->exist($_POST['email'])) {
                 $this->model->insert($_POST['email'], $_POST['password'], $_POST['nombre'], $_POST['telefono']);
-                header("Location: ".BASE_URL."inicio");
-            }
-            else{
+                header("Location: " . BASE_URL . "inicio");
+            } else {
                 $this->view->showErrorRegister("El email ya existe");
-            }  
+            }
+        } else {
+            header("Location: " . BASE_URL . "inicio");
         }
-        else{
-            header("Location: ".BASE_URL."inicio");
-        } 
     }
 
-    function updateUser(){
-        if (!empty($_POST['email']) && !empty($_POST['pass']) && !empty($_POST['nombre']) && !empty($_POST['telefono']) && !empty($_POST['administrador'])) {
-            $this->model->update($id, $_POST['email'], $_POST['pass'], $_POST['nombre'], $_POST['telefono'], $_POST['administrador']);
-            header('Location: '. BASE_URL.'usuarios/administrar');
-        }
+    function updateUser($id)
+    {
+        if (!empty($_POST['email']) && !empty($_POST['pass']) && !empty($_POST['nombre']) && !empty($_POST['telefono'])) {
+            $this->model->update($id, $_POST['email'], $_POST['pass'], $_POST['nombre'], $_POST['telefono']);
+            $this->view->showEditUser();
+        } 
         else{
-            $users = $this->model->getAll();
-            $this->view->showManageUsers($users);
+            $user = $this->model->getUser($id);
+            $this->view->showEditUser($user);
         }
+        
+    }
+
+    function setAdministrador($id, $administrador)
+    {
+        $this->model->setAdministrador($id, $administrador);
+        header('Location: ' . BASE_URL . 'usuarios/administrar');
     }
 
     public function showConfirmation($id)
     {
         $user = $this->model->getUser($id);
-        $name = $user->nombre;
-        $this->view->confirmUserRemove($id, $name);
+        $email = $user->email;
+        $this->view->confirmUserRemove($id, $email);
     }
 
-    function removeUser(){
+    function removeUser($id)
+    {
         $this->model->remove($id);
-        header('Location: '. BASE_URL.'usuarios/administrar');
+        header('Location: ' . BASE_URL . 'usuarios/administrar');
     }
-    
 }

@@ -35,7 +35,7 @@ class UserModel
         $query->execute([$id]);
 
         //Obtengo la respuesta con un fetchAll (porque son muchos)
-        $usuario = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de usuarios
+        $usuario = $query->fetch(PDO::FETCH_OBJ); // arreglo de usuarios
 
         return $usuario;
     }
@@ -60,10 +60,15 @@ class UserModel
         return $this->db->lastInsertId();
     }
     
-    function update($id, $email, $password, $nombre, $telefono, $administrador)
+    function update($id, $email, $password, $nombre, $telefono)
     {
-        $query = $this->db->prepare('UPDATE usuario SET email = ?, pass = ?, nombre = ?, telefono = ?, administrador=? WHERE id = ?');
-        $query->execute([$email, $password, $nombre, $telefono, $administrador, $id]);
+        $query = $this->db->prepare('UPDATE usuario SET email = ?, pass = ?, nombre = ?, telefono = ? WHERE id = ?');
+        $query->execute([$email, $password, $nombre, $telefono, $id]);
+    }
+
+    function setAdministrador($id, $administrador){
+        $query = $this->db->prepare('UPDATE usuario SET administrador=? WHERE id = ?');
+        $query->execute([$administrador, $id]);
     }
     
     function remove($id)

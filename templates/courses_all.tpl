@@ -23,7 +23,11 @@
                         </button>
                     </h2>
                 </div>
+<<<<<<< HEAD
                 <div id="collapse{$category->id}" class="collapse" data-parent="#accordionExample">
+=======
+                <div id="collapse{$category->id}" class="collapse" aria-labelledby="heading{$category->id}" data-parent="#accordionExample">
+>>>>>>> b4cb73e02d3c874a5d1670ab7b18aba6eb4d20df
                     <div class="card-body">
                         {$category->descripcion}
                     </div>
