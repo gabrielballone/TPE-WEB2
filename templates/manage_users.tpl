@@ -39,17 +39,21 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>  
+                        <th scope="col">Email</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Descripción</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Administrador</th>
                         <th scope="col">Editar</th>
                         <th scope="col">Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {foreach from=$categories item=$itemCategory}
+                    {foreach from=$users item=$itemUser}
                         <tr>
-                            <td>{$itemCategory->nombre}</td>
-                            <td>{$itemCategory->descripcion}</td>
+                            <td>{$itemUser->email}</td>
+                            <td>{$itemUser->nombre}</td>
+                            <td>{$itemUser->telefono}</td>
+                            <td>{$itemUser->administrador}</td>
                             <td><a href="categorias/modificar/{$itemCategory->id}"><img src="images/editar.png" alt="editar"/></a></td>
                             <td><a href="categorias/eliminar/{$itemCategory->id}"><img src="images/eliminar.png" alt="eliminar"/></a></td>
                         </tr>

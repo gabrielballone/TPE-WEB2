@@ -19,14 +19,11 @@
                 <div class="card-header" id="heading{$category->id}">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{$category->id}" aria-expanded="false" aria-controls="collapse{$category->id}">
-                            <a href="categorias/{$category->id}" class="">{$category->nombre}</a>
+                            <a href="categorias/{$category->id}" class="">{$category->nombre}</a>                            
                         </button>
                     </h2>
                 </div>
-                <div id="collapse{$category->id}" class="collapse
-                                                    {if $category->id eq $categoryToShow->id}
-                                                                            show
-                                                    {/if}" aria-labelledby="heading{$category->id}" data-parent="#accordionExample">
+                <div id="collapse{$category->id}" class="collapse" data-parent="#accordionExample">
                     <div class="card-body">
                         {$category->descripcion}
                     </div>

@@ -19,7 +19,7 @@ class UserController
         if (isset($params[1])) {
             switch ($params[1]) {
                 case "administrar": 
-                    $this->showManageCategories();
+                    $this->showManageUsers();
                     break;
                 case "nuevo": 
                     $this->createUser();
@@ -29,7 +29,7 @@ class UserController
                         $this->updateUser($params[2]);
                     }
                     else{
-                        header("Location: " . BASE_URL . "categorias/administrar");
+                        header("Location: " . BASE_URL . "usuarios/administrar");
                     }
                     break;
                 case "eliminar": 
@@ -38,7 +38,7 @@ class UserController
                             $this->showConfirmation($params[3]);
                         }
                         else{
-                            header("Location: " . BASE_URL . "categorias/administrar");
+                            header("Location: " . BASE_URL . "usuarios/administrar");
                         }     
                     }
                     else{
@@ -46,7 +46,7 @@ class UserController
                     }
                     break;
                 default:
-                    $this->showCategory($params[1]);
+                    $this->showUser($params[1]);
                     break;
             }
         }

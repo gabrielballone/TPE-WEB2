@@ -65,12 +65,18 @@ class CategoryController
     public function showCategory($id)
     {
         $categories = $this->model->getAll();
-
+        print_r($id);
+        // print_r($categories);
+        
         //filtra el array de categorias, lo convierte en un array de ids
         $arrayId = array_column($categories, 'id');
-
+        
+        // print_r($arrayId);
         //busca el id pasado en el array de ids y devuelve la posicion
         $category = $categories[array_search($id, $arrayId)];
+        
+        print_r($category);    
+        // die();
 
         $courses = $this->modelCourse->getCoursesByCategory($id);
         $this->view->showCategory($categories, $courses, $category);

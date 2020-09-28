@@ -16,7 +16,7 @@ class UserView
         $this->smarty->display('templates/register.tpl');
     }
 
-    function showManageUser($users){
+    function showManageUsers($users){
         $this->smarty->assign('users', $users);
         $this->smarty->display('templates/manage_users.tpl');
     }
