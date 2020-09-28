@@ -23,10 +23,7 @@
                         </button>
                     </h2>
                 </div>
-                <div id="collapse{$category->id}" class="collapse
-                                                    {if $category->id eq $categoryToShow->id}
-                                                                            show
-                                                    {/if}" aria-labelledby="heading{$category->id}" data-parent="#accordionExample">
+                <div id="collapse{$category->id}" class="collapse" aria-labelledby="heading{$category->id}" data-parent="#accordionExample">
                     <div class="card-body">
                         {$category->descripcion}
                     </div>

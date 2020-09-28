@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 
@@ -54,7 +54,8 @@
                                     admin@cursandoonline.com
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="logout">Logout</a>
+                                    <a class="dropdown-item" href="usuarios/modificar/1">Perfil</a>
+                                    <a class="dropdown-item" href="usuarios/logout">Logout</a>
                                 </div>
                             </div>
                         </div>
