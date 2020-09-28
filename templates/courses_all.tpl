@@ -1,4 +1,4 @@
-{include file="templates/navbar.tpl" BASE_URL=BASE_URL}
+{include file="templates/navbar.tpl"}
 <!-- Page Content -->
 <div class="container-fluid">
     <div class="row">

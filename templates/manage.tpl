@@ -1,4 +1,4 @@
-{include file="templates/navbar.tpl" BASE_URL=BASE_URL}
+{include file="templates/navbar.tpl"}
 <div class="container">
     <h1 class="text-center">Administrar</h1>
     <div class="row">
