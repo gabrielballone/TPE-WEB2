@@ -6,10 +6,18 @@
                 <div class="card-body">
                     <h5 class="card-title text-center">Registrate</h5>
                     <form class="form-signin" action="usuarios/nuevo" method="POST">
-                        <input name="email" type="email" id="inputEmail" class="form-control mb-2" placeholder="Correo electrónico" required autofocus>
-                        <input name="password" type="password" id="inputPassword" class="form-control mb-2" placeholder="Contraseña" required>
-                        <input name="nombre" type="text" id="inputNombre" class" class="form-control mb-2" placeholder="Nombre" required>                        
-                        <input name="telefono" type="text" id="inputTelefono" class="form-control mb-2" placeholder="Teléfono" required>
+                        <label for="email">Email</label>
+                        <input name="email" type="email" class="form-control mb-2" required autofocus>
+                        
+                        <label for="password">Contraseña</label>
+                        <input name="password" type="password" class="form-control mb-2" required>
+                        
+                        <label for="nombre">Nombre</label>
+                        <input name="nombre" type="text" class" class="form-control mb-2" required>                        
+                        
+                        <label for="telefono">Teléfono</label>
+                        <input name="telefono" type="text" class="form-control mb-2" required>
+                        
                         <button class="btn btn-lg btn-primary btn-block text-uppercase mb-2" type="submit">Registro</button>
                     </form>
                     {if !$messageError eq ""} 

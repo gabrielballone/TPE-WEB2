@@ -21,6 +21,7 @@ class MainView {
     }
 
     function showLogin(){
+        $this->smarty->assign('messageError', "");
         $this->smarty->display('templates/login.tpl');
     }
 

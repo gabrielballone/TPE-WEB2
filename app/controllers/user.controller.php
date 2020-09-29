@@ -24,6 +24,9 @@ class UserController
                 case "nuevo":
                     $this->createUser();
                     break;
+                case "ingreso":
+                    $this->login();
+                    break;
                 case "modificar":
                     if (isset($params[2])) {
                         $this->updateUser($params[2]);
@@ -49,6 +52,9 @@ class UserController
                         $this->removeUser($params[2]);
                     }
                     break;
+                case "logout":
+                    $this->logout();
+                break;
                 default:
                     header("Location: " . BASE_URL . "usuarios/administrar");
                     break;
@@ -68,7 +74,7 @@ class UserController
     {
         if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['nombre']) && !empty($_POST['telefono'])) {
             if (!$this->model->exist($_POST['email'])) {
-                $this->model->insert($_POST['email'], $_POST['password'], $_POST['nombre'], $_POST['telefono']);
+                $this->model->insert($_POST['email'], password_hash($_POST['password'], PASSWORD_DEFAULT), $_POST['nombre'], $_POST['telefono']);
                 header("Location: " . BASE_URL . "inicio");
             } else {
                 $this->view->showErrorRegister("El email ya existe");
@@ -78,10 +84,25 @@ class UserController
         }
     }
 
+    function login(){
+        if (!empty($_POST['email']) && !empty($_POST['pass'])){
+            if($this->model->checkLogin($_POST['email'], $_POST['pass'])){
+                header("Location: " . BASE_URL . "inicio");
+            }
+            else{
+                $this->view->showErrorLogin("Email o Contraseña incorrectos"); 
+            }
+        }
+        else{
+            $this->view->showErrorLogin("Faltan datos, reintentalo"); 
+        }
+        
+    }
+
     function updateUser($id)
     {
         if (!empty($_POST['email']) && !empty($_POST['pass']) && !empty($_POST['nombre']) && !empty($_POST['telefono'])) {
-            $this->model->update($id, $_POST['email'], $_POST['pass'], $_POST['nombre'], $_POST['telefono']);
+            $this->model->update($id, $_POST['email'], password_hash($_POST['pass'], PASSWORD_DEFAULT), $_POST['nombre'], $_POST['telefono']);
             $this->view->showEditUser();
         } 
         else{
@@ -108,5 +129,12 @@ class UserController
     {
         $this->model->remove($id);
         header('Location: ' . BASE_URL . 'usuarios/administrar');
+    }
+
+    function logout()
+    {
+        session_start();
+        session_destroy();
+        header('Location: ' . BASE_URL . 'inicio');
     }
 }

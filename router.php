@@ -17,6 +17,7 @@ if (!empty($_GET['action'])) {
 
 // parsea la accion Ej: suma/1/2 --> ['suma', 1, 2]
 $params = explode('/', $action);
+session_start();
 
 // determina que camino seguir según la acción
 switch ($params[0]) {

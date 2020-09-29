@@ -35,10 +35,13 @@
                     </li>
                 </ul>
                 <div>
-                    {if false}
+
+                    {* display the php session ($_SESSION) *}
+                    {if !$smarty.session}
                         <a href="registro" class="btn btn-primary mx-2">Registro</a>
-                        <a href="ingreso" class="btn btn-primary">Ingresa</a>
+                        <a href="ingreso" class="btn btn-primary">Ingresar</a>
                     {else}
+                        {if $smarty.session.administrador}
                         <div class="d-flex">
                             <div class="dropdown">
                                 <button type="button" class="btn btn-outline-light dropdown-toggle ml-4 mt-1" data-toggle="dropdown">
@@ -50,12 +53,13 @@
                                     <a class="dropdown-item" href="usuarios/administrar">Usuarios</a>
                                 </div>
                             </div>
+                        {/if}
                             <div class="dropdown">
                                 <button type="button" class="btn btn-outline-light dropdown-toggle ml-4 mt-1" data-toggle="dropdown">
-                                    admin@cursandoonline.com
+                                    {$smarty.session.email}
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="usuarios/modificar/1">Perfil</a>
+                                    <a class="dropdown-item" href="usuarios/modificar/{$smarty.session.id}">Perfil</a>
                                     <a class="dropdown-item" href="usuarios/logout">Logout</a>
                                 </div>
                             </div>

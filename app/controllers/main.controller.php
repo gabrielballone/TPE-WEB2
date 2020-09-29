@@ -13,6 +13,7 @@ class MainController {
     /**
      * Imprime home
      */
+
     function showHome() {
        $this->view->showHome();
     }
@@ -22,6 +23,7 @@ class MainController {
     }
 
     function showLogin(){
+        
         $this->view->showLogin();
     }
 

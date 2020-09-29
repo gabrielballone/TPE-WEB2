@@ -32,5 +32,10 @@ class UserView
         $this->smarty->assign('user', $user);
         $this->smarty->display('templates/edit_user.tpl');
     }
+
+    function showErrorLogin($msg=""){
+        $this->smarty->assign('messageError', $msg);
+        $this->smarty->display('templates/login.tpl');
+    }
     
 }
