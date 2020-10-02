@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col">
-            <table class="table">
+            <table class="table table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Email</th>
@@ -16,8 +16,8 @@
                 <tbody>
                     {foreach from=$users item=$user}
                         <tr>
-                            <td>{$user->email}</td>
-                            <td>{$user->nombre}</td>
+                            <td class="align-middle">{$user->email}</td>
+                            <td class="align-middle">{$user->nombre}</td>
                             <td>
                                 {if $user->administrador}
                                     <a type="button" class="btn btn-success" href="usuarios/set_administrador/{$user->id}/0">SI</a>

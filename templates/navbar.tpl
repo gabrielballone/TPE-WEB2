@@ -38,8 +38,8 @@
 
                     {* display the php session ($_SESSION) *}
                     {if !$smarty.session}
-                        <a href="registro" class="btn btn-primary mx-2">Registro</a>
-                        <a href="ingreso" class="btn btn-primary">Ingresar</a>
+                        <a href="usuarios/registro" class="btn btn-primary mx-2">Registro</a>
+                        <a href="usuarios/ingreso" class="btn btn-primary">Ingresar</a>
                     {else}
                         {if $smarty.session.administrador}
                         <div class="d-flex">

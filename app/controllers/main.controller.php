@@ -3,7 +3,6 @@ include_once 'app/views/main.view.php';
 
 class MainController {
 
-    private $model;
     private $view;
 
     function __construct() {       

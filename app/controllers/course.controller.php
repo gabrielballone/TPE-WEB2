@@ -15,50 +15,50 @@ class CourseController {
         $this->view = new CourseView();
     }
 
-    public function process($params)
-    {
-        if (isset($params[1])) {
-            switch ($params[1]) {
-                case "administrar": 
-                    $this->showManageCourses();
-                    break;
-                case "nuevo": 
-                    $this->createCourse();
-                    break;
-                case "modificar": //categorias/modificar/[id] 
-                    if(isset($params[2])){ 
-                        $this->updateCourse($params[2]);
-                    }
-                    else{
-                        header("Location: " . BASE_URL . "cursos/administrar");
-                    }
-                    break;
-                case "eliminar": //categorias/eliminar/[id]
-                    if(isset($params[2])){
-                        if($params[2] == "confirmar"){
-                            if(isset($params[3])){
-                                $this->showConfirmation($params[3]);
-                            }
-                            else{
-                                header("Location: " . BASE_URL . "cursos/administrar");
-                            }     
-                        }
-                        else{
-                            $this->removeCourse($params[2]);
-                        }
-                    }
-                    else{
-                        header("Location: " . BASE_URL . "cursos/administrar");
-                    }
-                    break;
-                default:
-                    $this->showCourse($params[1]);
-                    break;
-            }
-        } else {
-            $this->showCourses();
-        }
-    }
+    // public function process($params)
+    // {
+    //     if (isset($params[1])) {
+    //         switch ($params[1]) {
+    //             case "administrar": 
+    //                 $this->showManageCourses();
+    //                 break;
+    //             case "nuevo": 
+    //                 $this->createCourse();
+    //                 break;
+    //             case "modificar": //categorias/modificar/[id] 
+    //                 if(isset($params[2])){ 
+    //                     $this->updateCourse($params[2]);
+    //                 }
+    //                 else{
+    //                     header("Location: " . BASE_URL . "cursos/administrar");
+    //                 }
+    //                 break;
+    //             case "eliminar": //categorias/eliminar/[id]
+    //                 if(isset($params[2])){
+    //                     if($params[2] == "confirmar"){
+    //                         if(isset($params[3])){
+    //                             $this->showConfirmation($params[3]);
+    //                         }
+    //                         else{
+    //                             header("Location: " . BASE_URL . "cursos/administrar");
+    //                         }     
+    //                     }
+    //                     else{
+    //                         $this->removeCourse($params[2]);
+    //                     }
+    //                 }
+    //                 else{
+    //                     header("Location: " . BASE_URL . "cursos/administrar");
+    //                 }
+    //                 break;
+    //             default:
+    //                 $this->showCourse($params[1]);
+    //                 break;
+    //         }
+    //     } else {
+    //         $this->showCourses();
+    //     }
+    // }
  
     function showCourses() {
         $courses = $this->model->getAll();

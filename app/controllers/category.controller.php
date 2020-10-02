@@ -17,66 +17,17 @@ class CategoryController
         $this->view = new CategoryView();
     }
 
-    public function process($params)
-    {
-        if (isset($params[1])) {
-            switch ($params[1]) {
-                case "administrar": //categorias
-                    $this->showManageCategories();
-                    break;
-                case "nuevo": //categorias/nuevo
-                    $this->createCategory();
-                    break;
-                case "modificar": //categorias/modificar/[id]
-                    if(isset($params[2])){ 
-                        $this->updateCategory($params[2]);
-                    }
-                    else{
-                        header("Location: " . BASE_URL . "categorias/administrar");
-                    }
-                    break;
-                case "eliminar": //categorias/eliminar/[id]  categorias/eliminar/confirmar/[id]
-                    if(isset($params[2])){
-                        if($params[2] == "confirmar"){
-                            if(isset($params[3])){
-                                $this->showConfirmation($params[3]);
-                            }
-                            else{
-                                header("Location: " . BASE_URL . "categorias/administrar");
-                            }     
-                        }
-                        else{
-                            $this->removeCategory($params[2]);
-                        }
-                    }
-                    else{
-                        header("Location: " . BASE_URL . "categorias/administrar");
-                    }
-                    break;
-                default:
-                    $this->showCategory($params[1]);
-                    break;
-            }
-        } else {
-            header("Location: " . BASE_URL . "inicio");
-        }
-    }
+    
 
     public function showCategory($id)
     {
         $categories = $this->model->getAll();
-        print_r($id);
-        // print_r($categories);
         
         //filtra el array de categorias, lo convierte en un array de ids
         $arrayId = array_column($categories, 'id');
         
-        // print_r($arrayId);
         //busca el id pasado en el array de ids y devuelve la posicion
         $category = $categories[array_search($id, $arrayId)];
-        
-        print_r($category);    
-        // die();
 
         $courses = $this->modelCourse->getCoursesByCategory($id);
         $this->view->showCategory($categories, $courses, $category);

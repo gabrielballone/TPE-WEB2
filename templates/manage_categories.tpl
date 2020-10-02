@@ -36,7 +36,7 @@
 
     <div class="row">
         <div class="col">
-            <table class="table">
+            <table class="table table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>  
                         <th scope="col">Nombre</th>
@@ -48,10 +48,10 @@
                 <tbody>
                     {foreach from=$categories item=$itemCategory}
                         <tr>
-                            <td>{$itemCategory->nombre}</td>
-                            <td>{$itemCategory->descripcion}</td>
-                            <td><a href="categorias/modificar/{$itemCategory->id}"><img src="images/editar.png" alt="editar"/></a></td>
-                            <td><a href="categorias/eliminar/confirmar/{$itemCategory->id}"><img src="images/eliminar.png" alt="eliminar"/></a></td>
+                            <td class="align-middle">{$itemCategory->nombre}</td>
+                            <td class="align-middle">{$itemCategory->descripcion}</td>
+                            <td class="align-middle"><a href="categorias/modificar/{$itemCategory->id}"><img src="images/editar.png" alt="editar"/></a></td>
+                            <td class="align-middle"><a href="categorias/eliminar/confirmar/{$itemCategory->id}"><img src="images/eliminar.png" alt="eliminar"/></a></td>
                         </tr>
                     {/foreach}
                 </tbody>

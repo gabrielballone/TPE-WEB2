@@ -66,7 +66,7 @@
 
     <div class="row">
         <div class="col">
-            <table class="table">
+            <table class="table table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Nombre</th>
@@ -81,13 +81,13 @@
                 <tbody>
                     {foreach from=$courses item=$itemCourse}
                         <tr>
-                            <td>{$itemCourse->nombre}</td>
-                            <td>{$itemCourse->descripcion}</td>
-                            <td>{$itemCourse->duracion}</td>
-                            <td>{$itemCourse->precio}</td>
-                            <td>{$itemCourse->id_categoria}-{$itemCourse->nombre_categoria}</td>
-                            <td><a href="cursos/modificar/{$itemCourse->id}"><img src="images/editar.png" alt="editar"/></a></td>
-                            <td><a href="cursos/eliminar/confirmar/{$itemCourse->id}"><img src="images/eliminar.png" alt="eliminar"/></a></td>    
+                            <td class="align-middle">{$itemCourse->nombre}</td>
+                            <td class="align-middle">{$itemCourse->descripcion}</td>
+                            <td class="align-middle">{$itemCourse->duracion}</td>
+                            <td class="align-middle">{$itemCourse->precio}</td>
+                            <td class="align-middle">{$itemCourse->id_categoria}-{$itemCourse->nombre_categoria}</td>
+                            <td class="align-middle"><a href="cursos/modificar/{$itemCourse->id}"><img src="images/editar.png" alt="editar"/></a></td>
+                            <td class="align-middle"><a href="cursos/eliminar/confirmar/{$itemCourse->id}"><img src="images/eliminar.png" alt="eliminar"/></a></td>    
                         </tr>
                     {/foreach}
                 </tbody>

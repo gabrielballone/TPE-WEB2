@@ -14,55 +14,6 @@ class UserController
         $this->view = new UserView();
     }
 
-    function process($params)
-    {
-        if (isset($params[1])) {
-            switch ($params[1]) {
-                case "administrar":
-                    $this->showManageUsers();
-                    break;
-                case "nuevo":
-                    $this->createUser();
-                    break;
-                case "ingreso":
-                    $this->login();
-                    break;
-                case "modificar":
-                    if (isset($params[2])) {
-                        $this->updateUser($params[2]);
-                    } else {
-                        header("Location: " . BASE_URL . "usuarios/administrar");
-                    }
-                    break;
-                case "set_administrador":
-                    if (isset($params[2]) && isset($params[3])) {
-                        $this->setAdministrador($params[2], $params[3]);
-                    } else {
-                        header("Location: " . BASE_URL . "usuarios/administrar");
-                    }
-                    break;
-                case "eliminar":
-                    if (isset($params[2]) && $params[2] == "confirmar") {
-                        if (isset($params[3])) {
-                            $this->showConfirmation($params[3]);
-                        } else {
-                            header("Location: " . BASE_URL . "usuarios/administrar");
-                        }
-                    } else {
-                        $this->removeUser($params[2]);
-                    }
-                    break;
-                case "logout":
-                    $this->logout();
-                break;
-                default:
-                    header("Location: " . BASE_URL . "usuarios/administrar");
-                    break;
-            }
-        } else {
-            header("Location: " . BASE_URL . "inicio");
-        }
-    }
 
     public function showManageUsers()
     {
@@ -133,8 +84,9 @@ class UserController
 
     function logout()
     {
-        session_start();
+        // session_start();
         session_destroy();
+
         header('Location: ' . BASE_URL . 'inicio');
     }
 }
