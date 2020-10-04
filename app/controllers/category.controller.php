@@ -21,16 +21,25 @@ class CategoryController
 
     public function showCategory($id)
     {
-        $categories = $this->model->getAll();
+        //$categories = $this->model->getAll();
+        // //filtra el array de categorias, lo convierte en un array de ids
+        // $arrayId = array_column($categories, 'id');
         
-        //filtra el array de categorias, lo convierte en un array de ids
-        $arrayId = array_column($categories, 'id');
-        
-        //busca el id pasado en el array de ids y devuelve la posicion
-        $category = $categories[array_search($id, $arrayId)];
+        // //busca el id pasado en el array de ids y devuelve la posicion
+        // $category = $categories[array_search($id, $arrayId)];
 
-        $courses = $this->modelCourse->getCoursesByCategory($id);
-        $this->view->showCategory($categories, $courses, $category);
+        // $courses = $this->modelCourse->getCoursesByCategory($id);
+        // $this->view->showCategory($categories, $courses, $category);
+
+        $category = $this->model->getCategory($id);
+        if(!empty($category)){
+            $categories = $this->model->getAll();
+            $courses = $this->modelCourse->getCoursesByCategory($id);
+            $this->view->showCategory($categories, $courses, $category);
+        }
+        else{
+            $this->view->showErrorId("No existe una categoria con ese id.");
+        }
     }
 
     public function showManageCategories()

@@ -9,10 +9,10 @@
                         <h5 class="card-title text-center">Nueva</h5>
                         <form class="form-signin" action="categorias/nuevo" method="POST">
                             <label for="nombre">Nombre</label>
-                            <input name="nombre" type="text" class="form-control mb-2" required>
+                            <input name="nombre" id="nombre" type="text" class="form-control mb-2" required>
 
                             <label for="descripcion">Descripción</label>
-                            <input name="descripcion" type="text" class="form-control mb-2" required>
+                            <input name="descripcion" id="descripcion" type="text" class="form-control mb-2" required>
                            
                             <button class="btn btn-lg btn-success btn-block mb-2" type="submit">Agregar</button>
                         </form>                    
@@ -20,10 +20,10 @@
                         <h5 class="card-title text-center">Editar</h5>                      
                         <form class="form-signin" action="categorias/modificar/{$category->id}" method="POST">
                             <label for="nombre">Nombre</label>
-                            <input name="nombre" type="text" class="form-control mb-2" value="{$category->nombre}" required>
+                            <input name="nombre" id="nombre" type="text" class="form-control mb-2" value="{$category->nombre}" required>
 
                             <label for="descripcion">Descripción</label>
-                            <input name="descripcion" type="text" class="form-control mb-2" value="{$category->descripcion}" required>
+                            <input name="descripcion" id="descripcion" type="text" class="form-control mb-2" value="{$category->descripcion}" required>
 
                             <button class="btn btn-lg btn-primary btn-block mb-2" type="submit">Modificar</button>
                             <a href="categorias/administrar" class="btn btn-lg btn-danger btn-block mb-2">Cancelar</a>

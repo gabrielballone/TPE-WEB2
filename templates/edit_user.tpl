@@ -9,16 +9,16 @@
                         <h5 class="card-title text-center">Modificar datos</h5>
                         <form class="form-signin" action="usuarios/modificar/{$user->id}" method="POST">
                             <label for="email">Email</label>
-                            <input name="email" type="email" class="form-control mb-2" value="{$user->email}" required>
+                            <input name="email" id="email" type="email" class="form-control mb-2" value="{$user->email}" required>
     
                             <label for="pass">Password</label>
-                            <input name="pass" type="password" class="form-control mb-2" required>
+                            <input name="pass" id="pass" type="password" class="form-control mb-2" required>
     
                             <label for="nombre">Nombre</label>
-                            <input name="nombre" type="text" class" class="form-control mb-2" value="{$user->nombre}" required>
+                            <input name="nombre" id="nombre" type="text" class" class="form-control mb-2" value="{$user->nombre}" required>
     
                             <label for="telefono">Telefono</label>
-                            <input name="telefono" type="text" class="form-control mb-2" value="{$user->telefono}" required>
+                            <input name="telefono" id="telefono" type="text" class="form-control mb-2" value="{$user->telefono}" required>
     
                             <button class="btn btn-lg btn-success btn-block mb-2" type="submit">Modificar</button>
                             <a href="inicio" class="btn btn-lg btn-danger btn-block mb-2" type="submit">Cancelar</a>

@@ -48,9 +48,9 @@ class CourseModel {
         $query->execute([$id]);
 
         //Obtengo la respuesta con un fetchAll (porque son muchos)
-        $curso = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de cursos
+        $curso = $query->fetch(PDO::FETCH_OBJ); // arreglo de cursos
 
-        return $curso[0]; //devuelve el elemento solo, fuera de array
+        return $curso; 
     }
     /**
      * Devuelve los cursos de la categoria pasada por parametro

@@ -36,4 +36,9 @@ class CategoryView {
         $this->smarty->display('templates/showError.tpl');
     }
 
+    function showErrorId($message){
+        $this->smarty->assign('messageError', $message);
+        $this->smarty->display('templates/error.tpl');
+    }
+
 }

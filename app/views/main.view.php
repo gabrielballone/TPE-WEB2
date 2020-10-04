@@ -14,15 +14,4 @@ class MainView {
         $this->smarty->display('templates/home.tpl');
     }
 
-    function showRegister()
-    {
-        $this->smarty->assign('messageError', "");
-        $this->smarty->display('templates/register.tpl');
-    }
-
-    function showLogin(){
-        $this->smarty->assign('messageError', "");
-        $this->smarty->display('templates/login.tpl');
-    }
-
 }
