@@ -10,19 +10,19 @@
                         <h5 class="card-title text-center">Nuevo</h5>
                         <form class="form-signin" action="cursos/nuevo" method="POST">
                             <label for="nombre">Nombre</label>
-                            <input name="nombre" type="text" class="form-control mb-2" required>
+                            <input name="nombre" id="nombre" type="text" class="form-control mb-2" required>
 
                             <label for="descripcion">Descripción</label>
-                            <input name="descripcion" type="text" class="form-control mb-2" required>
+                            <input name="descripcion" id="descripcion" type="text" class="form-control mb-2" required>
 
                             <label for="duracion">Duración en meses</label>
-                            <input name="duracion" type="number" class="form-control mb-2" required>
+                            <input name="duracion" id="duracion" type="number" class="form-control mb-2" required>
 
                             <label for="precio">Precio</label>
-                            <input name="precio" type="number" class="form-control mb-2" required>
+                            <input name="precio" id="precio" type="number" class="form-control mb-2" required>
 
                             <label for="categoria">Categoría</label>
-                            <select class="form-control mb-2" name="categoria">
+                            <select class="form-control mb-2" name="categoria" id="categoria">
                                 {foreach from=$categories item=$category}
                                     <option value="{$category->id}">{$category->nombre}</option> 
                                 {/foreach}
@@ -34,19 +34,19 @@
                         <h5 class="card-title text-center">Editar</h5>                      
                         <form class="form-signin" action="cursos/modificar/{$course->id}" method="POST">
                             <label for="nombre">Nombre</label>
-                            <input name="nombre" type="text" class="form-control mb-2" value="{$course->nombre}" required>
+                            <input name="nombre" id="nombre" type="text" class="form-control mb-2" value="{$course->nombre}" required>
 
                             <label for="descripcion">Descripción</label>
-                            <input name="descripcion" type="text" class="form-control mb-2" value="{$course->descripcion}" required>
+                            <input name="descripcion" id="descripcion" type="text" class="form-control mb-2" value="{$course->descripcion}" required>
 
                             <label for="duracion">Duración en meses</label>
-                            <input name="duracion" type="number" class="form-control mb-2" value="{$course->duracion}" required>
+                            <input name="duracion" id="duracion" type="number" class="form-control mb-2" value="{$course->duracion}" required>
 
                             <label for="precio">Precio</label>
-                            <input name="precio" type="number" class="form-control mb-2" value="{$course->precio}" required>
+                            <input name="precio" id="precio" type="number" class="form-control mb-2" value="{$course->precio}" required>
 
                             <label for="categoria">Categoría</label>
-                            <select class="form-control mb-2" name="categoria">
+                            <select class="form-control mb-2" name="categoria" id="categoria">
                                 {foreach from=$categories item=$category}
                                     {if $course->id_categoria == $category->id}
                                         <option value="{$category->id}" selected>{$category->nombre}</option> 

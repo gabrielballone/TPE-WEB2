@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-09-2020 a las 14:30:16
+-- Tiempo de generación: 04-10-2020 a las 16:47:52
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -40,7 +40,8 @@ CREATE TABLE `categoria` (
 INSERT INTO `categoria` (`id`, `nombre`, `descripcion`) VALUES
 (1, 'Informática', 'Cursos de ciencias de la información'),
 (2, 'Cocina', 'Cursos con las mejores recetas'),
-(3, 'Idiomas', 'Aprende nuevos idiomas');
+(3, 'Idiomas', 'Aprende nuevos idiomas'),
+(5, 'Arte', 'Pintura, dibujo y mas');
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,9 @@ INSERT INTO `curso` (`id`, `nombre`, `descripcion`, `duracion`, `precio`, `id_ca
 (6, 'Ingles', 'Aprende idioma ingles', 6, 1450, 3),
 (7, 'Frances', 'Aprende idioma frances', 6, 2480, 3),
 (8, 'Dulces', 'Recetas dulces', 3, 1200, 2),
-(9, 'Salados', 'Recetas saladas', 4, 2200, 2);
+(9, 'Salados', 'Recetas saladas', 4, 2200, 2),
+(11, 'Pintura', 'Pintura clasica', 4, 2600, 5),
+(12, 'Dibujo', 'Dibujo clasico', 6, 2900, 5);
 
 -- --------------------------------------------------------
 
@@ -79,7 +82,7 @@ INSERT INTO `curso` (`id`, `nombre`, `descripcion`, `duracion`, `precio`, `id_ca
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `pass` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `nombre` varchar(255) NOT NULL,
   `telefono` varchar(20) NOT NULL,
   `administrador` tinyint(1) NOT NULL
@@ -89,11 +92,8 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `email`, `pass`, `nombre`, `telefono`, `administrador`) VALUES
-(1, 'eze_capo96@hotmail.com', 'asd', 'dsdsds', '12121212', 1),
-(3, '1@a', 'aasd', 'asdasd', 'adad', 0),
-(5, '1@a', '', 'asdad', 'adad', 0),
-(7, 'ezequielcinalli96@gmail.com', 'asdad', 'adasd', 'adad', 0);
+INSERT INTO `usuario` (`id`, `email`, `password`, `nombre`, `telefono`, `administrador`) VALUES
+(8, 'ezequielcinalli96@gmail.com', '$2y$10$.QMZqwYeFAfzHe9w45FvoOe6cJKtQB3gPXyqPz5QFjcmwcGgvM526', 'ezequiel', '15151515', 1);
 
 --
 -- Índices para tablas volcadas
@@ -126,19 +126,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas

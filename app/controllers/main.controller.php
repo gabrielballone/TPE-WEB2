@@ -9,21 +9,8 @@ class MainController {
         $this->view = new MainView();
     }
 
-    /**
-     * Imprime home
-     */
-
     function showHome() {
        $this->view->showHome();
-    }
-
-    function showRegister(){
-        $this->view->showRegister();
-    }
-
-    function showLogin(){
-        
-        $this->view->showLogin();
     }
 
 }

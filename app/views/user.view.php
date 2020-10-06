@@ -11,9 +11,26 @@ class UserView
         $this->smarty->assign('BASE_URL', BASE_URL);
     }
 
+    
+    function showRegister()
+    {
+        $this->smarty->assign('messageError', "");
+        $this->smarty->display('templates/register.tpl');
+    }
+
     function showErrorRegister($message){
         $this->smarty->assign('messageError', $message);
         $this->smarty->display('templates/register.tpl');
+    }
+
+    function showLogin(){
+        $this->smarty->assign('messageError', "");
+        $this->smarty->display('templates/login.tpl');
+    }
+
+    function showErrorLogin($msg){
+        $this->smarty->assign('messageError', $msg);
+        $this->smarty->display('templates/login.tpl');
     }
 
     function showManageUsers($users){
@@ -33,9 +50,5 @@ class UserView
         $this->smarty->display('templates/edit_user.tpl');
     }
 
-    function showErrorLogin($msg=""){
-        $this->smarty->assign('messageError', $msg);
-        $this->smarty->display('templates/login.tpl');
-    }
     
 }

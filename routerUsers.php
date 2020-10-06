@@ -15,10 +15,16 @@ if (isset($params[1])) {
         case "administrar":
             $controller->showManageUsers();
             break;
-        case "nuevo":
+        case "registro":
+            $controller->showRegister();
+            break;
+        case "verificarRegistro":
             $controller->createUser();
             break;
         case "ingreso":
+            $controller->showLogin();
+            break;
+        case "verificarIngreso":
             $controller->login();
             break;
         case "modificar":
@@ -48,7 +54,7 @@ if (isset($params[1])) {
             break;
         case "logout":
             $controller->logout();
-        break;
+            break;
         default:
             header("Location: " . BASE_URL . "usuarios/administrar");
             break;

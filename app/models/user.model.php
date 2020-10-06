@@ -58,7 +58,7 @@ class UserModel
         $user = $query->fetch(PDO::FETCH_OBJ); 
     
         if ($user != null) {
-            $comprobacion = password_verify($pass, $user->pass);
+            $comprobacion = password_verify($pass, $user->password);
 
             if ($comprobacion) {
                 session_start();
@@ -72,14 +72,11 @@ class UserModel
             return false;
         }
 
-
-
-
     }
 
     function insert($email, $password, $nombre, $telefono)
     {
-        $query = $this->db->prepare('INSERT INTO usuario (email, pass, nombre, telefono, administrador) VALUES (?,?,?,?,0)');
+        $query = $this->db->prepare('INSERT INTO usuario (email, password, nombre, telefono, administrador) VALUES (?,?,?,?,0)');
         $query->execute([$email, $password, $nombre, $telefono]);
 
         // 3. Obtengo y devuelo el ID del categoria nuevo
@@ -88,7 +85,7 @@ class UserModel
     
     function update($id, $email, $password, $nombre, $telefono)
     {
-        $query = $this->db->prepare('UPDATE usuario SET email = ?, pass = ?, nombre = ?, telefono = ? WHERE id = ?');
+        $query = $this->db->prepare('UPDATE usuario SET email = ?, password = ?, nombre = ?, telefono = ? WHERE id = ?');
         $query->execute([$email, $password, $nombre, $telefono, $id]);
     }
 

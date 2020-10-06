@@ -5,15 +5,15 @@
             <div class="card card-signin my-5">
                 <div class="card-body">
                     <h5 class="card-title text-center">Iniciar sesión</h5>
-                    <form class="form-signin" action="usuarios/ingreso" method="POST">
+                    <form class="form-signin" action="usuarios/verificarIngreso" method="POST">
                         <div class="form-label-group mb-2">
                             <label for="email">Email</label>
-                            <input name="email" type="email" class="form-control" required autofocus>
+                            <input name="email" id="email" type="email" class="form-control" required autofocus>
                         </div>
 
                         <div class="form-label-group mb-2">
                             <label for="pass">Contraseña</label>
-                            <input name="pass" type="password" class="form-control" required>
+                            <input name="pass" id="pass" type="password" class="form-control" required>
                         </div>
 
                         {* <a href="usuarios/recuperar_contraseña" class="text-info">Has olvidado la contraseña?</a> *}
