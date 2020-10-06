@@ -6,7 +6,6 @@ define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'
 $action = $_GET['action'];
 $params = explode('/', $action);
 $controller = new UserController();
-session_start();
 
 // determina que camino seguir según la acción
 // var_dump($params);
@@ -31,14 +30,14 @@ if (isset($params[1])) {
             if (isset($params[2])) {
                 $controller->updateUser($params[2]);
             } else {
-                header("Location: " . BASE_URL . "usuarios/administrar");
+                $controller->updateUser();
             }
             break;
         case "set_administrador":
             if (isset($params[2]) && isset($params[3])) {
                 $controller->setAdministrador($params[2], $params[3]);
             } else {
-                header("Location: " . BASE_URL . "usuarios/administrar");
+                header("Location: " . BASE_URL . "usuarios/ingreso");
             }
             break;
         case "eliminar":
@@ -46,7 +45,7 @@ if (isset($params[1])) {
                 if (isset($params[3])) {
                     $controller->showConfirmation($params[3]);
                 } else {
-                    header("Location: " . BASE_URL . "usuarios/administrar");
+                    header("Location: " . BASE_URL . "usuarios/ingreso");
                 }
             } else {
                 $controller->removeUser($params[2]);

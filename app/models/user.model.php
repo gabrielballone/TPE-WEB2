@@ -33,11 +33,17 @@ class UserModel
     {
         $query = $this->db->prepare('SELECT * FROM usuario WHERE id = ?');
         $query->execute([$id]);
-
         //Obtengo la respuesta con un fetchAll (porque son muchos)
-        $usuario = $query->fetch(PDO::FETCH_OBJ); // arreglo de usuarios
+        $user = $query->fetch(PDO::FETCH_OBJ); 
+        return $user;
+    }
 
-        return $usuario;
+    function getUserByEmail($email)
+    {
+        $query = $this->db->prepare('SELECT * FROM usuario WHERE email = ?');
+        $query->execute([$email]);
+        $user = $query->fetch(PDO::FETCH_OBJ); 
+        return $user;
     }
 
     function exist($email)
@@ -46,33 +52,33 @@ class UserModel
         $query->execute([$email]);
 
         //Obtengo la respuesta con un fetchAll (porque son muchos)
-        $usuario = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de usuarios
+        $user = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de usuarios
         
-        return count($usuario) != 0;
+        return count($user) != 0;
     }
 
-    function checkLogin($email, $pass){
-        $query = $this->db->prepare('SELECT * FROM usuario WHERE email = ?');
-        $query->execute([$email]);
+    // function checkLogin($email, $pass){
+    //     $query = $this->db->prepare('SELECT * FROM usuario WHERE email = ?');
+    //     $query->execute([$email]);
 
-        $user = $query->fetch(PDO::FETCH_OBJ); 
+    //     $user = $query->fetch(PDO::FETCH_OBJ); 
     
-        if ($user != null) {
-            $comprobacion = password_verify($pass, $user->password);
+    //     if ($user != null) {
+    //         $verification = password_verify($pass, $user->password);
 
-            if ($comprobacion) {
-                session_start();
-                $_SESSION['email'] = $user->email;
-                $_SESSION['id'] = $user->id;
-                $_SESSION['administrador'] = $user->administrador;
-            }
+    //         if ($verification) {
+    //             session_start();
+    //             $_SESSION['EMAIL'] = $user->email;
+    //             $_SESSION['ID'] = $user->id;
+    //             $_SESSION['ADMINISTRADOR'] = $user->administrador;
+    //         }
 
-            return $comprobacion;
-        } else {
-            return false;
-        }
+    //         return $verification;
+    //     } else {
+    //         return false;
+    //     }
 
-    }
+    // }
 
     function insert($email, $password, $nombre, $telefono)
     {

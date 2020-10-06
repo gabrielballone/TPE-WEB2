@@ -40,6 +40,7 @@ class CourseView {
         $this->smarty->display('templates/confirmation_remove.tpl');
     }
 
-
-
+    function showError404(){
+        $this->smarty->display('templates/error404.tpl');
+    }
 }

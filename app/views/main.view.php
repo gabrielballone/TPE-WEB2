@@ -14,4 +14,8 @@ class MainView {
         $this->smarty->display('templates/home.tpl');
     }
 
+    function showError404(){
+        $this->smarty->display('templates/error404.tpl');
+    }
+
 }

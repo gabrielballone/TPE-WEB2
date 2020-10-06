@@ -16,17 +16,15 @@ if (!empty($_GET['action'])) {
 
 $params = explode('/', $action);
 $controller = new MainController();
-session_start();
 
 // determina que camino seguir según la acción
 switch ($params[0]) {
     case 'inicio':
-        $controller = new MainController();
         $controller->showHome();
         break;
     default:
-    header("HTTP/1.0 404 Not Found");
-    echo ('404 Page not found');
+    //header("HTTP/1.0 404 Not Found");
+    $controller->showError404();
     break;
 }
     // case 'registro':

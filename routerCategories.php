@@ -6,7 +6,6 @@ define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'
 $action = $_GET['action'];
 $params = explode('/', $action);
 $controller = new CategoryController();
-session_start();
 
 // determina que camino seguir según la acción
 if (isset($params[1])) {
