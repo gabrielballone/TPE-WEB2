@@ -37,25 +37,28 @@ if (isset($params[1])) {
             if (isset($params[2]) && isset($params[3])) {
                 $controller->setAdministrador($params[2], $params[3]);
             } else {
-                header("Location: " . BASE_URL . "usuarios/ingreso");
+                $controller->showError404();
             }
             break;
         case "eliminar":
-            if (isset($params[2]) && $params[2] == "confirmar") {
-                if (isset($params[3])) {
-                    $controller->showConfirmation($params[3]);
+            if (isset($params[2])) {
+                if ($params[2] == "confirmar") {
+                    if (isset($params[3])) {
+                        $controller->showConfirmation($params[3]);
+                    } else {
+                        $controller->showError404();
+                    }
                 } else {
-                    header("Location: " . BASE_URL . "usuarios/ingreso");
+                    $controller->removeUser($params[2]);
                 }
-            } else {
-                $controller->removeUser($params[2]);
-            }
+            } else
+                $controller->showError404();
             break;
         case "logout":
             $controller->logout();
             break;
         default:
-            header("Location: " . BASE_URL . "usuarios/administrar");
+            $controller->showError404();
             break;
     }
 } else {

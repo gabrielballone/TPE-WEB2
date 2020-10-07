@@ -25,13 +25,12 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between" id="navbarResponsive">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="inicio">Inicio
-                            <span class="sr-only">(current)</span>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="inicio">Inicio
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cursos">Cursos</a>
+                        <a class="nav-link text-white" href="cursos">Cursos</a>
                     </li>
                 </ul>
                 <div>

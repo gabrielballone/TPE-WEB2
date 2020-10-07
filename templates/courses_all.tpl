@@ -35,14 +35,12 @@
 
         <div class="col-md-6 col-lg-9">
             <div class="d-flex flex-wrap">
-                {foreach from=$categories item=$category}
                     {foreach from=$courses item=$course}
-                        {if $course->id_categoria == $category->id}
                             <div class="card m-2 anchoTarjetas">
                                 <img src="images/new.png" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
                                 <div class="card-body">
-                                    <a href="categorias/{$category->id}">
-                                        <h4><span class="badge badge-primary">{$category->nombre}</span></h4>
+                                    <a href="categorias/{$course->id_categoria}">
+                                        <h4><span class="badge badge-primary">{$course->nombre_categoria}</span></h4>
                                     </a>
                                     <h3 class="card-title">{$course->nombre}</h3>
                                     <h4>${$course->precio}</h4>
@@ -53,9 +51,7 @@
                                     </div>
                                 </div>
                             </div>
-                        {/if}
                     {/foreach}
-                {/foreach}
             </div>
         </div>
     </div>

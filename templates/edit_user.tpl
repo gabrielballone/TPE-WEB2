@@ -21,14 +21,21 @@
                             <input name="telefono" id="telefono" type="text" class="form-control mb-2" value="{$user->telefono}" required>
     
                             <button class="btn btn-lg btn-success btn-block mb-2" type="submit">Modificar</button>
-                            <a href="inicio" class="btn btn-lg btn-danger btn-block mb-2" type="submit">Cancelar</a>
+                            <a href="inicio" class="btn btn-lg btn-danger btn-block mb-2">Cancelar</a>
                         </form>
                     </div>
                 </div>
             {else}
-                <div class="alert alert-success" role="alert">
-                    Su perfil fue actualizado con exito!
-                </div>
+                {if $success}
+                    <div class="alert alert-success text-center" role="alert">
+                        ¡Su perfil fue actualizado con éxito!
+                    </div>
+                {else}
+                    <div class="alert alert-danger text-center" role="alert">
+                        ¡El email ingresado ya está en uso!
+                    </div>
+                {/if}
+                <a href="usuarios/modificar" class="btn btn-lg btn-primary btn-block mb-2">Volver</a>
             {/if}
         </div>
     </div>

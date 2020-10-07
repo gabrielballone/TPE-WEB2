@@ -6,8 +6,8 @@
             <p class="h3 mb-4">¿Está seguro que desea eliminar "{$name}"?</p>
         </div>
         <div class="mb-4">
-            <a href="{$entityToRemove}/eliminar/{$id}" class="btn btn-primary">Eliminar</a>
-            <a href="{$entityToRemove}/administrar" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
+            <a href="{$entityToRemove}/eliminar/{$id}" class="btn btn-danger">Eliminar</a>
+            <a href="{$entityToRemove}/administrar" type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</a>
         </div>
     </div>          
 </div>

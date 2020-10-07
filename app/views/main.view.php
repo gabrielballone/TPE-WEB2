@@ -1,7 +1,8 @@
 <?php
 require_once 'libs/Smarty.class.php';
 
-class MainView {
+class MainView
+{
     private $smarty;
 
     function __construct()
@@ -10,12 +11,19 @@ class MainView {
         $this->smarty->assign('BASE_URL', BASE_URL);
     }
 
-    function showHome() {
+    /**
+     * Muestra la pagina de inicio.
+     */
+    function showHome()
+    {
         $this->smarty->display('templates/home.tpl');
     }
 
-    function showError404(){
+    /**
+     * Muestra mensaje de error 404.
+     */
+    function showError404()
+    {
         $this->smarty->display('templates/error404.tpl');
     }
-
 }

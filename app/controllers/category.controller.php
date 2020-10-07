@@ -12,7 +12,9 @@ class CategoryController
     private $modelCourse;
     private $view;
     private $authHelper;
-
+    /**
+    * Se inicia la sesión y se crean los objetos de modelos y vistas asociados.
+    */
     function __construct()
     {
         session_start();
@@ -22,69 +24,120 @@ class CategoryController
         $this->authHelper = new AuthHelper();
     }
 
+    /**
+    * Obtiene cursos y manda a mostrar cursos por ID de categoría.
+    * Si no existe el ID muestrar error 404.
+    */
     public function showCategory($id)
     {
         $category = $this->model->getCategory($id);
-        if(!empty($category)){
+        if (!empty($category)) {
             $categories = $this->model->getAll();
             $courses = $this->modelCourse->getCoursesByCategory($id);
             $this->view->showCategory($categories, $courses, $category);
-        }
-        else{
+        } else {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();
         }
     }
-
+    /**
+     * Manda a mostrar ABM de categorías si el usuario es Administrador.
+     * Si no es administrador muestrar error 404.
+     */
     public function showManageCategories()
-    { 
-        if (!$this->authHelper->checkUserIsManager()){
-            header("Location: " . BASE_URL . "usuarios/ingreso");
+    {
+        $this->authHelper->checkLoggedIn();
+        if (!$_SESSION['ADMINISTRADOR']) {
+            header("HTTP/1.0 404 Not Found");
+            $this->view->showError404();
             die();
         }
         $categories = $this->model->getAll();
         $this->view->showManageCategories($categories);
     }
-
+    /**
+     * Manda a crear categoría con datos del fomulario de ABM si el usuario es Administrador.
+     * Si no es administrador muestrar error 404.
+     */
     public function createCategory()
     {
-        if(!empty($_POST['nombre']) && !empty($_POST['descripcion'])){
-            //comprobar errores SQL
-            $this->model->insert($_POST['nombre'], $_POST['descripcion']);
+        $this->authHelper->checkLoggedIn();
+        if (!$_SESSION['ADMINISTRADOR']) {
+            header("HTTP/1.0 404 Not Found");
+            $this->view->showError404();
+            die();
         }
-        header('Location: '. BASE_URL.'categorias/administrar');
-
-    
+        if (!empty($_POST['nombre']) && !empty($_POST['descripcion'])) {
+            if ($this->model->insert($_POST['nombre'], $_POST['descripcion']))
+                header('Location: ' . BASE_URL . 'categorias/administrar');
+            else
+                $this->view->showError("¡Ya existe una categoría con ese nombre!");
+        }
     }
-
+    /**
+     * Manda a actualizar categoría con datos del fomulario de ABM si el usuario es Administrador.
+     * Si no es administrador muestrar error 404.
+     */
     public function updateCategory($id)
     {
-        if(!empty($_POST['nombre']) && !empty($_POST['descripcion'])){
-            $this->model->update($id, $_POST['nombre'], $_POST['descripcion']);
-            header('Location: '. BASE_URL.'categorias/administrar');
+        $this->authHelper->checkLoggedIn();
+        if (!$_SESSION['ADMINISTRADOR']) {
+            header("HTTP/1.0 404 Not Found");
+            $this->view->showError404();
+            die();
         }
-        else{
+        if (!empty($_POST['nombre']) && !empty($_POST['descripcion'])) {
+            if ($this->model->update($id, $_POST['nombre'], $_POST['descripcion']))
+                header('Location: ' . BASE_URL . 'categorias/administrar');
+            else
+                $this->view->showError("¡Ya existe una categoría con ese nombre!");
+        } else {
             $categories = $this->model->getAll();
             $category = $this->model->getCategory($id);
             $this->view->showManageCategories($categories, $category);
         }
     }
-
+    /**
+     * Manda a eliminar categoría con datos del fomulario de ABM si el usuario es Administradors.
+     * Si no es administrador muestrar error 404.
+     */
+    public function removeCategory($id)
+    {
+        $this->authHelper->checkLoggedIn();
+        if (!$_SESSION['ADMINISTRADOR']) {
+            header("HTTP/1.0 404 Not Found");
+            $this->view->showError404();
+            die();
+        }
+        if (!count($this->modelCourse->getCoursesByCategory($id))) {
+            $this->model->remove($id);
+            header('Location: ' . BASE_URL . 'categorias/administrar');
+        } else {
+            $this->view->showError("La categoría tiene cursos asignados, NO se puede eliminar.");
+        }
+    }
+    /**
+     * Manda a mostrar mostrar confirmación para eliminar categoría si el usuario es Administrador.
+     * Si no es administrador muestrar error 404.
+     */
     public function showConfirmation($id)
     {
+        $this->authHelper->checkLoggedIn();
+        if (!$_SESSION['ADMINISTRADOR']) {
+            header("HTTP/1.0 404 Not Found");
+            $this->view->showError404();
+            die();
+        }
         $category = $this->model->getCategory($id);
         $name = $category->nombre;
         $this->view->confirmCategoryRemove($id, $name);
     }
-
-    public function removeCategory($id)
+    /**
+     * Manda a mostrar error 404 si la URL llega inválida.
+     */
+    function showError404()
     {
-        if(!count($this->modelCourse->getCoursesByCategory($id))){
-            $this->model->remove($id);
-            header('Location: '. BASE_URL.'categorias/administrar');
-        }
-        else{
-            $this->view->showError("La categoria tiene cursos asignados, no se puede eliminar.");
-        }
+        header("HTTP/1.0 404 Not Found");
+        $this->view->showError404();
     }
 }

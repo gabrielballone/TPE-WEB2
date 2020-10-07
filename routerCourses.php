@@ -10,31 +10,29 @@ $controller = new CourseController();
 // determina que camino seguir según la acción
 if (isset($params[1])) {
     switch ($params[1]) {
-        case "administrar": 
+        case "administrar":
             $controller->showManageCourses();
             break;
-        case "nuevo": 
+        case "nuevo":
             $controller->createCourse();
             break;
-        case "modificar":  
-            if(isset($params[2]))
+        case "modificar":
+            if (isset($params[2]))
                 $controller->updateCourse($params[2]);
             else
-                header("Location: " . BASE_URL . "cursos/administrar");
+                $controller->showError404();
             break;
-        case "eliminar": 
-            if(isset($params[2])){
-                if($params[2] == "confirmar"){
-                    if(isset($params[3]))
+        case "eliminar":
+            if (isset($params[2])) {
+                if ($params[2] == "confirmar") {
+                    if (isset($params[3]))
                         $controller->showConfirmation($params[3]);
                     else
-                        header("Location: " . BASE_URL . "cursos/administrar");   
-                }
-                else
+                        $controller->showError404();
+                } else
                     $controller->removeCourse($params[2]);
-            }
-            else
-                header("Location: " . BASE_URL . "cursos/administrar");
+            } else
+                $controller->showError404();
             break;
         default:
             $controller->showCourse($params[1]);

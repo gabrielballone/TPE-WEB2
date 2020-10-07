@@ -1,46 +1,71 @@
 <?php
 require_once 'libs/Smarty.class.php';
 
-class CourseView {
+class CourseView
+{
     private $smarty;
-
+    /**
+    * Se crea objeto Smarty y se asigna variable de URL base.
+    */
     function __construct()
     {
         $this->smarty = new Smarty();
         $this->smarty->assign('BASE_URL', BASE_URL);
     }
-
-    function showCourses($courses, $categories) {
+    /**
+     * Recibe como parametro array de cursos, array de categorias.
+     */
+    function showCourses($courses, $categories)
+    {
         $this->smarty->assign('courses', $courses);
         $this->smarty->assign('categories', $categories);
-        // $this->smarty->debugging=true;
-
         $this->smarty->display('templates/courses_all.tpl');
     }
-
-    function showCourse($course, $categories) {
+    /**
+     * Recibe como parametro objeto curso y array de categorias.
+     */
+    function showCourse($course, $categories)
+    {
         $this->smarty->assign('course', $course);
         $this->smarty->assign('categories', $categories);
 
         $this->smarty->display('templates/course_one.tpl');
     }
-
-    function showManageCourses($courses, $categories=false, $course=false){
+    /**
+     * Recibe como parametro array de cursos y parametros opcionales array de categorias y objeto curso.
+     */
+    function showManageCourses($courses, $categories = false, $course = false)
+    {
         $this->smarty->assign('courses', $courses);
         $this->smarty->assign('course', $course);
         $this->smarty->assign('entityName', "cursos");
         $this->smarty->assign('categories', $categories);
         $this->smarty->display('templates/manage_courses.tpl');
     }
-
-    function confirmCourseRemove($id, $name) {
+    /**
+     * Recibe como parametro id de curso a eliminar y nombre de curso a eliminar.
+     */
+    function confirmCourseRemove($id, $name)
+    {
         $this->smarty->assign('entityToRemove', "cursos");
         $this->smarty->assign('name', $name);
         $this->smarty->assign('id', $id);
         $this->smarty->display('templates/confirmation_remove.tpl');
     }
-
-    function showError404(){
+    /**
+     * Recibe como parametro mensaje a mostrar en el error.
+     */
+    function showError($message)
+    {
+        $this->smarty->assign('messageError', $message);
+        $this->smarty->assign('entityToRemove', "cursos");
+        $this->smarty->display('templates/showError.tpl');
+    }
+    /**
+     * Muestra mensaje de error 404.
+     */
+    function showError404()
+    {
         $this->smarty->display('templates/error404.tpl');
     }
 }

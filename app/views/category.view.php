@@ -1,43 +1,65 @@
 <?php
 require_once 'libs/Smarty.class.php';
 
-class CategoryView {
+class CategoryView
+{
     private $smarty;
-
+    /**
+    * Se crea objeto Smarty y se asigna variable de URL base.
+    */
     function __construct()
     {
         $this->smarty = new Smarty();
         $this->smarty->assign('BASE_URL', BASE_URL);
     }
 
-    function showCategory($categories, $courses, $category) {
+    /**
+     * Recibe como parametro array de categorias, array de cursos y objeto categoria.
+     */
+    function showCategory($categories, $courses, $category)
+    {
         $this->smarty->assign('categories', $categories);
         $this->smarty->assign('courses', $courses);
         $this->smarty->assign('categoryToShow', $category);
         $this->smarty->display('templates/category_one.tpl');
     }
 
-    function showManageCategories($categories, $category=false){
+    /**
+     * Recibe como parametro array de categorias y parametro opcional objeto categoria.
+     */
+    function showManageCategories($categories, $category = false)
+    {
         $this->smarty->assign('categories', $categories);
         $this->smarty->assign('category', $category);
         $this->smarty->display('templates/manage_categories.tpl');
     }
 
-    function confirmCategoryRemove($id, $name) {
+    /**
+     * Recibe como parametro id de categoria a eliminar y nombre de categoria a eliminar.
+     */
+    function confirmCategoryRemove($id, $name)
+    {
         $this->smarty->assign('entityToRemove', "categorias");
         $this->smarty->assign('name', $name);
         $this->smarty->assign('id', $id);
         $this->smarty->display('templates/confirmation_remove.tpl');
     }
 
-    function showError($message){
+    /**
+     * Recibe como parametro mensaje a mostrar en el error.
+     */
+    function showError($message)
+    {
         $this->smarty->assign('messageError', $message);
         $this->smarty->assign('entityToRemove', "categorias");
         $this->smarty->display('templates/showError.tpl');
     }
 
-    function showError404(){
+    /**
+     * Muestra mensaje de error 404.
+     */
+    function showError404()
+    {
         $this->smarty->display('templates/error404.tpl');
     }
-
 }

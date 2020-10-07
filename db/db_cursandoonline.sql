@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-10-2020 a las 16:47:52
+-- Tiempo de generación: 07-10-2020 a las 16:43:20
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -93,7 +93,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `email`, `password`, `nombre`, `telefono`, `administrador`) VALUES
-(8, 'ezequielcinalli96@gmail.com', '$2y$10$.QMZqwYeFAfzHe9w45FvoOe6cJKtQB3gPXyqPz5QFjcmwcGgvM526', 'ezequiel', '15151515', 1);
+(8, 'ezequielcinalli96@gmail.com', '$2y$10$.QMZqwYeFAfzHe9w45FvoOe6cJKtQB3gPXyqPz5QFjcmwcGgvM526', 'ezequiel', '15151515', 1),
+(12, 'noadmin@gmail.com', '$2y$10$W7UV7/a5fawn8Tn9FoFlfuAw6IEnRAMo1WJw9CVZLJXJfYwlWkCR6', 'noadminnn', '123', 0),
+(15, 'gaballone@hotmail.com', '$2y$10$ngQI5chQR3M10NjceW5ayOXLO/S1FJEKgdjTtN9N8m4n1tUovhhIi', 'gabriel', '123', 1);
 
 --
 -- Índices para tablas volcadas
@@ -103,20 +105,23 @@ INSERT INTO `usuario` (`id`, `email`, `password`, `nombre`, `telefono`, `adminis
 -- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `curso`
 --
 ALTER TABLE `curso`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`),
   ADD KEY `id_categoria` (`id_categoria`);
 
 --
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -126,19 +131,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
