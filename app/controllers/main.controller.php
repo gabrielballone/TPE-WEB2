@@ -1,17 +1,18 @@
 <?php
 include_once 'app/views/main.view.php';
-
+include_once 'app/helpers/auth.helper.php';
 class MainController
 {
 
     private $view;
+    private $authHelper;
     /**
     * Se inicia la sesión y se crea objeto de vista asociada.
     */
     function __construct()
     {
-        session_start();
         $this->view = new MainView();
+        $this->authHelper = new AuthHelper();
     }
 
     /**

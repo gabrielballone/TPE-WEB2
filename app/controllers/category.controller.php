@@ -17,7 +17,6 @@ class CategoryController
     */
     function __construct()
     {
-        session_start();
         $this->model = new CategoryModel();
         $this->modelCourse = new CourseModel();
         $this->view = new CategoryView();

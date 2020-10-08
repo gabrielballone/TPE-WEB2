@@ -14,7 +14,6 @@ class UserController
     */
     function __construct()
     {
-        session_start();
         $this->model = new UserModel();
         $this->view = new UserView();
         $this->authHelper = new AuthHelper();
@@ -187,7 +186,6 @@ class UserController
      */
     function logout()
     {
-        // session_start(); //iniciado en el constructor
         session_destroy();
         header('Location: ' . BASE_URL . 'inicio');
     }

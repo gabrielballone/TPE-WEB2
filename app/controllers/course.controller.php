@@ -15,7 +15,6 @@ class CourseController
     */
     function __construct()
     {
-        session_start();
         $this->model = new CourseModel();
         $this->modelCategory = new CategoryModel();
         $this->view = new CourseView();

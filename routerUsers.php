@@ -62,5 +62,5 @@ if (isset($params[1])) {
             break;
     }
 } else {
-    header("Location: " . BASE_URL . "inicio");
+    $controller->showError404();
 }
