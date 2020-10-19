@@ -45,8 +45,7 @@ class CategoryController
      */
     public function showManageCategories()
     {
-        $this->authHelper->checkLoggedIn();
-        if (!$_SESSION['ADMINISTRADOR']) {
+        if (!$this->authHelper->userIsManager()) {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();
             die();
@@ -60,8 +59,7 @@ class CategoryController
      */
     public function createCategory()
     {
-        $this->authHelper->checkLoggedIn();
-        if (!$_SESSION['ADMINISTRADOR']) {
+        if (!$this->authHelper->userIsManager()) {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();
             die();
@@ -79,8 +77,7 @@ class CategoryController
      */
     public function updateCategory($id)
     {
-        $this->authHelper->checkLoggedIn();
-        if (!$_SESSION['ADMINISTRADOR']) {
+        if (!$this->authHelper->userIsManager()) {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();
             die();
@@ -102,8 +99,7 @@ class CategoryController
      */
     public function removeCategory($id)
     {
-        $this->authHelper->checkLoggedIn();
-        if (!$_SESSION['ADMINISTRADOR']) {
+        if (!$this->authHelper->userIsManager()) {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();
             die();
@@ -121,8 +117,7 @@ class CategoryController
      */
     public function showConfirmation($id)
     {
-        $this->authHelper->checkLoggedIn();
-        if (!$_SESSION['ADMINISTRADOR']) {
+        if (!$this->authHelper->userIsManager()) {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();
             die();

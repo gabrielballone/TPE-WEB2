@@ -100,8 +100,7 @@ class UserController
      */
     public function showManageUsers()
     {
-        $this->authHelper->checkLoggedIn();
-        if (!$_SESSION['ADMINISTRADOR']) {
+        if (!$this->authHelper->userIsManager()) {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();
             die();
@@ -140,8 +139,7 @@ class UserController
      */
     function setAdministrador($id, $administrador)
     {
-        $this->authHelper->checkLoggedIn();
-        if (!$_SESSION['ADMINISTRADOR']) {
+        if (!$this->authHelper->userIsManager()) {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();
             die();
@@ -155,8 +153,7 @@ class UserController
      */
     public function showConfirmation($id)
     {
-        $this->authHelper->checkLoggedIn();
-        if (!$_SESSION['ADMINISTRADOR']) {
+        if (!$this->authHelper->userIsManager()) {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();
             die();
@@ -171,8 +168,7 @@ class UserController
      */
     function removeUser($id)
     {
-        $this->authHelper->checkLoggedIn();
-        if (!$_SESSION['ADMINISTRADOR']) {
+        if (!$this->authHelper->userIsManager()) {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();
             die();
