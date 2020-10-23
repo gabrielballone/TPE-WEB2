@@ -5,6 +5,7 @@
 
     RewriteRule \.(?:css|js|jpe?g|gif|png)$ - [L]
 
+    RewriteRule ^api/(.*)$ router-api.php?resource=$1 [QSA,L,END]
     RewriteRule ^(cursos.*)$ routerCourses.php?action=$1 [QSA,END] 
     RewriteRule ^(categorias.*)$ routerCategories.php?action=$1 [QSA,END] 
     RewriteRule ^(usuarios.*)$ routerUsers.php?action=$1 [QSA,END]
