@@ -113,7 +113,7 @@ class CommentModel
     function remove($id)
     {
         $query = $this->db->prepare('DELETE FROM comentario WHERE id = ?');
-        $success = $query->execute([$id]);
-        return $success;
+        $query->execute([$id]);
+        return $query->rowCount();
     }
 }

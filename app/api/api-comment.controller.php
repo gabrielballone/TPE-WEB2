@@ -17,22 +17,34 @@ class ApiCommentController {
     function getData(){ 
         return json_decode($this->data); 
     }
-    function checkTypes($body) {
-        if (!is_string($body->contenido) || !(strlen($body->contenido) > 0) || !(strlen($body->contenido) < 255)){
-            return false;
-        }
-        if (!is_numeric($body->puntuacion) || !($body->puntuacion > 0) || !($body->puntuacion <= 5)){
-            return false;
-        }
-        if (!is_numeric($body->id_usuario)){ //Solo se verifica que sea numerico pero La DB no guarda si no es un indice válido 
-            return false;
-        }
-        if (!is_numeric($body->id_curso)){ //Solo se verifica que sea numerico pero La DB no guarda si no es un indice válido 
-            return false;
-        }
-        return true;
+    /**
+     * Funcion auxiliar para validar la entrada recibida.
+     */
+    function checkInput($body) {
+        if (isset($body->contenido) &&
+            isset($body->puntuacion) &&
+            isset($body->id_usuario) &&
+            isset($body->id_curso)){
+                if (!is_string($body->contenido) || !(strlen($body->contenido) > 0) || !(strlen($body->contenido) < 255)){
+                    return false;
+                }
+                if (!is_numeric($body->puntuacion) || !($body->puntuacion > 0) || !($body->puntuacion <= 5)){
+                    return false;
+                }
+                if (!is_numeric($body->id_usuario)){ //Solo se verifica que sea numerico pero La DB no guarda si no es un indice válido 
+                    return false;
+                }
+                if (!is_numeric($body->id_curso)){ //Solo se verifica que sea numerico pero La DB no guarda si no es un indice válido 
+                    return false;
+                }
+            return true;
+            }
+        return false;
     }
-
+    
+    /**
+     * Manda a obtener TODOS los comentarios.
+     */
     public function getAll($params = null) {
         $parameters = [];
 
@@ -47,7 +59,9 @@ class ApiCommentController {
         $comments = $this->model->getAll($parameters);
         $this->view->response($comments, 200);
     }
-
+    /**
+     * Manda a obtener un comentario según la ID indicada en la URL
+     */
     public function get($params = null) {
         // $params es un array asociativo con los parámetros de la ruta
         $idComment = $params[':ID'];
@@ -57,69 +71,63 @@ class ApiCommentController {
         else
             $this->view->response("El comentario con el id=$idComment no existe", 404);
     }
-
+    /**
+     * Manda a eliminar un comentario según la ID indicada en la URL
+     */
     public function delete($params = null) {
         $idComment = $params[':ID'];
         $success = $this->model->remove($idComment);
         if ($success) {
-            $this->view->response("La tarea con el id=$idComment se borró exitosamente", 200);
+            $this->view->response("El comentario con el id=$idComment se borró exitosamente", 200);
         }
         else { 
-            $this->view->response("La tarea con el id=$idComment no existe", 404);
+            $this->view->response("El comentario con el id=$idComment no existe", 404);
         }
     }
 
+     /**
+     * Manda a insertar un comentario con los parametros recibidos en el POST (JSON).
+     */
     public function add($params = null) {
         $body = $this->getData();   
-
-        if (isset($body->contenido) &&
-            isset($body->puntuacion) &&
-            isset($body->id_usuario) &&
-            isset($body->id_curso) &&
-            $this->checkTypes($body)) {
+        $id = 0;
+        if ($this->checkInput($body)) {
                 $contenido   = $body->contenido;
                 $puntuacion  = $body->puntuacion;
                 $id_usuario  = $body->id_usuario;
                 $id_curso    = $body->id_curso;
 
-                $id = $this->model->insert($contenido, $puntuacion, $id_usuario,$id_curso);            
+                $id = $this->model->insert($contenido, $puntuacion, $id_usuario,$id_curso); 
         }
-        else
-        {
-            $this->view->response("No se pudo insertar. Valores invalidos o faltan datos", 500);
-            die();
-        }
-        // else
-        // {
-        //     $this->view->response("No se pudo insertar. Faltan datos", 500);
-        //     die();
-        // }
-
         if ($id > 0) {
             $this->view->response("Se agrego el comentario con ID=$id exitosamente", 200);
         }
         else { 
-            $this->view->response("No se pudo insertar el comentario", 500);
+            $this->view->response("No se pudo insertar. Valores invalidos o faltan datos", 500);
+            die();
         }
     }
-    
+     /**
+     * Manda a actualizar un comentario con los parametros recibidos en el PUT (JSON).
+     */
+    public function update($params = null) {
+        $idComment = $params[':ID'];
+        $body = $this->getData();   
+        $id = 0;
+        if ($this->checkInput($body)) {
+                $contenido   = $body->contenido;
+                $puntuacion  = $body->puntuacion;
+                $id_usuario  = $body->id_usuario;
+                $id_curso    = $body->id_curso;
 
-    // public function update($params = null) {
-    //     $idTask = $params[':ID'];
-    //     $body = $this->getData();
-
-    //     $titulo       = $body->titulo;
-    //     $descripcion  = $body->descripcion;
-    //     $prioridad    = $body->prioridad;
-
-    //     $success = $this->model->update($titulo, $descripcion, $prioridad, $idTask);
-
-    //     if ($success) {
-    //         $this->view->response("Se actualizó la tarea $idTask exitosamente", 200);
-    //     }
-    //     else { 
-    //         $this->view->response("No se pudo actualizar", 500);
-    //     }
-    // }
-
+                $id = $this->model->update($idComment, $contenido, $puntuacion, $id_usuario,$id_curso); 
+        }
+        if ($id > 0) {
+            $this->view->response("Se actualizó el comentario con ID=$id exitosamente", 200);
+        }
+        else { 
+            $this->view->response("No se pudo actualizar. Valores invalidos o faltan datos", 500);
+            die();
+        }
+    }
 }
