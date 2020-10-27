@@ -57,7 +57,13 @@ class UserController
         if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['nombre']) && !empty($_POST['telefono'])) {
             if (!$this->model->exist($_POST['email'])) {
                 $this->model->insert($_POST['email'], password_hash($_POST['password'], PASSWORD_DEFAULT), $_POST['nombre'], $_POST['telefono']);
-                header("Location: " . BASE_URL . "usuarios/ingreso");
+                // header("Location: " . BASE_URL . "usuarios/ingreso");
+                $user = $this->model->getUserByEmail($_POST['email']);
+                //session_start(); //ya instanciada en constructor
+                $_SESSION['EMAIL'] = $user->email;
+                $_SESSION['ID'] = $user->id;
+                $_SESSION['ADMINISTRADOR'] = $user->administrador;
+                header("Location: " . BASE_URL . "inicio");
             } else {
                 $this->view->showRegister("El email ya existe");
             }

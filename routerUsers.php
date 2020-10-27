@@ -8,7 +8,6 @@ $params = explode('/', $action);
 $controller = new UserController();
 
 // determina que camino seguir según la acción
-// var_dump($params);
 if (isset($params[1])) {
     switch ($params[1]) {
         case "administrar":
