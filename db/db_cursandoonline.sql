@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-10-2020 a las 16:43:20
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.33
+-- Tiempo de generación: 27-10-2020 a las 23:32:17
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,33 @@ INSERT INTO `categoria` (`id`, `nombre`, `descripcion`) VALUES
 (1, 'Informática', 'Cursos de ciencias de la información'),
 (2, 'Cocina', 'Cursos con las mejores recetas'),
 (3, 'Idiomas', 'Aprende nuevos idiomas'),
-(5, 'Arte', 'Pintura, dibujo y mas');
+(5, 'Arte', 'Pintura, dibujo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comentario`
+--
+
+CREATE TABLE `comentario` (
+  `id` int(11) NOT NULL,
+  `contenido` varchar(256) NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  `puntuacion` tinyint(4) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_curso` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `comentario`
+--
+
+INSERT INTO `comentario` (`id`, `contenido`, `fecha`, `puntuacion`, `id_usuario`, `id_curso`) VALUES
+(4, 'un cambio', '2020-10-27 10:29:28', 1, 15, 8),
+(5, 'un comentario', '2020-10-27 10:59:05', 2, 15, 8),
+(10, 'un comentario', '2020-10-27 12:29:21', 1, 8, 8),
+(11, 'un comentario', '2020-10-27 15:57:10', 1, 15, 8),
+(12, 'otro cambio', '2020-10-27 18:20:07', 1, 15, 8);
 
 -- --------------------------------------------------------
 
@@ -95,7 +121,10 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `email`, `password`, `nombre`, `telefono`, `administrador`) VALUES
 (8, 'ezequielcinalli96@gmail.com', '$2y$10$.QMZqwYeFAfzHe9w45FvoOe6cJKtQB3gPXyqPz5QFjcmwcGgvM526', 'ezequiel', '15151515', 1),
 (12, 'noadmin@gmail.com', '$2y$10$W7UV7/a5fawn8Tn9FoFlfuAw6IEnRAMo1WJw9CVZLJXJfYwlWkCR6', 'noadminnn', '123', 0),
-(15, 'gaballone@hotmail.com', '$2y$10$ngQI5chQR3M10NjceW5ayOXLO/S1FJEKgdjTtN9N8m4n1tUovhhIi', 'gabriel', '123', 1);
+(15, 'gaballone@hotmail.com', '$2y$10$ngQI5chQR3M10NjceW5ayOXLO/S1FJEKgdjTtN9N8m4n1tUovhhIi', 'gabriel', '123', 1),
+(16, 'gabriel@genosolutions.com.ar', '$2y$10$CW0JQrKNW8beXuHlrk.80OjfTYkzI3wNmILW6.R/8GJfw8h8e.oea', 'Gabriel', '123456', 0),
+(17, 'gabrielgeno@gmail.com', '$2y$10$vfpJrkIh56Ni4XG1l4t0b.VU0gVtpUvtGrua0cQNZzgki6ow1qToO', 'Yo', '3245', 0),
+(18, 'otro@nada.com.ar', '$2y$10$ju1i.XhbN6eclVWGIoICcufd7iz8VBktfUReHtcL9PE/Yndp6fRmy', '56465', '564', 0);
 
 --
 -- Índices para tablas volcadas
@@ -107,6 +136,14 @@ INSERT INTO `usuario` (`id`, `email`, `password`, `nombre`, `telefono`, `adminis
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nombre` (`nombre`);
+
+--
+-- Indices de la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_curso` (`id_curso`);
 
 --
 -- Indices de la tabla `curso`
@@ -131,7 +168,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `curso`
@@ -143,11 +186,18 @@ ALTER TABLE `curso`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  ADD CONSTRAINT `comentario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comentario_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id`);
 
 --
 -- Filtros para la tabla `curso`
