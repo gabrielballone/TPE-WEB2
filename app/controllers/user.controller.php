@@ -24,10 +24,7 @@ class UserController
      */
     function showRegister()
     {
-        if (isset($_SESSION['ID'])) {
-            header("Location: " . BASE_URL . "inicio");
-            die();
-        }
+        $this->authHelper->checkSessionIsStarted();
         $this->view->showRegister();
     }
 
@@ -36,11 +33,7 @@ class UserController
      */
     function showLogin()
     {
-        //si la sesion esta iniciada, redirigir a inicio
-        if (isset($_SESSION['ID'])) {
-            header("Location: " . BASE_URL . "inicio");
-            die();
-        }
+        $this->authHelper->checkSessionIsStarted();
         $this->view->showLogin();
     }
 
@@ -50,20 +43,12 @@ class UserController
      */
     function createUser()
     {
-        if (isset($_SESSION['ID'])) {
-            header("Location: " . BASE_URL . "inicio");
-            die();
-        }
+        $this->authHelper->checkSessionIsStarted();
         if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['nombre']) && !empty($_POST['telefono'])) {
             if (!$this->model->exist($_POST['email'])) {
                 $this->model->insert($_POST['email'], password_hash($_POST['password'], PASSWORD_DEFAULT), $_POST['nombre'], $_POST['telefono']);
-                // header("Location: " . BASE_URL . "usuarios/ingreso");
                 $user = $this->model->getUserByEmail($_POST['email']);
-                //session_start(); //ya instanciada en constructor
-                $_SESSION['EMAIL'] = $user->email;
-                $_SESSION['ID'] = $user->id;
-                $_SESSION['ADMINISTRADOR'] = $user->administrador;
-                header("Location: " . BASE_URL . "inicio");
+                $this->authHelper->startSession($user);
             } else {
                 $this->view->showRegister("El email ya existe");
             }
@@ -78,21 +63,11 @@ class UserController
      */
     function login()
     {
-        //si la sesion esta iniciada, redirigir a inicio
-        if (isset($_SESSION['ID'])) {
-            header("Location: " . BASE_URL . "inicio");
-            die();
-        }
+        $this->authHelper->checkSessionIsStarted();
         if (!empty($_POST['email']) && !empty($_POST['pass'])) {
             $user = $this->model->getUserByEmail($_POST['email']);
-            //comprobar si el usuario coincide con el password
             if ($user && password_verify($_POST['pass'], $user->password)) {
-                //session_start(); //ya instanciada en constructor
-                $_SESSION['EMAIL'] = $user->email;
-                $_SESSION['ID'] = $user->id;
-                $_SESSION['ADMINISTRADOR'] = $user->administrador;
-                header("Location: " . BASE_URL . "inicio");
-                die();
+                $this->authHelper->startSession($user);
             } else {
                 $this->view->showLogin("Email o Contraseña incorrectos");
             }
@@ -106,11 +81,7 @@ class UserController
      */
     public function showManageUsers()
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         $users = $this->model->getAll();
         $this->view->showManageUsers($users);
     }
@@ -118,14 +89,11 @@ class UserController
     /**
      * Actualiza el perfil del usuario, parametros recibidos por POST.
      */
-    function updateUser($id = null)
+    function updateUser()
     {
         $this->authHelper->checkLoggedIn();
-        if ($_SESSION['ID'] != $id) {
-            header("Location: " . BASE_URL . "usuarios/modificar/" . $_SESSION['ID']);
-            die();
-        }
-
+        $id = $this->authHelper->getId();
+        
         if (!empty($_POST['email']) && !empty($_POST['pass']) && !empty($_POST['nombre']) && !empty($_POST['telefono'])) {
             if($this->model->update($id, $_POST['email'], password_hash($_POST['pass'], PASSWORD_DEFAULT), $_POST['nombre'], $_POST['telefono']))
                 $this->view->showEditUser(false, true);
@@ -133,8 +101,6 @@ class UserController
                 $this->view->showEditUser(false, false);
         } else {
             $user = $this->model->getUser($id);
-            //solucion para no pasar id por parametro
-            //$user = $this->model->getUser($_SESSION['ID']);
             $this->view->showEditUser($user);
         }
     }
@@ -145,11 +111,7 @@ class UserController
      */
     function setAdministrador($id, $administrador)
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         $this->model->setAdministrador($id, $administrador);
         header('Location: ' . BASE_URL . 'usuarios/administrar');
     }
@@ -159,11 +121,7 @@ class UserController
      */
     public function showConfirmation($id)
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         $user = $this->model->getUser($id);
         $email = $user->email;
         $this->view->confirmUserRemove($id, $email);
@@ -174,11 +132,7 @@ class UserController
      */
     function removeUser($id)
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         $this->model->remove($id);
         header('Location: ' . BASE_URL . 'usuarios/administrar');
     }

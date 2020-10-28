@@ -45,11 +45,7 @@ class CategoryController
      */
     public function showManageCategories()
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         $categories = $this->model->getAll();
         $this->view->showManageCategories($categories);
     }
@@ -59,11 +55,7 @@ class CategoryController
      */
     public function createCategory()
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         if (!empty($_POST['nombre']) && !empty($_POST['descripcion'])) {
             if ($this->model->insert($_POST['nombre'], $_POST['descripcion']))
                 header('Location: ' . BASE_URL . 'categorias/administrar');
@@ -77,11 +69,7 @@ class CategoryController
      */
     public function updateCategory($id)
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         if (!empty($_POST['nombre']) && !empty($_POST['descripcion'])) {
             if ($this->model->update($id, $_POST['nombre'], $_POST['descripcion']))
                 header('Location: ' . BASE_URL . 'categorias/administrar');
@@ -99,11 +87,7 @@ class CategoryController
      */
     public function removeCategory($id)
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         if (!count($this->modelCourse->getCoursesByCategory($id))) {
             $this->model->remove($id);
             header('Location: ' . BASE_URL . 'categorias/administrar');
@@ -117,11 +101,7 @@ class CategoryController
      */
     public function showConfirmation($id)
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         $category = $this->model->getCategory($id);
         $name = $category->nombre;
         $this->view->confirmCategoryRemove($id, $name);

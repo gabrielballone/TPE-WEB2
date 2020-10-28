@@ -1,22 +1,16 @@
 <?php
+require_once 'app/helpers/db.helper.php';
 
 class UserModel
 {
-
+    
     private $db;
+    private $helper;
 
     function __construct()
     {
-        $this->db = $this->connect();
-    }
-
-    /**
-     * Abre conexión a la base de datos
-     */
-    private function connect()
-    {
-        $db = new PDO('mysql:host=localhost;' . 'dbname=db_cursandoonline;charset=utf8', 'root', '');
-        return $db;
+        $this->helper = new DbHelper();
+        $this->db = $this->helper->connect();
     }
 
     /**

@@ -50,11 +50,7 @@ class CourseController
      */
     public function showManageCourses()
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         $courses = $this->model->getAllInnerCategoryName();
         $categories = $this->modelCategory->getAll();
         $this->view->showManageCourses($courses, $categories);
@@ -65,11 +61,7 @@ class CourseController
      */
     public function createCourse()
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         if (!empty($_POST['nombre']) &&  !empty($_POST['descripcion']) && !empty($_POST['precio']) && !empty($_POST['duracion']) && !empty($_POST['categoria'])) {
             if ($this->model->insert($_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['categoria']))
                 header('Location: ' . BASE_URL . 'cursos/administrar');
@@ -83,11 +75,7 @@ class CourseController
      */
     public function updateCourse($id)
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         if (!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['duracion']) && !empty($_POST['precio']) && !empty($_POST['categoria'])) {
             if ($this->model->update($id, $_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['categoria']))
                 header('Location: ' . BASE_URL . 'cursos/administrar');
@@ -106,11 +94,7 @@ class CourseController
      */
     public function removeCourse($id)
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         $this->model->remove($id);
         header('Location: ' . BASE_URL . 'cursos/administrar');
     }
@@ -120,11 +104,7 @@ class CourseController
      */
     public function showConfirmation($id)
     {
-        if (!$this->authHelper->userIsManager()) {
-            header("HTTP/1.0 404 Not Found");
-            $this->view->showError404();
-            die();
-        }
+        $this->authHelper->checkUserIsManager($this->view);
         $course = $this->model->getCourse($id);
         $name = $course->nombre;
         $this->view->confirmCourseRemove($id, $name);

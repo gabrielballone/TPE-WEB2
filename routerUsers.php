@@ -26,11 +26,7 @@ if (isset($params[1])) {
             $controller->login();
             break;
         case "modificar":
-            if (isset($params[2])) {
-                $controller->updateUser($params[2]);
-            } else {
-                $controller->updateUser();
-            }
+            $controller->updateUser();
             break;
         case "set_administrador":
             if (isset($params[2]) && isset($params[3])) {

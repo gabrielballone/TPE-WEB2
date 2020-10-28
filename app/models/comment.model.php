@@ -1,22 +1,15 @@
 <?php
+require_once 'app/helpers/db.helper.php';
 
 class CommentModel
 {
-
     private $db;
+    private $helper;
 
     function __construct()
     {
-        $this->db = $this->connect();
-    }
-
-    /**
-     * Abre conexión a la base de datos
-     */
-    private function connect()
-    {
-        $db = new PDO('mysql:host=localhost;' . 'dbname=db_cursandoonline;charset=utf8', 'root', '');
-        return $db;
+        $this->helper = new DbHelper();
+        $this->db = $this->helper->connect();
     }
 
     /**
@@ -27,12 +20,11 @@ class CommentModel
         $sql = 'SELECT * FROM comentario';
 
         if (isset($parametros['order'])) {
-            $sql .= ' ORDER BY '.$parametros['order'];
+            $sql .= ' ORDER BY ' . $parametros['order'];
 
             if (isset($parametros['sort'])) {
-                $sql .= ' '.$parametros['sort'];
+                $sql .= ' ' . $parametros['sort'];
             }
-    
         }
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
         $query = $this->db->prepare($sql);

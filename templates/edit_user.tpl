@@ -7,7 +7,7 @@
                 <div class="card card-signin mb-5">
                     <div class="card-body">
                         <h5 class="card-title text-center">Modificar datos</h5>
-                        <form class="form-signin" action="usuarios/modificar/{$user->id}" method="POST">
+                        <form class="form-signin" action="usuarios/modificar" method="POST">
                             <label for="email">Email</label>
                             <input name="email" id="email" type="email" class="form-control mb-2" value="{$user->email}" required>
     
