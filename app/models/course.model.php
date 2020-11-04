@@ -70,20 +70,27 @@ class CourseModel
     /**
      * Inserta el curso en la base de datos, retorna el ID que se asigno
      */
-    function insert($nombre, $descripcion, $duracion, $precio, $id_categoria)
+    function insert($nombre, $descripcion, $duracion, $precio, $id_categoria, $imagen = null)
     {
-        $query = $this->db->prepare('INSERT INTO curso (nombre, descripcion, duracion, precio, id_categoria) VALUES (?,?,?,?,?)');
-        $success = $query->execute([$nombre, $descripcion, $duracion, $precio, $id_categoria]);
+        $query = $this->db->prepare('INSERT INTO curso (nombre, descripcion, duracion, precio, id_categoria, imagen) VALUES (?,?,?,?,?,?)');
+        $success = $query->execute([$nombre, $descripcion, $duracion, $precio, $id_categoria, $imagen]);
         return $success;
     }
 
     /**
      * Actualiza el curso con el id pasado por parametro en la base de datos
      */
-    function update($id, $nombre, $descripcion, $duracion, $precio, $id_categoria)
+    function update($id, $nombre, $descripcion, $duracion, $precio, $id_categoria, $imagen = null)
     {
-        $query = $this->db->prepare('UPDATE curso SET nombre = ?, descripcion = ?, duracion = ?, precio = ?, id_categoria = ? WHERE id = ?');
-        $success = $query->execute([$nombre, $descripcion, $duracion, $precio, $id_categoria, $id]);
+        if ($imagen) {
+            $sql = 'UPDATE curso SET nombre = ?, descripcion = ?, duracion = ?, precio = ?, id_categoria = ?, imagen = ? WHERE id = ?';
+            $params = [$nombre, $descripcion, $duracion, $precio, $id_categoria, $imagen, $id];
+        } else {
+            $sql = 'UPDATE curso SET nombre = ?, descripcion = ?, duracion = ?, precio = ?, id_categoria = ? WHERE id = ?';
+            $params = [$nombre, $descripcion, $duracion, $precio, $id_categoria, $id];
+        }
+        $query = $this->db->prepare($sql);
+        $success = $query->execute($params);
         return $success;
     }
 

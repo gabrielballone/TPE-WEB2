@@ -7,7 +7,11 @@
 
         <div class="col-md-6 col-lg-9">
             <div class="card mt-4">
-                <img class="imageCourseOne card-img-top img-fluid mx-auto" src="images/new.png" alt="{$course->nombre}">
+                {if $course->imagen}
+                <img src="{$course->imagen}" class="imageCourseOne card-img-top img-fluid mx-auto" alt="{$course->nombre}">
+                {else}
+                <img src="images/new.png" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
+                {/if}
                 <div class="card-body">
                     <a href="categorias/{$course->id_categoria}">
                         <h4><span class="badge badge-primary">{$course->categoria_nombre}</span></h4>

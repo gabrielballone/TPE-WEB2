@@ -8,21 +8,25 @@
         <div class="col-md-6 col-lg-9">
             <div class="d-flex flex-wrap">
                 {foreach from=$courses item=$course}
-                    <div class="card m-2 anchoTarjetas">
-                        <img src="images/new.png" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
-                        <div class="card-body">
-                            <a href="categorias/{$course->id_categoria}">
-                                <h4><span class="badge badge-primary">{$course->nombre_categoria}</span></h4>
-                            </a>
-                            <h3 class="card-title">{$course->nombre}</h3>
-                            <h4>${$course->precio}</h4>
-                            <h4>Duración en meses: {$course->duracion} </h4>
-                            <p class="card-text">{$course->descripcion}</p>
-                            <div class="text-center mt-2">
-                                <a class="btn btn-info p-2" href="cursos/{$course->id}">Más info</a>
-                            </div>
+                <div class="card m-2 anchoTarjetas">
+                    {if $course->imagen}
+                    <img src="{$course->imagen}" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
+                    {else}
+                    <img src="images/new.png" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
+                    {/if}
+                    <div class="card-body">
+                        <a href="categorias/{$course->id_categoria}">
+                            <h4><span class="badge badge-primary">{$course->nombre_categoria}</span></h4>
+                        </a>
+                        <h3 class="card-title">{$course->nombre}</h3>
+                        <h4>${$course->precio}</h4>
+                        <h4>Duración en meses: {$course->duracion} </h4>
+                        <p class="card-text">{$course->descripcion}</p>
+                        <div class="text-center mt-2">
+                            <a class="btn btn-info p-2" href="cursos/{$course->id}">Más info</a>
                         </div>
                     </div>
+                </div>
                 {/foreach}
             </div>
         </div>

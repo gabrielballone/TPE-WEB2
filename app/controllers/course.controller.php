@@ -11,8 +11,8 @@ class CourseController
     private $view;
     private $authHelper;
     /**
-    * Se inicia la sesión y se crean los objetos de modelos y vistas asociados.
-    */
+     * Se inicia la sesión y se crean los objetos de modelos y vistas asociados.
+     */
     function __construct()
     {
         $this->model = new CourseModel();
@@ -20,7 +20,7 @@ class CourseController
         $this->view = new CourseView();
         $this->authHelper = new AuthHelper();
     }
-     /**
+    /**
      * Obtiene todos los cursos con el nombre de categoría relacionado y manda a mostrar.
      */
     function showCourses()
@@ -29,7 +29,7 @@ class CourseController
         $categories = $this->modelCategory->getAll();
         $this->view->showCourses($courses, $categories);
     }
-     /**
+    /**
      * Obtiene un curso por ID con el nombre de categoría relacionado y manda a mostrar.
      * Si no existe el ID muestrar error 404.
      */
@@ -55,6 +55,22 @@ class CourseController
         $categories = $this->modelCategory->getAll();
         $this->view->showManageCourses($courses, $categories);
     }
+
+    /**
+     * Construye un nombre unico de archivo y ademas lo mueve a 
+     * mi carpeta de imagenes
+     */
+    function uniqueSaveName($realName, $tempName)
+    {
+
+        $filePath = "images/" . uniqid("", true) . "."
+            . strtolower(pathinfo($realName, PATHINFO_EXTENSION));
+
+        move_uploaded_file($tempName, $filePath);
+
+        return $filePath;
+    }
+
     /**
      * Manda a crear curso con datos del fomulario de ABM si el usuario es Administrador.
      * Si no es administrador muestrar error 404.
@@ -62,13 +78,37 @@ class CourseController
     public function createCourse()
     {
         $this->authHelper->checkUserIsManager($this->view);
-        if (!empty($_POST['nombre']) &&  !empty($_POST['descripcion']) && !empty($_POST['precio']) && !empty($_POST['duracion']) && !empty($_POST['categoria'])) {
-            if ($this->model->insert($_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['categoria']))
+        $nombre = $_POST['nombre'];
+        $descripcion = $_POST['descripcion'];
+        $duracion = $_POST['duracion'];
+        $precio = $_POST['precio'];
+        $categoria = $_POST['categoria'];
+
+        if (!empty($nombre) &&  !empty($descripcion) && !empty($precio) && !empty($duracion) && !empty($categoria)) {
+            if ($_FILES['imagen']['type'] == "image/jpg" || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png") {
+                $pathImage = $this->uniqueSaveName($_FILES['imagen']['name'], $_FILES['imagen']['tmp_name']);
+                $success = $this->model->insert($nombre, $descripcion, $duracion, $precio, $categoria, $pathImage);
+            } else {
+                $success = $this->model->insert($nombre, $descripcion, $duracion, $precio, $categoria);
+            }
+            if ($success)
                 header('Location: ' . BASE_URL . 'cursos/administrar');
             else
                 $this->view->showError("Ya existe una curso con ese nombre!");
-        }
+        } else
+            $this->view->showError("Faltan datos. Por favor reintentalo.");
     }
+
+    /**
+     * Elimina una imagen del sistema de archivos si existe. Parametro id del curso.
+     */
+    public function deleteImageFromSystem($id)
+    {
+        $course = $this->model->getCourse($id);
+        $path = $course->imagen;
+        unlink($path);
+    }
+
     /**
      * Manda a actualizar curso con datos del fomulario de ABM si el usuario es Administrador.
      * Si no es administrador muestrar error 404.
@@ -76,8 +116,16 @@ class CourseController
     public function updateCourse($id)
     {
         $this->authHelper->checkUserIsManager($this->view);
+
         if (!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['duracion']) && !empty($_POST['precio']) && !empty($_POST['categoria'])) {
-            if ($this->model->update($id, $_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['categoria']))
+            if ($_FILES['imagen']['type'] == "image/jpg" || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png") {
+                $pathImage = $this->uniqueSaveName($_FILES['imagen']['name'], $_FILES['imagen']['tmp_name']);
+                $this->deleteImageFromSystem($id);
+                $success = $this->model->update($id, $_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['categoria'], $pathImage);
+            } else {
+                $success = $this->model->update($id, $_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['categoria']);
+            }
+            if ($success)
                 header('Location: ' . BASE_URL . 'cursos/administrar');
             else
                 $this->view->showError("Ya existe una curso con ese nombre!");
@@ -95,6 +143,7 @@ class CourseController
     public function removeCourse($id)
     {
         $this->authHelper->checkUserIsManager($this->view);
+        $this->deleteImageFromSystem($id);
         $this->model->remove($id);
         header('Location: ' . BASE_URL . 'cursos/administrar');
     }
