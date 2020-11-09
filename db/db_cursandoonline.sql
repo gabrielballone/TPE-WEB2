@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2020 a las 23:32:17
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.6
+-- Servidor: localhost
+-- Tiempo de generación: 09-11-2020 a las 20:37:17
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -81,23 +81,24 @@ CREATE TABLE `curso` (
   `descripcion` varchar(255) NOT NULL,
   `duracion` int(11) NOT NULL,
   `precio` int(11) NOT NULL,
-  `id_categoria` int(11) NOT NULL
+  `id_categoria` int(11) NOT NULL,
+  `imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `curso`
 --
 
-INSERT INTO `curso` (`id`, `nombre`, `descripcion`, `duracion`, `precio`, `id_categoria`) VALUES
-(3, 'Java desde cero', 'La plataforma Java es el nombre de un entorno o plataforma de computación originaria de Sun Microsystems', 8, 1500, 1),
-(4, 'C++', 'Curso del lenguaje c++', 4, 2500, 1),
-(5, 'Github', 'Domina la tecnologia git', 2, 2800, 1),
-(6, 'Ingles', 'Aprende idioma ingles', 6, 1450, 3),
-(7, 'Frances', 'Aprende idioma frances', 6, 2480, 3),
-(8, 'Dulces', 'Recetas dulces', 3, 1200, 2),
-(9, 'Salados', 'Recetas saladas', 4, 2200, 2),
-(11, 'Pintura', 'Pintura clasica', 4, 2600, 5),
-(12, 'Dibujo', 'Dibujo clasico', 6, 2900, 5);
+INSERT INTO `curso` (`id`, `nombre`, `descripcion`, `duracion`, `precio`, `id_categoria`, `imagen`) VALUES
+(3, 'Java desde cero', 'La plataforma Java es el nombre de un entorno o plataforma de computación originaria de Sun Microsystems', 8, 1500, 1, NULL),
+(4, 'C++', 'Curso del lenguaje c++', 4, 2500, 1, NULL),
+(5, 'Github', 'Domina la tecnologia git', 2, 2800, 1, NULL),
+(6, 'Ingles', 'Aprende idioma ingles', 6, 1450, 3, NULL),
+(7, 'Frances', 'Aprende idioma frances', 6, 2480, 3, NULL),
+(8, 'Dulces', 'Recetas dulces', 3, 1200, 2, NULL),
+(9, 'Salados', 'Recetas saladas', 4, 2200, 2, NULL),
+(11, 'Pintura', 'Pintura clasica', 4, 2600, 5, NULL),
+(12, 'Dibujo', 'Dibujo clasico', 6, 2900, 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -119,7 +120,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `email`, `password`, `nombre`, `telefono`, `administrador`) VALUES
-(8, 'ezequielcinalli96@gmail.com', '$2y$10$.QMZqwYeFAfzHe9w45FvoOe6cJKtQB3gPXyqPz5QFjcmwcGgvM526', 'ezequiel', '15151515', 1),
+(8, 'ezequielcinalli96@gmail.com', '$2y$10$cy4h7Ol4x1D1V22zMUNaw.o0zLDAw8c8WyxJREH3CmqFiaCaIr5Di', 'ezequiel', '15151515', 1),
 (12, 'noadmin@gmail.com', '$2y$10$W7UV7/a5fawn8Tn9FoFlfuAw6IEnRAMo1WJw9CVZLJXJfYwlWkCR6', 'noadminnn', '123', 0),
 (15, 'gaballone@hotmail.com', '$2y$10$ngQI5chQR3M10NjceW5ayOXLO/S1FJEKgdjTtN9N8m4n1tUovhhIi', 'gabriel', '123', 1),
 (16, 'gabriel@genosolutions.com.ar', '$2y$10$CW0JQrKNW8beXuHlrk.80OjfTYkzI3wNmILW6.R/8GJfw8h8e.oea', 'Gabriel', '123456', 0),
@@ -174,7 +175,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `curso`

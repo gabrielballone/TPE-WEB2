@@ -1,25 +1,7 @@
 <div class="card card-outline-secondary my-4">
     <div class="card-header">
         <p class="h2">Comentarios</p>
-    </div>
-    {* <div id="containerFilters">
-        <div class="m-2">
-            <div class="d-flex mb-3 mr-3">
-                <p class="mr-3 my-auto">Ordenar por</p>
-                <select class="custom-select my-auto w-25">
-                    <option value="fecha" selected>Fecha</option>
-                    <option value="puntuacion">Puntuacion</option>
-                </select>
-            </div>
-            <div class="d-flex">
-                <p class="mr-3 my-auto">Orden</p>
-                <select class="custom-select my-auto w-25">
-                    <option value="asc" selected>Ascendente</option>
-                    <option value="desc">Descendente</option>
-                </select>
-            </div>
-        </div>
-    </div> *}
+    </div> 
     <div class="card-body pb-0">
         <div id="containerComments">
             <p>Cargando comentarios...</p>

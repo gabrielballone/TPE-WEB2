@@ -15,7 +15,11 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body>
+{if $smarty.session}
+<body data-role='{$smarty.session.ADMINISTRADOR}'>
+{else}
+<body data-role='0'>
+{/if}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container justify-content-between">
             

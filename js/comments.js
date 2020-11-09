@@ -1,9 +1,12 @@
 document.addEventListener("DOMContentLoaded", initPage);
 
+
 function initPage() {
+
     //obtener el id del curso actual del ultimo parametro de la URL
     let directionUrlSplit = location.href.split('/');
     let idCourse = directionUrlSplit[directionUrlSplit.length - 1]
+    let userIsAdmin = document.querySelector("body").dataset.role;
 
     //declaracion constantes rutas URL de la API
     const urlApiComments = "api/comentarios/";
@@ -50,15 +53,11 @@ function initPage() {
             <span class="text-warning">${calculateTextStars(comment.puntuacion)}</span> ${comment.puntuacion} estrellas
             <p>${comment.contenido}</p>
             <small class="text-muted mr-2">Comentado por usuario id:${comment.id_usuario} ${comment.fecha}</small>`;
-        //TODO: obtener si el usuario actual es administrador, ¿desde la API?
-        if (true) {
+        if (userIsAdmin == 1) {
             containerComments.innerHTML += `<button id="${comment.id}" class="btn btn-danger inline deleteComment">Borrar comentario</button>`;
         }
 
         containerComments.innerHTML += ` <hr></div>`;
-        // {if $smarty.session && $smarty.session.ADMINISTRADOR}
-        //     <button id="${comment.id}" class="btn btn-danger deleteComment">Borrar comentario</button>
-        // {/if}
     }
 
     function calculateTextStars(quantityStars) {

@@ -10,8 +10,8 @@ class UserController
     private $view;
     private $authHelper;
     /**
-    * Se inicia la sesión y se crean los objetos de modelos y vista asociados y helper de autenticación.
-    */
+     * Se inicia la sesión y se crean los objetos de modelos y vista asociados y helper de autenticación.
+     */
     function __construct()
     {
         $this->model = new UserModel();
@@ -93,12 +93,14 @@ class UserController
     {
         $this->authHelper->checkLoggedIn();
         $id = $this->authHelper->getId();
-        
+
         if (!empty($_POST['email']) && !empty($_POST['pass']) && !empty($_POST['nombre']) && !empty($_POST['telefono'])) {
-            if($this->model->update($id, $_POST['email'], password_hash($_POST['pass'], PASSWORD_DEFAULT), $_POST['nombre'], $_POST['telefono']))
+            if ($this->model->update($id, $_POST['email'], password_hash($_POST['pass'], PASSWORD_DEFAULT), $_POST['nombre'], $_POST['telefono']))
                 $this->view->showEditUser(false, true);
-            else
-                $this->view->showEditUser(false, false);
+            else {
+                $comments = [1,2,3];
+                $this->view->showEditUser(false, false, $comments);
+            }
         } else {
             $user = $this->model->getUser($id);
             $this->view->showEditUser($user);
