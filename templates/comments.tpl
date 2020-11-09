@@ -48,5 +48,7 @@
                 </div>
             </form>
         </div>
+    {else}
+    <form id="formAddComment"></form>
     {/if}
 </div>
