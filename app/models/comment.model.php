@@ -73,8 +73,19 @@ class CommentModel
      */
     function getCommentsByCourse($id_course)
     {
-        $query = $this->db->prepare('SELECT * FROM comentario WHERE id_curso=?');
+        $query = $this->db->prepare('SELECT comentario.*, usuario.email FROM comentario INNER JOIN usuario on comentario.id_usuario=usuario.id WHERE comentario.id_curso=?');
         $query->execute([$id_course]);
+        $comments = $query->fetchAll(PDO::FETCH_OBJ);
+        return $comments;
+    }
+
+    /**
+     * Devuelve todos los cursos del usuario con el id pasado por parametro
+     */
+    function getCommentsByUser($id_user)
+    {
+        $query = $this->db->prepare('SELECT comentario.*,curso.nombre AS nombre_curso FROM comentario INNER JOIN curso on comentario.id_curso=curso.id WHERE id_usuario=?');
+        $query->execute([$id_user]);
         $comments = $query->fetchAll(PDO::FETCH_OBJ);
         return $comments;
     }

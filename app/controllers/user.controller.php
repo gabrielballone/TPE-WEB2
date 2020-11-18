@@ -98,8 +98,7 @@ class UserController
             if ($this->model->update($id, $_POST['email'], password_hash($_POST['pass'], PASSWORD_DEFAULT), $_POST['nombre'], $_POST['telefono']))
                 $this->view->showEditUser(false, true);
             else {
-                $comments = [1,2,3];
-                $this->view->showEditUser(false, false, $comments);
+                $this->view->showEditUser(false, false);
             }
         } else {
             $user = $this->model->getUser($id);

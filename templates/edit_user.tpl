@@ -42,15 +42,13 @@
             {if $user}
             <div class="col-md-6 text-center my-3">
                 <h1 class="text-center">Mis comentarios</h1>
-                {if isset($comments)}
-                {foreach $comments as $comment}
-                <p>comentario asdasd</p>
-                {/foreach}}
-                {else}
-                <p>Aun no has comentado ningun curso!</p>
-                {/if}
+                <div id="containerComments">
+                    <p>Aun no has comentado ningun curso!</p>
+                </div>
             </div>
             {/if}
         </div>
     </div>
+    <script src="js/profileUser.js"></script>
+
     {include file="templates/footer.tpl"}

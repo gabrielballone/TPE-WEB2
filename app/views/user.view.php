@@ -55,7 +55,7 @@ class UserView
      * Muestra formulario para editar perfil de usuario, recibe como parametro
      * un objeto usuario y como parametro opcional la consulta sql como un boolean 
      */
-    function showEditUser($user, $success = false, $comments = false)
+    function showEditUser($user, $success = false)
     {
         $this->smarty->assign('user', $user);
         $this->smarty->assign('success', $success);

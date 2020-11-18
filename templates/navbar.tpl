@@ -16,7 +16,7 @@
 </head>
 
 {if $smarty.session}
-<body data-role='{$smarty.session.ADMINISTRADOR}'>
+<body data-role='{$smarty.session.ADMINISTRADOR}' data-iduser='{$smarty.session.ID}'>
 {else}
 <body data-role='0'>
 {/if}
@@ -61,7 +61,7 @@
                                     {$smarty.session.EMAIL}
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="usuarios/modificar/{$smarty.session.ID}">Perfil</a>
+                                    <a class="dropdown-item" href="usuarios/modificar">Perfil</a>
                                     <a class="dropdown-item" href="usuarios/logout">Logout</a>
                                 </div>
                             </div>

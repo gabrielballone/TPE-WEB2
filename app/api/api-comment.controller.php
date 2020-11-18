@@ -64,16 +64,31 @@ class ApiCommentController
     /**
      * Manda a obtener los comentarios de un curso según el ID indicado en la URL
      */
-    public function get($params = null)
+    public function getAllByIdCourse($params = null)
     {
         // $params es un array asociativo con los parámetros de la ruta
         $idCourse = $params[':ID'];
-        $comment = $this->model->getCommentsByCourse($idCourse);
-        if ($comment)
-            $this->view->response($comment, 200);
+        $comments = $this->model->getCommentsByCourse($idCourse);
+        if ($comments)
+            $this->view->response($comments, 200);
         else
-            $this->view->response("El curso con el id=$idCourse no tiene comentarios", 404);
+            $this->view->response("El curso con el id=$idCourse no tiene comentarios", 200);
     }
+
+    /**
+     * Manda a obtener los comentarios de un usuario según el ID indicado en la URL
+     */
+    public function getAllByIdUser($params = null)
+    {
+        // $params es un array asociativo con los parámetros de la ruta
+        $idUser = $params[':ID'];
+        $comments = $this->model->getCommentsByUser($idUser);
+        if ($comments)
+            $this->view->response($comments, 200);
+        else
+            $this->view->response("El usuario con el id=$idUser no ha realizado comentarios", 200);
+    }
+
     /**
      * Manda a eliminar un comentario según la ID indicada en la URL
      */
@@ -100,7 +115,7 @@ class ApiCommentController
             $puntuacion  = $body->puntuacion;
             $id_curso    = $body->id_curso;
             // $id_usuario  = $body->id_usuario;
-            $id_usuario = $this->helper->getId(); 
+            $id_usuario = $this->helper->getId();
 
             $id = $this->model->insert($contenido, $puntuacion, $id_usuario, $id_curso);
         }
