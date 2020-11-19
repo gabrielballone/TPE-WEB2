@@ -72,7 +72,7 @@ class ApiCommentController
         if ($comments)
             $this->view->response($comments, 200);
         else
-            $this->view->response("El curso con el id=$idCourse no tiene comentarios", 200);
+            $this->view->response("El curso con el id=$idCourse no tiene comentarios", 204);
     }
 
     /**

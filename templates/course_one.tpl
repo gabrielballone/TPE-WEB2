@@ -1,5 +1,5 @@
 {include file="templates/navbar.tpl"}
-<div class="container-fluid">
+<div class="container-fluid" data-idcourse='{$course->id}'>
 
         <div class="row">
             <div class="col-md-6 col-lg-3">

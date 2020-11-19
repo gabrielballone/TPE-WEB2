@@ -69,7 +69,7 @@ class CommentModel
     // }
 
     /**
-     * Devuelve todos los cursos de la categoria pasada por parametro
+     * Devuelve todos los comentarios asociados a un curso pasado por parametro
      */
     function getCommentsByCourse($id_course)
     {
@@ -80,7 +80,7 @@ class CommentModel
     }
 
     /**
-     * Devuelve todos los cursos del usuario con el id pasado por parametro
+     * Devuelve todos los comentarios asociados a un usuario pasado por parametro
      */
     function getCommentsByUser($id_user)
     {

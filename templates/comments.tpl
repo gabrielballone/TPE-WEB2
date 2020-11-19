@@ -28,6 +28,7 @@
                     </select>
                     <button type="submit" class="btn btn-success w-25">Comentar</button>
                 </div>
+                <p class="text-warning" id="alertMessage"></p>
             </form>
         </div>
     {else}

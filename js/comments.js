@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", initPage);
 
 function initPage() {
 
-    //obtener el id del curso actual del ultimo parametro de la URL
-    let directionUrlSplit = location.href.split('/');
-    let idCourse = directionUrlSplit[directionUrlSplit.length - 1]
+    //obtener el role del ususario para saber si mustra boton Borrar
     let userIsAdmin = document.querySelector("body").dataset.role;
+    //obtener el id del curso actual desde el dataset en el HTML
+    let idCourse = document.querySelector("div.container-fluid").dataset.idcourse;
 
     //declaracion constantes rutas URL de la API
     const urlApiComments = "api/comentarios/";
@@ -26,7 +26,7 @@ function initPage() {
     function getComments() {
         fetch(urlApiComments + idCourse)
             .then(function(response) {
-                if (response.ok) {
+                if (response.status == 200) {
                     response.json().then(function(comments) {
                         containerComments.innerHTML = "";
                         comments.forEach(comment => {
@@ -39,7 +39,6 @@ function initPage() {
                 } else {
                     // containerFilters.innerHTML = "";
                     containerComments.innerHTML = "<p>Aun no hay comentarios para este curso<p><hr/>";
-                    console.log(response);
                 }
             })
             .catch(function(response) {
@@ -50,9 +49,9 @@ function initPage() {
     function addCommentToContainer(comment) {
         containerComments.innerHTML += `
         <div>
-            <span class="text-warning">${calculateTextStars(comment.puntuacion)}</span> ${comment.puntuacion} estrellas
-            <p>${comment.contenido}</p>
-            <small class="text-muted mr-2">Comentado por usuario id:${comment.id_usuario} ${comment.fecha}</small>`;
+            <span class="text-warning">${calculateTextStars(comment.puntuacion)}</span><small> (${comment.puntuacion} estrella${comment.puntuacion > 1 ? 's': ''})</small>
+        <p>${comment.contenido}</p>
+            <small class="text-muted mr-2">Autor: ${comment.email} - Fecha: ${comment.fecha}</small>`;
         if (userIsAdmin == 1) {
             containerComments.innerHTML += `<button id="${comment.id}" class="btn btn-danger inline deleteComment">Borrar comentario</button>`;
         }
@@ -78,19 +77,16 @@ function initPage() {
     function checkAddComment(event) {
         event.preventDefault();
 
-        let contenido = content.value;
-        let puntuacion = score.value;
+        let alertMessage = document.querySelector("#alertMessage");
 
-        //TODO: comprobar contenido y puntuacion sean validos sino cancelar y mostrar mensaje
-        if (true) {
-
-        } else {
+        //Se comprueba que contenido y puntuacion sean validos si no cancela y muestra mensaje
+        if (content.value == "") {
+            alertMessage.innerHTML = 'Atención: No puede enviar un comentario vacío';
             return;
         }
-
         let data = {
-            contenido: contenido,
-            puntuacion: puntuacion,
+            contenido: content.value,
+            puntuacion: score.value,
             id_curso: idCourse,
         }
         newComment(data);
@@ -105,8 +101,8 @@ function initPage() {
             .then(function(response) {
                 if (response.ok) {
                     getComments();
-                    content.value = " ";
-                    score.value = 5;
+                    content.value = "";
+                    score.value = 1;
                 } else {
                     console.log(response);
                 }
