@@ -57,12 +57,26 @@ class CourseModel
     }
 
     /**
+     * Devuelve la cantidad de cursos de la categoria pasada por parametro
+     */
+    function getAmountCoursesByCategory($id_categoria){
+        $query = $this->db->prepare('SELECT count(id) AS amount FROM `curso` WHERE id_categoria=?');
+        $query->execute([$id_categoria]);
+        $amount = $query->fetch(PDO::FETCH_OBJ);//amount es un objeto del tipo amount={amount : "4"}
+        return $amount->amount;
+    }
+
+    /**
      * Devuelve todos los cursos de la categoria pasada por parametro
      */
-    function getCoursesByCategory($id_categoria)
+    function getCoursesByCategory($id_categoria, $page)
     {
-        $query = $this->db->prepare('SELECT * FROM curso WHERE id_categoria=?');
-        $query->execute([$id_categoria]);
+        $page--; //si mando pagina 1 como param quiero que se vea el LIMIT 0,4
+        $page*=4; //si mando pagina 2 como param (hago 1*4) quiero que se vea LIMIT 4,4 
+        $query = $this->db->prepare('SELECT * FROM curso WHERE id_categoria=:id LIMIT :page,4');
+        $query->bindParam(":id", $id_categoria, PDO::PARAM_INT);
+        $query->bindParam(":page", $page, PDO::PARAM_INT);
+        $query->execute();
         $courses = $query->fetchAll(PDO::FETCH_OBJ);
         return $courses;
     }

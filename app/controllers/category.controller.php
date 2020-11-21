@@ -31,9 +31,16 @@ class CategoryController
     {
         $category = $this->model->getCategory($id);
         if (!empty($category)) {
+            if(isset($_GET['pagina']) && is_numeric($_GET['pagina']) && $_GET['pagina']>0){
+                $numPage = $_GET['pagina'];
+            }
+            else
+                $numPage = 1;
+            $amountCourses = $this->modelCourse->getAmountCoursesByCategory($id);
+            $amountPages = ceil($amountCourses/4); //redondea a entero, hacia arriba
             $categories = $this->model->getAll();
-            $courses = $this->modelCourse->getCoursesByCategory($id);
-            $this->view->showCategory($categories, $courses, $category);
+            $courses = $this->modelCourse->getCoursesByCategory($id, $numPage);
+            $this->view->showCategory($categories, $courses, $category, $numPage, $amountPages);
         } else {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();

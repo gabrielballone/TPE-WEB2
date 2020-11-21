@@ -16,11 +16,13 @@ class CategoryView
     /**
      * Recibe como parametro array de categorias, array de cursos y objeto categoria.
      */
-    function showCategory($categories, $courses, $category)
+    function showCategory($categories, $courses, $category, $numPage, $amountPages)
     {
         $this->smarty->assign('categories', $categories);
         $this->smarty->assign('courses', $courses);
         $this->smarty->assign('categoryToShow', $category);
+        $this->smarty->assign('numPage', $numPage);
+        $this->smarty->assign('amountPages', $amountPages);
         $this->smarty->display('templates/category_one.tpl');
     }
 
