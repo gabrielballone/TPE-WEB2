@@ -126,27 +126,4 @@ class ApiCommentController
             die();
         }
     }
-    /**
-     * Manda a actualizar un comentario con los parametros recibidos en el PUT (JSON).
-     */
-    public function update($params = null)
-    {
-        $idComment = $params[':ID'];
-        $body = $this->getData();
-        $id = 0;
-        if ($this->checkInput($body)) {
-            $contenido   = $body->contenido;
-            $puntuacion  = $body->puntuacion;
-            $id_usuario  = $body->id_usuario;
-            $id_curso    = $body->id_curso;
-
-            $id = $this->model->update($idComment, $contenido, $puntuacion, $id_usuario, $id_curso);
-        }
-        if ($id > 0) {
-            $this->view->response("Se actualizó el comentario con ID=$id exitosamente", 200);
-        } else {
-            $this->view->response("No se pudo actualizar. Valores invalidos o faltan datos", 500);
-            die();
-        }
-    }
 }

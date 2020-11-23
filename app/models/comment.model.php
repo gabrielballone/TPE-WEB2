@@ -36,17 +36,6 @@ class CommentModel
     }
 
     /**
-     * Devuelve todas las columnas de la tabla comentarios ensambladas con el nombre del id_usuario de la tabla usuario
-     */
-    // function getAllInnerUserName()
-    // {
-    //     $query = $this->db->prepare('SELECT comentario.*, usuario.nombre AS nombre_usuario FROM comentario INNER JOIN usuario ON comentario.id_usuario = usuario.id ORDER BY comentario.id_usuario');
-    //     $query->execute();
-    //     $comments = $query->fetchAll(PDO::FETCH_OBJ);
-    //     return $comments;
-    // }
-
-    /**
      * Devuelve el comentario con el id pasado por parametro de la base de datos
      */
     function getComment($id)
@@ -56,17 +45,6 @@ class CommentModel
         $comments = $query->fetch(PDO::FETCH_OBJ);
         return $comments;
     }
-
-    /**
-     * Devuelve todas las columnas de la tabla curso ensambladas con el nombre del id_categoria de la tabla categoria
-     */
-    // function getCommentInnerCategoryName($id)
-    // {
-    //     $query = $this->db->prepare('SELECT curso.*, categoria.nombre as categoria_nombre FROM curso INNER JOIN categoria on curso.id_categoria=categoria.id WHERE curso.id =?');
-    //     $query->execute([$id]);
-    //     $course = $query->fetch(PDO::FETCH_OBJ);
-    //     return $course;
-    // }
 
     /**
      * Devuelve todos los comentarios asociados a un curso pasado por parametro
