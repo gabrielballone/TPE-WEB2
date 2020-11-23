@@ -28,7 +28,12 @@
                             {/foreach}
                         </select>
                         <label for="imagen">Imagen</label>
-                        <input type="file" name="imagen" id="imagen" />
+                        {* <input type="file" name="imagen" id="imagen" /> *}
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="imagen" id="imagen" accept="image/*" >
+                            <label class="custom-file-label" for="imagen" data-browse="Examinar">Seleccionar archivo</label>
+                        </div>
+                        <input type="text" name="estadoImagen" id="estadoImagen" hidden>
                         <button class="btn btn-secondary my-2" type="button" id="quitar" disabled>Quitar imagen</button>
                         <img class="img-fluid mx-auto d-block mb-2" id="imagenPreview" src="images/system/sin_imagen.jpg"/>
                         <button class="btn btn-lg btn-success btn-block mb-2" type="submit">Agregar</button>
@@ -63,6 +68,7 @@
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" name="imagen" id="imagen" accept="image/*" >
                             <label class="custom-file-label" for="imagen" data-browse="Examinar">Seleccionar archivo</label>
+                            <input type="text" name="estadoImagen" id="estadoImagen" hidden>
                         </div>
                         {if $course->imagen}
                             <button class="btn btn-secondary my-2" type="button" id="quitar">Quitar imagen</button>
@@ -84,6 +90,7 @@
             <table class="table table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
+                        <th scope="col">Imagen</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripción</th>
                         <th scope="col">Duración</th>
@@ -96,6 +103,12 @@
                 <tbody>
                     {foreach from=$courses item=$itemCourse}
                     <tr>
+                        <td class="align-middle">
+                        {if $itemCourse->imagen}
+                            <img width="64" src="{$itemCourse->imagen}"/></td>
+                        {else}
+                            <img width="64" src="images/system/sin_imagen.jpg"/></td>
+                        {/if}
                         <td class="align-middle">{$itemCourse->nombre}</td>
                         <td class="align-middle">{$itemCourse->descripcion}</td>
                         <td class="align-middle">{$itemCourse->duracion}</td>

@@ -63,7 +63,7 @@ class CourseController
     function uniqueSaveName($realName, $tempName)
     {
 
-        $filePath = "images/" . uniqid("", true) . "."
+        $filePath = "images/user/" . uniqid("", true) . "."
             . strtolower(pathinfo($realName, PATHINFO_EXTENSION));
 
         move_uploaded_file($tempName, $filePath);
@@ -118,15 +118,21 @@ class CourseController
         $this->authHelper->checkUserIsManager($this->view);
         
         if (!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['duracion']) && !empty($_POST['precio']) && !empty($_POST['categoria'])) {
-            var_dump($_POST);
-            var_dump($_FILES);
+            // var_dump($_POST);
+            // var_dump($_FILES);
             // die();
             if ($_FILES['imagen']['type'] == "image/jpg" || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png") {
                 $pathImage = $this->uniqueSaveName($_FILES['imagen']['name'], $_FILES['imagen']['tmp_name']);
                 $this->deleteImageFromSystem($id);
                 $success = $this->model->update($id, $_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['categoria'], $pathImage);
             } else {
-                $success = $this->model->update($id, $_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['categoria']);
+                if (isset($_POST['estadoImagen'])){
+                    $deleteImage = $_POST['estadoImagen'];
+                    $this->deleteImageFromSystem($id);
+                    $success = $this->model->update($id, $_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['categoria'], $deleteImage);                    
+                } else {
+                    $success = $this->model->update($id, $_POST['nombre'], $_POST['descripcion'], $_POST['duracion'], $_POST['precio'], $_POST['categoria']);
+                }
             }
             if ($success)
                 header('Location: ' . BASE_URL . 'cursos/administrar');

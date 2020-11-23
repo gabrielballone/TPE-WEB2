@@ -93,15 +93,23 @@ class CourseModel
 
     /**
      * Actualiza el curso con el id pasado por parametro en la base de datos
+     * Se evalua parametro imagen para saber si guardar, borrar u omitir.
      */
     function update($id, $nombre, $descripcion, $duracion, $precio, $id_categoria, $imagen = null)
     {
-        if ($imagen) {
-            $sql = 'UPDATE curso SET nombre = ?, descripcion = ?, duracion = ?, precio = ?, id_categoria = ?, imagen = ? WHERE id = ?';
-            $params = [$nombre, $descripcion, $duracion, $precio, $id_categoria, $imagen, $id];
-        } else {
-            $sql = 'UPDATE curso SET nombre = ?, descripcion = ?, duracion = ?, precio = ?, id_categoria = ? WHERE id = ?';
-            $params = [$nombre, $descripcion, $duracion, $precio, $id_categoria, $id];
+        switch ($imagen) {
+            case '':
+                $sql = 'UPDATE curso SET nombre = ?, descripcion = ?, duracion = ?, precio = ?, id_categoria = ? WHERE id = ?';
+                $params = [$nombre, $descripcion, $duracion, $precio, $id_categoria, $id];
+                break;
+            case 'borrar':
+                $sql = 'UPDATE curso SET nombre = ?, descripcion = ?, duracion = ?, precio = ?, id_categoria = ?, imagen = ? WHERE id = ?';
+                $params = [$nombre, $descripcion, $duracion, $precio, $id_categoria, null, $id];
+                break;            
+            default:
+                $sql = 'UPDATE curso SET nombre = ?, descripcion = ?, duracion = ?, precio = ?, id_categoria = ?, imagen = ?  WHERE id = ?';
+                $params = [$nombre, $descripcion, $duracion, $precio, $id_categoria, $imagen, $id];
+                break;
         }
         $query = $this->db->prepare($sql);
         $success = $query->execute($params);

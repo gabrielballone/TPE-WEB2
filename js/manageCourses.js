@@ -5,10 +5,12 @@ function initPage() {
     const inputFile = document.querySelector("#imagen");
     const labelInput = document.querySelector(".custom-file-label");
     const buttonClean = document.querySelector("#quitar");
+    const inputImageState = document.querySelector("#estadoImagen");
 
     //al cambiar el estado del input, si se cargo una imagen
     //la carga en el src de la imagen oculta
     inputFile.addEventListener("change", () => {
+        console.log(inputFile.files);
         const archivos = inputFile.files;
         if (!archivos || !archivos.length) {
             return;
@@ -25,9 +27,11 @@ function initPage() {
     buttonClean.addEventListener("click", () => {
         labelInput.innerHTML = "Seleccionar archivo";
         image.src = "images/system/sin_imagen.jpg";
-        console.log(inputFile.value);
         inputFile.value = "";
-        console.log(inputFile.value);
+        console.log(inputFile.files);
         buttonClean.disabled = true;
+        inputImageState.value = "borrar";
+        console.log(inputImageState.value);
+
     });
 }
