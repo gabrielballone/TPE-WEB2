@@ -27,8 +27,7 @@
                             <option value="{$category->id}">{$category->nombre}</option>
                             {/foreach}
                         </select>
-                        <label for="imagen">Imagen</label>
-                        {* <input type="file" name="imagen" id="imagen" /> *}
+                        <label for="imagen">Imagen</label>                        
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" name="imagen" id="imagen" accept="image/*" >
                             <label class="custom-file-label" for="imagen" data-browse="Examinar">Seleccionar archivo</label>

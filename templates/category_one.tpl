@@ -10,7 +10,11 @@
             <div class="d-flex flex-wrap">
                 {foreach from=$courses item=$course}
                 <div class="card m-2 anchoTarjetas">
-                    <img src="images/system/new.png" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
+                    {if $course->imagen}
+                        <img src="{$course->imagen}" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
+                    {else}
+                        <img src="images/system/new.png" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
+                    {/if}                    
                     <div class="card-body">
                         <h4><span class="badge badge-primary">{$categoryToShow->nombre}</span></h4>
                         <h3 class="card-title">{$course->nombre}</h3>
@@ -27,6 +31,7 @@
                     <h2>Aún no hay cursos disponibles para esta categoría</h2>
                 {else}
                     <h2>En la página solicitada no hay cursos disponibles. Prueba con otra página.</h2>
+                    <a href="categorias/{$categoryToShow->id}">Volver a la primera página</a>
                 {/if}
                 {/foreach}
             </div>
