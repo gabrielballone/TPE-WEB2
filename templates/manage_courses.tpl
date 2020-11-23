@@ -30,7 +30,7 @@
                         <label for="imagen">Imagen</label>
                         <input type="file" name="imagen" id="imagen" />
                         <button class="btn btn-secondary my-2" type="button" id="quitar" disabled>Quitar imagen</button>
-                        <img class="img-fluid mx-auto d-block mb-2" id="imagenPreview" src="images/sin_imagen.jpg"/>
+                        <img class="img-fluid mx-auto d-block mb-2" id="imagenPreview" src="images/system/sin_imagen.jpg"/>
                         <button class="btn btn-lg btn-success btn-block mb-2" type="submit">Agregar</button>
                     </form>
                     {* Si $course tiene un curso muestra modo modificar y carga los inputs *}
@@ -69,7 +69,7 @@
                             <img class="img-fluid mx-auto d-block mb-2" id="imagenPreview" src="{$course->imagen}"/>
                         {else}
                             <button class="btn btn-secondary my-2" type="button" id="quitar" disabled>Quitar imagen</button>
-                            <img class="img-fluid mx-auto d-block mb-2" id="imagenPreview" src="images/sin_imagen.jpg"/>
+                            <img class="img-fluid mx-auto d-block mb-2" id="imagenPreview" src="images/system/sin_imagen.jpg"/>
                         {/if}
                         <button class="btn btn-lg btn-primary btn-block mb-2" type="submit">Modificar</button>
                         <a href="cursos/administrar" class="btn btn-lg btn-danger btn-block mb-2">Cancelar</a>
@@ -101,8 +101,8 @@
                         <td class="align-middle">{$itemCourse->duracion}</td>
                         <td class="align-middle">{$itemCourse->precio}</td>
                         <td class="align-middle">{$itemCourse->id_categoria}-{$itemCourse->nombre_categoria}</td>
-                        <td class="align-middle"><a href="cursos/modificar/{$itemCourse->id}"><img src="images/editar.png" alt="editar" /></a></td>
-                        <td class="align-middle"><a href="cursos/eliminar/confirmar/{$itemCourse->id}"><img src="images/eliminar.png" alt="eliminar" /></a></td>
+                        <td class="align-middle"><a href="cursos/modificar/{$itemCourse->id}"><img src="images/system/editar.png" alt="editar" /></a></td>
+                        <td class="align-middle"><a href="cursos/eliminar/confirmar/{$itemCourse->id}"><img src="images/system/eliminar.png" alt="eliminar" /></a></td>
                     </tr>
                     {/foreach}
                 </tbody>

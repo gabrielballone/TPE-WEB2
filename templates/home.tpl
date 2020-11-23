@@ -9,7 +9,7 @@
             <p>El mejor sitio para aprender</p>
             <a class="btn btn-primary btn-lg" href="cursos" role="button">Ver todos los cursos</a>
         </div>
-        <img src="images/fondo-bienvenida.jpg" class="img-fluid" alt="fondo">
+        <img src="images/system/fondo-bienvenida.jpg" class="img-fluid" alt="fondo">
     </div>
 </div>
 

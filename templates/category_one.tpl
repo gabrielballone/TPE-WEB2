@@ -10,7 +10,7 @@
             <div class="d-flex flex-wrap">
                 {foreach from=$courses item=$course}
                 <div class="card m-2 anchoTarjetas">
-                    <img src="images/new.png" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
+                    <img src="images/system/new.png" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
                     <div class="card-body">
                         <h4><span class="badge badge-primary">{$categoryToShow->nombre}</span></h4>
                         <h3 class="card-title">{$course->nombre}</h3>

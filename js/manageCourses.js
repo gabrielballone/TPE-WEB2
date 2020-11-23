@@ -24,7 +24,7 @@ function initPage() {
     // la carga en el src de la imagen de muestra
     buttonClean.addEventListener("click", () => {
         labelInput.innerHTML = "Seleccionar archivo";
-        image.src = "images/sin_imagen.jpg";
+        image.src = "images/system/sin_imagen.jpg";
         console.log(inputFile.value);
         inputFile.value = "";
         console.log(inputFile.value);

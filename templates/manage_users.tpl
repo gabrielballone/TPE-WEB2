@@ -25,7 +25,7 @@
                                     <a type="button" class="btn btn-danger" href="usuarios/set_administrador/{$user->id}/1">NO</a>
                                 {/if}
                             </td>
-                            <td><a href="usuarios/eliminar/confirmar/{$user->id}"><img src="images/eliminar.png" alt="eliminar" /></a></td>
+                            <td><a href="usuarios/eliminar/confirmar/{$user->id}"><img src="images/system/eliminar.png" alt="eliminar" /></a></td>
                         </tr>
                     {/foreach}
                 </tbody>

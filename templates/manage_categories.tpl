@@ -50,8 +50,8 @@
                         <tr>
                             <td class="align-middle">{$itemCategory->nombre}</td>
                             <td class="align-middle">{$itemCategory->descripcion}</td>
-                            <td class="align-middle"><a href="categorias/modificar/{$itemCategory->id}"><img src="images/editar.png" alt="editar"/></a></td>
-                            <td class="align-middle"><a href="categorias/eliminar/confirmar/{$itemCategory->id}"><img src="images/eliminar.png" alt="eliminar"/></a></td>
+                            <td class="align-middle"><a href="categorias/modificar/{$itemCategory->id}"><img src="images/system/editar.png" alt="editar"/></a></td>
+                            <td class="align-middle"><a href="categorias/eliminar/confirmar/{$itemCategory->id}"><img src="images/system/eliminar.png" alt="eliminar"/></a></td>
                         </tr>
                     {/foreach}
                 </tbody>
