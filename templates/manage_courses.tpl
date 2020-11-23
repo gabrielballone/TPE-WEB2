@@ -29,7 +29,8 @@
                         </select>
                         <label for="imagen">Imagen</label>
                         <input type="file" name="imagen" id="imagen" />
-                        <img id="imagenPreview" width="600" />
+                        <button class="btn btn-secondary my-2" type="button" id="quitar" disabled>Quitar imagen</button>
+                        <img class="img-fluid mx-auto d-block mb-2" id="imagenPreview" src="images/sin_imagen.jpg"/>
                         <button class="btn btn-lg btn-success btn-block mb-2" type="submit">Agregar</button>
                     </form>
                     {* Si $course tiene un curso muestra modo modificar y carga los inputs *}
@@ -59,11 +60,16 @@
                             {/foreach}
                         </select>
                         <label for="imagen">Imagen</label>
-                        <input type="file" name="imagen" id="imagen" />
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="imagen" id="imagen" accept="image/*" >
+                            <label class="custom-file-label" for="imagen" data-browse="Examinar">Seleccionar archivo</label>
+                        </div>
                         {if $course->imagen}
-                            <img id="imagenPreview" src="{$course->imagen}" width="600" />
+                            <button class="btn btn-secondary my-2" type="button" id="quitar">Quitar imagen</button>
+                            <img class="img-fluid mx-auto d-block mb-2" id="imagenPreview" src="{$course->imagen}"/>
                         {else}
-                            <img id="imagenPreview" width="600" />
+                            <button class="btn btn-secondary my-2" type="button" id="quitar" disabled>Quitar imagen</button>
+                            <img class="img-fluid mx-auto d-block mb-2" id="imagenPreview" src="images/sin_imagen.jpg"/>
                         {/if}
                         <button class="btn btn-lg btn-primary btn-block mb-2" type="submit">Modificar</button>
                         <a href="cursos/administrar" class="btn btn-lg btn-danger btn-block mb-2">Cancelar</a>
@@ -73,7 +79,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col">
             <table class="table table-striped table-hover">

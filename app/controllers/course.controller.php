@@ -116,8 +116,11 @@ class CourseController
     public function updateCourse($id)
     {
         $this->authHelper->checkUserIsManager($this->view);
-
+        
         if (!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['duracion']) && !empty($_POST['precio']) && !empty($_POST['categoria'])) {
+            var_dump($_POST);
+            var_dump($_FILES);
+            // die();
             if ($_FILES['imagen']['type'] == "image/jpg" || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png") {
                 $pathImage = $this->uniqueSaveName($_FILES['imagen']['name'], $_FILES['imagen']['tmp_name']);
                 $this->deleteImageFromSystem($id);
