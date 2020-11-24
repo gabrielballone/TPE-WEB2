@@ -46,12 +46,13 @@ class CourseController
         //             break;
 
         // }
+        } else {
+            $amountCourses = $this->model->getAmountCourses();
+            $amountPages = ceil($amountCourses/4); //redondea a entero, hacia arriba
+            $courses = $this->model->getAllInnerCategoryName($numPage);
+            $categories = $this->modelCategory->getAll();
+            $this->view->showCourses($courses, $categories, $numPage, $amountPages);
         }
-        $amountCourses = $this->model->getAmountCourses();
-        $amountPages = ceil($amountCourses/4); //redondea a entero, hacia arriba
-        $courses = $this->model->getAllInnerCategoryName($numPage);
-        $categories = $this->modelCategory->getAll();
-        $this->view->showCourses($courses, $categories, $numPage, $amountPages);
       
     }
     /**

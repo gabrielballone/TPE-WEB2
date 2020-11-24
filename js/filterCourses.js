@@ -50,15 +50,16 @@ function initPage() {
                 searchText.classList.remove("d-none");                
                 searchNumber.classList.add("d-none");
                 inputTexto.focus();
-                // inputTexto.scrollIntoView();
                 break;
             case "duracion":
                 searchText.classList.add("d-none");
                 searchNumber.classList.remove("d-none");
+                inputMin.focus();
                 break;
             case "precio":
                 searchText.classList.add("d-none");
                 searchNumber.classList.remove("d-none");
+                inputMin.focus();
                 break;
         }
     }
