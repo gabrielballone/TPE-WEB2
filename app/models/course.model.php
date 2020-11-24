@@ -25,11 +25,21 @@ class CourseModel
 
     /**
      * Devuelve todas las columnas de la tabla curso ensambladas con el nombre del id_categoria de la tabla categoria
+     * Si viene el numero de pagina por parametro devuelve 4 registros a partir de ahi
      */
-    function getAllInnerCategoryName()
+    function getAllInnerCategoryName($page = null)
     {
-        $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id ORDER BY curso.id_categoria');
-        $query->execute();
+        $sql = 'SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id ORDER BY curso.id_categoria';
+        if (!$page){
+            $query = $this->db->prepare($sql);
+        } else {
+            $page--; //si mando pagina 1 como param quiero que se vea el LIMIT 0,4
+            $page *= 4; //si mando pagina 2 como param (hago 1*4) quiero que se vea LIMIT 4,4          
+            $sql .= ' LIMIT :page,4';
+            $query = $this->db->prepare($sql);
+            $query->bindParam(":page", $page, PDO::PARAM_INT);
+        }
+        $query->execute();        
         $courses = $query->fetchAll(PDO::FETCH_OBJ);
         return $courses;
     }
@@ -38,16 +48,16 @@ class CourseModel
      * Devuelve todas las columnas de la tabla curso ensambladas con el nombre del id_categoria de la tabla categoria
      * Tiene en cuenta el numero de pagina pasado por parametro y devuelve 4 registros a partir de ahi
      */
-    function getAllInnerCategoryNameWithPagination($page)
-    {
-        $page--; //si mando pagina 1 como param quiero que se vea el LIMIT 0,4
-        $page*=4; //si mando pagina 2 como param (hago 1*4) quiero que se vea LIMIT 4,4 
-        $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id ORDER BY curso.id_categoria LIMIT :page,4');
-        $query->bindParam(":page", $page, PDO::PARAM_INT);
-        $query->execute();
-        $courses = $query->fetchAll(PDO::FETCH_OBJ);
-        return $courses;
-    }
+    // function getAllInnerCategoryNameWithPagination($page)
+    // {
+    //     $page--; //si mando pagina 1 como param quiero que se vea el LIMIT 0,4
+    //     $page*=4; //si mando pagina 2 como param (hago 1*4) quiero que se vea LIMIT 4,4 
+    //     $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id ORDER BY curso.id_categoria LIMIT :page,4');
+    //     $query->bindParam(":page", $page, PDO::PARAM_INT);
+    //     $query->execute();
+    //     $courses = $query->fetchAll(PDO::FETCH_OBJ);
+    //     return $courses;
+    // }
 
     /**
      * Devuelve el curso con el id pasado por parametro de la base de datos
@@ -69,6 +79,14 @@ class CourseModel
         $query->execute([$id]);
         $course = $query->fetch(PDO::FETCH_OBJ);
         return $course;
+    }
+
+    function getCoursesSearchByName($name){
+        $name = '%' .  $name . '%';         
+        $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id WHERE curso.nombre LIKE ? ORDER BY curso.id_categoria');
+        $query->execute(["$name"]);
+        $course = $query->fetchAll(PDO::FETCH_OBJ);
+        return $course;        
     }
 
     /**

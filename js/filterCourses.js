@@ -47,8 +47,10 @@ function initPage() {
                 searchNumber.classList.add("d-none");
                 break;
             case "nombre":
-                searchText.classList.remove("d-none");
+                searchText.classList.remove("d-none");                
                 searchNumber.classList.add("d-none");
+                inputTexto.focus();
+                // inputTexto.scrollIntoView();
                 break;
             case "duracion":
                 searchText.classList.add("d-none");

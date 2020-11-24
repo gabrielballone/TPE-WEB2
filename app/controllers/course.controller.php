@@ -30,9 +30,26 @@ class CourseController
         }
         else
             $numPage = 1;
+        if(isset($_GET['filtro']) && isset($_GET['texto'])){
+            $courses = $this->model->getCoursesSearchByName($_GET['texto']);
+            $categories = $this->modelCategory->getAll();
+            $amountCourses = count($courses);
+            $amountPages = ceil($amountCourses / 4); //redondea a entero, hacia arriba
+            $this->view->showCourses($courses, $categories, $numPage, $amountPages);
+        //     switch ($_GET['nombre']) {
+        //         case 'value':
+        //             # code...
+        //             break;
+                
+        //         default:
+        //             # code...
+        //             break;
+
+        // }
+        }
         $amountCourses = $this->model->getAmountCourses();
         $amountPages = ceil($amountCourses/4); //redondea a entero, hacia arriba
-        $courses = $this->model->getAllInnerCategoryNameWithPagination($numPage);
+        $courses = $this->model->getAllInnerCategoryName($numPage);
         $categories = $this->modelCategory->getAll();
         $this->view->showCourses($courses, $categories, $numPage, $amountPages);
       

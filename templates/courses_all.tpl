@@ -27,6 +27,13 @@
                         </div>
                     </div>
                 </div>
+                {foreachelse}
+                {if $numPage == 1}
+                    <h2>Aún no hay cursos disponibles para esta categoría</h2>
+                {else}
+                    <h2>En la página solicitada no hay cursos disponibles. Prueba con otra página.</h2>
+                    <a href="cursos">Volver a la primera página</a>
+                {/if}
                 {/foreach}
             </div>
             {include file="templates/page.tpl" url="cursos" numPage={$numPage} cantCursos={$courses|@count} amountPages={$amountPages}}

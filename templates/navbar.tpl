@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="images/system/favicon.png" type="image/png">
 </head>
 
 {if $smarty.session}
