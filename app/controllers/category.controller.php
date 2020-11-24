@@ -95,7 +95,7 @@ class CategoryController
     public function removeCategory($id)
     {
         $this->authHelper->checkUserIsManager($this->view);
-        if (!count($this->modelCourse->getCoursesByCategory($id))) {
+        if ($this->modelCourse->getAmountCoursesByCategory($id) <= 0) {
             $this->model->remove($id);
             header('Location: ' . BASE_URL . 'categorias/administrar');
         } else {

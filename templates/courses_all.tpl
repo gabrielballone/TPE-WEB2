@@ -29,6 +29,7 @@
                 </div>
                 {/foreach}
             </div>
+            {include file="templates/page.tpl" url="cursos" numPage={$numPage} cantCursos={$courses|@count} amountPages={$amountPages}}
         </div>
     </div>
 </div>

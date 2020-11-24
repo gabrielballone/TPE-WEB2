@@ -25,9 +25,17 @@ class CourseController
      */
     function showCourses()
     {
-        $courses = $this->model->getAllInnerCategoryName();
+        if(isset($_GET['pagina']) && is_numeric($_GET['pagina']) && $_GET['pagina']>0){
+            $numPage = $_GET['pagina'];
+        }
+        else
+            $numPage = 1;
+        $amountCourses = $this->model->getAmountCourses();
+        $amountPages = ceil($amountCourses/4); //redondea a entero, hacia arriba
+        $courses = $this->model->getAllInnerCategoryNameWithPagination($numPage);
         $categories = $this->modelCategory->getAll();
-        $this->view->showCourses($courses, $categories);
+        $this->view->showCourses($courses, $categories, $numPage, $amountPages);
+      
     }
     /**
      * Obtiene un curso por ID con el nombre de categoría relacionado y manda a mostrar.
