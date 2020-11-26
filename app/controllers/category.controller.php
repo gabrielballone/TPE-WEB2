@@ -40,7 +40,7 @@ class CategoryController
             $amountPages = ceil($amountCourses/4); //redondea a entero, hacia arriba
             $categories = $this->model->getAll();
             $courses = $this->modelCourse->getCoursesByCategory($id, $numPage);
-            $this->view->showCategory($categories, $courses, $category, $numPage, $amountPages);
+            $this->view->showCategory($categories, $courses, $category, $numPage, $amountCourses, $amountPages);
         } else {
             header("HTTP/1.0 404 Not Found");
             $this->view->showError404();

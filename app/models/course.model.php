@@ -81,14 +81,119 @@ class CourseModel
         return $course;
     }
 
-    function getCoursesSearchByName($name){
-        $name = '%' .  $name . '%';         
-        $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id WHERE curso.nombre LIKE ? ORDER BY curso.id_categoria');
-        $query->execute(["$name"]);
+    /**
+     * Devuelve cursos filtrados por nombre paginados de a 4
+     */
+    function getCoursesFilterByName($name, $page){
+        $name = '%' .  $name . '%';
+        $page--; //si mando pagina 1 como param quiero que se vea el LIMIT 0,4
+        $page*=4; //si mando pagina 2 como param (hago 1*4) quiero que se vea LIMIT 4,4          
+        $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id WHERE curso.nombre LIKE :name ORDER BY curso.nombre LIMIT :page,4');
+        $query->bindParam(":name", $name, PDO::PARAM_STR);
+        $query->bindParam(":page", $page, PDO::PARAM_INT);
+        $query->execute();
         $course = $query->fetchAll(PDO::FETCH_OBJ);
         return $course;        
     }
 
+    /**
+     * Devuelve la cantidad total de cursos filtrados por nombre 
+     */
+    function getAmountCoursesFilterByName($name){
+        $name = '%' .  $name . '%';
+        $query = $this->db->prepare('SELECT count(id) AS amount FROM curso WHERE curso.nombre LIKE ?');
+        $query->execute(["$name"]);
+        $amount = $query->fetch(PDO::FETCH_OBJ);//amount es un objeto del tipo: amount={amount : "4"}
+        return $amount->amount;
+    }
+
+    /**
+     * Devuelve la cantidad total de cursos filtrados por duracion 
+     */
+    function getAmountCoursesFilterByDuracion($min, $max){
+        if ($min && $max){
+            $query = $this->db->prepare('SELECT count(id) AS amount FROM curso WHERE curso.duracion BETWEEN ? AND ?');
+            $query->execute([$min, $max]);
+        } else if ($max) {
+            $query = $this->db->prepare('SELECT count(id) AS amount FROM curso WHERE curso.duracion <= ?');
+            $query->execute([$max]);
+        } else {
+            $query = $this->db->prepare('SELECT count(id) AS amount FROM curso WHERE curso.duracion >= ?');
+            $query->execute([$min]);
+        }
+        $amount = $query->fetch(PDO::FETCH_OBJ);//amount es un objeto del tipo: amount={amount : "4"}
+        return $amount->amount;
+    }
+
+    /**
+     * Devuelve cursos filtrados por duración paginados de a 4
+     */
+    function getCoursesFilterByDuracion($min = null, $max = null, $page){
+  
+        $page--; //si mando pagina 1 como param quiero que se vea el LIMIT 0,4
+        $page*=4; //si mando pagina 2 como param (hago 1*4) quiero que se vea LIMIT 4,4
+        
+        if ($min && $max){
+            $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id WHERE curso.duracion BETWEEN :mini AND :maxi ORDER BY curso.duracion LIMIT :page,4');
+            $query->bindParam(":mini", $min, PDO::PARAM_INT);
+            $query->bindParam(":maxi", $max, PDO::PARAM_INT);
+        } else if ($max) {
+            $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id WHERE curso.duracion <= :maxi ORDER BY curso.duracion LIMIT :page,4');
+            $query->bindParam(":maxi", $max, PDO::PARAM_INT);
+        } else {
+            $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id WHERE curso.duracion >= :mini ORDER BY curso.duracion LIMIT :page,4');
+            $query->bindParam(":mini", $min, PDO::PARAM_INT);
+        }
+        $query->bindParam(":page", $page, PDO::PARAM_INT);
+        $query->execute();
+        $course = $query->fetchAll(PDO::FETCH_OBJ);
+        return $course;        
+    }
+
+    /**
+     * Devuelve la cantidad total de cursos filtrados por precio 
+     */
+    function getAmountCoursesFilterByPrecio($min, $max){
+        if ($min && $max){
+            $query = $this->db->prepare('SELECT count(id) AS amount FROM curso WHERE curso.precio BETWEEN ? AND ?');
+            $query->execute([$min, $max]);
+        } else if ($max) {
+            $query = $this->db->prepare('SELECT count(id) AS amount FROM curso WHERE curso.precio <= ?');
+            $query->execute([$max]);
+        } else {
+            $query = $this->db->prepare('SELECT count(id) AS amount FROM curso WHERE curso.precio >= ?');
+            $query->execute([$min]);
+        }
+        $amount = $query->fetch(PDO::FETCH_OBJ);//amount es un objeto del tipo: amount={amount : "4"}
+        return $amount->amount;
+    }
+
+    /**
+     * Devuelve cursos filtrados por precio paginados de a 4 
+     */
+    function getCoursesFilterByPrecio($min = null, $max = null, $page){
+  
+        $page--; //si mando pagina 1 como param quiero que se vea el LIMIT 0,4
+        $page*=4; //si mando pagina 2 como param (hago 1*4) quiero que se vea LIMIT 4,4
+        if ($min && $max){
+            $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id WHERE curso.precio BETWEEN :mini AND :maxi ORDER BY curso.precio LIMIT :page,4');
+            // $query->execute([$min, $max]);
+            $query->bindParam(":mini", $min, PDO::PARAM_INT);
+            $query->bindParam(":maxi", $max, PDO::PARAM_INT);
+        } else if ($max) {
+            $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id WHERE curso.precio <= :maxi ORDER BY curso.precio LIMIT :page,4');
+            $query->bindParam(":maxi", $max, PDO::PARAM_INT);
+        } else {
+            $query = $this->db->prepare('SELECT curso.*, categoria.nombre AS nombre_categoria FROM curso INNER JOIN categoria ON curso.id_categoria = categoria.id WHERE curso.precio >= :mini ORDER BY curso.precio LIMIT :page,4');
+            $query->bindParam(":mini", $min, PDO::PARAM_INT);
+        }
+        $query->bindParam(":page", $page, PDO::PARAM_INT);
+        $query->execute();
+        $course = $query->fetchAll(PDO::FETCH_OBJ);
+        return $course;        
+    }
+
+    
     /**
      * Devuelve la cantidad total de cursos 
      */

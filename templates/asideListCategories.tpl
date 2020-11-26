@@ -3,18 +3,18 @@
     <form id="formFilterCourses" method="GET" action="{$urlFilter}">
         <div class="input-group mb-3">
             <select class="custom-select" name="filtro" id="filtro">
-                <option value="sinfiltro" selected>Sin filtro</option>
-                <option value="nombre">Nombre</option>
-                <option value="duracion">Duracion</option>
-                <option value="precio">Precio</option>
+                <option value="sinfiltro" {if $datos['filtro']}selected{/if}>Sin filtro</option>        
+                <option value="nombre"{if $datos['filtro'] == 'nombre'}selected{/if}>Nombre</option>
+                <option value="duracion"{if $datos['filtro'] == 'duracion'}selected{/if}>Duración</option>
+                <option value="precio"{if $datos['filtro'] == 'precio'}selected{/if}>Precio</option>
             </select>
         </div>
         <div id="searchText" class="input-group mb-3 d-none">
-            <input id="texto" name="texto" type="text" placeholder="Busqueda..." class="w-100" />
+            <input id="texto" name="texto" type="text" placeholder="Busqueda..." class="w-100" {if $datos['filtro'] == 'nombre'}value="{$datos['texto']}"{/if}/>
         </div>
         <div id="searchNumber" class="input-group mb-3 d-none">
-            <input id="min" name="min" type="number" placeholder="Minimo" class="w-50" />
-            <input id="max" name="max" type="number" placeholder="Maximo" class="w-50" />
+            <input id="min" name="min" type="number" placeholder="Minimo" class="w-50" {if $datos['filtro'] == 'duracion' || $datos['filtro'] == 'precio'}value="{$datos['min']}"{/if}/>
+            <input id="max" name="max" type="number" placeholder="Maximo" class="w-50" {if $datos['filtro'] == 'duracion' || $datos['filtro'] == 'precio'}value="{$datos['max']}"{/if}/>
         </div>
         <button type="submit" class="btn btn-success btn-block">Filtrar</button>
     </form>

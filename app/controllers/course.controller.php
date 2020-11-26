@@ -21,38 +21,79 @@ class CourseController
         $this->authHelper = new AuthHelper();
     }
     /**
-     * Obtiene todos los cursos con el nombre de categoría relacionado y manda a mostrar.
+     * Obtiene todos los cursos segun el filtro aplicado con el nombre de categoría relacionado y manda a mostrar.
+     * Filtros posibles: nombre, duracion, precio
+     * Si no hay filtro muestra todos los cursos.
+     * En todos los casos se muestra paginado de a 4
      */
     function showCourses()
     {
+        $numPage = "1";
+        $filter = null;
+        $datos = array(
+            "filtro" => null,
+            "texto" => null,
+            "min" => null,
+            "max" => null,
+        );
         if(isset($_GET['pagina']) && is_numeric($_GET['pagina']) && $_GET['pagina']>0){
             $numPage = $_GET['pagina'];
         }
-        else
-            $numPage = 1;
-        if(isset($_GET['filtro']) && isset($_GET['texto'])){
-            $courses = $this->model->getCoursesSearchByName($_GET['texto']);
-            $categories = $this->modelCategory->getAll();
-            $amountCourses = count($courses);
-            $amountPages = ceil($amountCourses / 4); //redondea a entero, hacia arriba
-            $this->view->showCourses($courses, $categories, $numPage, $amountPages);
-        //     switch ($_GET['nombre']) {
-        //         case 'value':
-        //             # code...
-        //             break;
-                
-        //         default:
-        //             # code...
-        //             break;
-
-        // }
+        if(isset($_GET['filtro'])){
+            switch ($_GET['filtro']) {
+                case 'nombre':
+                    if (isset($_GET['texto'])){
+                        $filter = "filtro=nombre&texto=" . $_GET['texto'];
+                        $datos['filtro'] = 'nombre';
+                        $datos['texto'] = $_GET['texto'];
+                        $amountCourses = $this->model->getAmountCoursesFilterByName($_GET['texto']);
+                        $courses = $this->model->getCoursesFilterByName($_GET['texto'], $numPage);
+                    }                    
+                    break;
+                case 'duracion':
+                    $filter = "filtro=duracion";
+                    $datos['filtro'] = 'duracion';
+                    $min = 0;
+                    $max = 0;
+                    if (isset($_GET['min'])){
+                        $min = $_GET['min'];
+                        $filter = $filter . "&min=" . $min;
+                        $datos['min'] = $_GET['min'];                        
+                    }
+                    if (isset($_GET['max'])){
+                        $max = $_GET['max'];
+                        $filter = $filter . "&max=" . $max;
+                        $datos['max'] = $_GET['max']; 
+                    }
+                    $amountCourses = $this->model->getAmountCoursesFilterByDuracion($min, $max);
+                    $courses = $this->model->getCoursesFilterByDuracion($min, $max, $numPage);                                        
+                    break;
+                case 'precio':
+                    $filter = "filtro=precio";
+                    $datos['filtro'] = 'precio';
+                    $min = 0;
+                    $max = 0;
+                    if (isset($_GET['min'])){
+                        $min = $_GET['min'];
+                        $filter = $filter . "&min=" . $min;
+                        $datos['min'] = $_GET['min'];
+                    }                    
+                    if (isset($_GET['max'])){
+                        $max = $_GET['max'];
+                        $filter = $filter . "&max=" . $max;
+                        $datos['max'] = $_GET['max'];
+                    }
+                    $amountCourses = $this->model->getAmountCoursesFilterByPrecio($min, $max);
+                    $courses = $this->model->getCoursesFilterByPrecio($min, $max, $numPage);                                        
+                    break;                
+            } 
         } else {
-            $amountCourses = $this->model->getAmountCourses();
-            $amountPages = ceil($amountCourses/4); //redondea a entero, hacia arriba
             $courses = $this->model->getAllInnerCategoryName($numPage);
+            $amountCourses = $this->model->getAmountCourses();
+        }        
+            $amountPages = ceil($amountCourses/4); //redondea a entero, hacia arriba
             $categories = $this->modelCategory->getAll();
-            $this->view->showCourses($courses, $categories, $numPage, $amountPages);
-        }
+            $this->view->showCourses($courses, $categories, $numPage, $amountPages, $datos, $amountCourses, $filter);
       
     }
     /**

@@ -95,9 +95,11 @@ class UserController
         $id = $this->authHelper->getId();
 
         if (!empty($_POST['email']) && !empty($_POST['pass']) && !empty($_POST['nombre']) && !empty($_POST['telefono'])) {
-            if ($this->model->update($id, $_POST['email'], password_hash($_POST['pass'], PASSWORD_DEFAULT), $_POST['nombre'], $_POST['telefono']))
+            if ($this->model->update($id, $_POST['email'], password_hash($_POST['pass'], PASSWORD_DEFAULT), $_POST['nombre'], $_POST['telefono'])) {
+                session_destroy();
                 $this->view->showEditUser(false, true);
-            else {
+                // $this->logout();
+            } else {
                 $this->view->showEditUser(false, false);
             }
         } else {

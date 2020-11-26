@@ -10,7 +10,6 @@ function initPage() {
     //al cambiar el estado del input, si se cargo una imagen
     //la carga en el src de la imagen oculta
     inputFile.addEventListener("change", () => {
-        console.log(inputFile.files);
         const archivos = inputFile.files;
         if (!archivos || !archivos.length) {
             return;
@@ -28,10 +27,7 @@ function initPage() {
         labelInput.innerHTML = "Seleccionar archivo";
         image.src = "images/system/sin_imagen.jpg";
         inputFile.value = "";
-        console.log(inputFile.files);
         buttonClean.disabled = true;
         inputImageState.value = "borrar";
-        console.log(inputImageState.value);
-
     });
 }

@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 col-lg-3">
-            {include file="templates/asideListCategories.tpl" showFilter=true categories=$categories idSelected=$categoryToShow->id urlFilter="categorias/{$categoryToShow->id}"}
+            {include file="templates/asideListCategories.tpl" showFilter=false categories=$categories idSelected=$categoryToShow->id urlFilter="categorias/{$categoryToShow->id}"}
         </div>
 
         <div class="col-md-6 col-lg-9">
@@ -19,7 +19,7 @@
                         <h4><span class="badge badge-primary">{$categoryToShow->nombre}</span></h4>
                         <h3 class="card-title">{$course->nombre}</h3>
                         <h4>${$course->precio}</h4>
-                        <h4>Duración en meses: {$course->duracion} </h4>
+                        <h4>Duración: {$course->duracion} meses</h4>
                         <p class="card-text">{$course->descripcion}</p>
                         <div class="text-center mt-2">
                             <a class="btn btn-info p-2" href="cursos/{$course->id}">Más info</a>
@@ -35,7 +35,7 @@
                 {/if}
                 {/foreach}
             </div>
-            {include file="templates/page.tpl" url="categorias/{$categoryToShow->id}" numPage={$numPage} cantCursos={$courses|@count} amountPages={$amountPages}}
+            {include file="templates/page.tpl" url="categorias/{$categoryToShow->id}" numPage={$numPage} cantCursos={$courses|@count} amountCourses={$amountCourses} amountPages={$amountPages}}
         </div>
     </div>
 </div>

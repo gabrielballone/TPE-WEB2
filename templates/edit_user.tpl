@@ -30,13 +30,15 @@
                 {if $success}
                 <div class="alert alert-success text-center" role="alert">
                     ¡Su perfil fue actualizado con éxito!
+                    <p>Su sesión se cerró por seguridad. Debe volver a iniciar sesión.</p>
                 </div>
+                <a href="usuarios/ingreso" class="btn btn-lg btn-primary btn-block mb-2">Iniciar sesión</a>
                 {else}
                 <div class="alert alert-danger text-center" role="alert">
                     ¡El email ingresado ya está en uso!
                 </div>
-                {/if}
                 <a href="usuarios/modificar" class="btn btn-lg btn-primary btn-block mb-2">Volver</a>
+                {/if}
                 {/if}
             </div>
             {if $user}

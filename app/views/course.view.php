@@ -15,12 +15,19 @@ class CourseView
     /**
      * Recibe como parametro array de cursos, array de categorias.
      */
-    function showCourses($courses, $categories, $numPage, $amountPages)
+    function showCourses($courses, $categories, $numPage, $amountPages, $datos, $amountCourses, $filter = null)
     {
         $this->smarty->assign('courses', $courses);
         $this->smarty->assign('categories', $categories);
         $this->smarty->assign('numPage', $numPage);
         $this->smarty->assign('amountPages', $amountPages);
+        $this->smarty->assign('amountCourses', $amountCourses);
+        $this->smarty->assign('datos', $datos);
+        if (isset($filter)) 
+            $this->smarty->assign('filter', $filter . "&");
+        else
+            $this->smarty->assign('filter', $filter);
+
         $this->smarty->display('templates/courses_all.tpl');
     }
     /**
