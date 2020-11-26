@@ -20,7 +20,7 @@
                             <td class="align-middle">{$user->nombre}</td>
                             <td>
                                 {if $user->administrador}
-                                    <a type="button" class="btn btn-success" href="usuarios/set_administrador/{$user->id}/0">SI</a>
+                                    <a type="button" class="btn btn-success {if $user->id == $smarty.session.ID}disabled{/if}" href="usuarios/set_administrador/{$user->id}/0">SI</a>
                                 {else}
                                     <a type="button" class="btn btn-danger" href="usuarios/set_administrador/{$user->id}/1">NO</a>
                                 {/if}

@@ -115,7 +115,9 @@ class UserController
     function setAdministrador($id, $administrador)
     {
         $this->authHelper->checkUserIsManager($this->view);
-        $this->model->setAdministrador($id, $administrador);
+        if($id != $this->authHelper->getId()){
+            $this->model->setAdministrador($id, $administrador);
+        }
         header('Location: ' . BASE_URL . 'usuarios/administrar');
     }
 
