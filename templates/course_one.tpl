@@ -11,7 +11,7 @@
                     {if $course->imagen}
                     <img src="{$course->imagen}" class="imageCourseOne card-img-top img-fluid mx-auto" alt="{$course->nombre}">
                     {else}
-                    <img src="images/system/new.png" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
+                    <img src="images/system/sin_imagen.jpg" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
                     {/if}
                     <div class="card-body">
                         <a href="categorias/{$course->id_categoria}">

@@ -13,7 +13,7 @@
                     {if $course->imagen}
                         <img src="{$course->imagen}" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
                     {else}
-                        <img src="images/system/new.png" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
+                        <img src="images/system/sin_imagen.jpg" class="imageCourseAll card-img-top img-fluid mx-auto" alt="">
                     {/if}                    
                     <div class="card-body">
                         <h4><span class="badge badge-primary">{$categoryToShow->nombre}</span></h4>
@@ -35,7 +35,7 @@
                 {/if}
                 {/foreach}
             </div>
-            {include file="templates/page.tpl" url="categorias/{$categoryToShow->id}" numPage={$numPage} cantCursos={$courses|@count} amountCourses={$amountCourses} amountPages={$amountPages}}
+            {include file="templates/page.tpl" url="categorias/{$categoryToShow->id}" filter={$filter} numPage={$numPage} cantCursos={$courses|@count} amountCourses={$amountCourses} amountPages={$amountPages}}
         </div>
     </div>
 </div>

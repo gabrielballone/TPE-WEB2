@@ -16,7 +16,7 @@ class CategoryView
     /**
      * Recibe como parametro array de categorias, array de cursos y objeto categoria.
      */
-    function showCategory($categories, $courses, $category, $numPage, $amountCourses, $amountPages)
+    function showCategory($categories, $courses, $category, $numPage, $amountCourses, $amountPages, $filter = null)
     {
         $this->smarty->assign('categories', $categories);
         $this->smarty->assign('courses', $courses);
@@ -24,6 +24,10 @@ class CategoryView
         $this->smarty->assign('numPage', $numPage);
         $this->smarty->assign('amountPages', $amountPages);
         $this->smarty->assign('amountCourses', $amountCourses);
+        if (isset($filter)) 
+            $this->smarty->assign('filter', $filter . "&");
+        else
+            $this->smarty->assign('filter', $filter);
         $this->smarty->display('templates/category_one.tpl');
     }
 
