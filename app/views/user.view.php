@@ -43,11 +43,12 @@ class UserView
      * Muestra mensaje de confirmacion para eliminar un usuario,
      * recibe por parametro id y email del usuario a eliminar 
      */
-    function confirmUserRemove($id, $email)
+    function confirmUserRemove($id, $email, $equalUser = false)
     {
         $this->smarty->assign('entityToRemove', "usuarios");
         $this->smarty->assign('name', $email);
         $this->smarty->assign('id', $id);
+        $this->smarty->assign('equalUser', $equalUser);
         $this->smarty->display('templates/confirmation_remove.tpl');
     }
 

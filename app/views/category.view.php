@@ -44,11 +44,12 @@ class CategoryView
     /**
      * Recibe como parametro id de categoria a eliminar y nombre de categoria a eliminar.
      */
-    function confirmCategoryRemove($id, $name)
+    function confirmCategoryRemove($id, $name, $equalUser = false)
     {
         $this->smarty->assign('entityToRemove', "categorias");
         $this->smarty->assign('name', $name);
         $this->smarty->assign('id', $id);
+        $this->smarty->assign('equalUser', $equalUser);
         $this->smarty->display('templates/confirmation_remove.tpl');
     }
 

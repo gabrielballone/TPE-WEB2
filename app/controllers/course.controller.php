@@ -48,6 +48,10 @@ class CourseController
                         $datos['texto'] = $_GET['texto'];
                         $amountCourses = $this->model->getAmountCoursesFilterByName($_GET['texto']);
                         $courses = $this->model->getCoursesFilterByName($_GET['texto'], $numPage);
+                    }
+                    else{
+                        $courses = $this->model->getAllInnerCategoryName($numPage);
+                        $amountCourses = $this->model->getAmountCourses();
                     }                    
                     break;
                 case 'duracion':
@@ -85,16 +89,19 @@ class CourseController
                     }
                     $amountCourses = $this->model->getAmountCoursesFilterByPrecio($min, $max);
                     $courses = $this->model->getCoursesFilterByPrecio($min, $max, $numPage);                                        
-                    break;                
+                    break;
+                default:
+                    $courses = $this->model->getAllInnerCategoryName($numPage);
+                    $amountCourses = $this->model->getAmountCourses();
+                break;                
             } 
         } else {
             $courses = $this->model->getAllInnerCategoryName($numPage);
             $amountCourses = $this->model->getAmountCourses();
         }        
-            $amountPages = ceil($amountCourses/4); //redondea a entero, hacia arriba
-            $categories = $this->modelCategory->getAll();
-            $this->view->showCourses($courses, $categories, $numPage, $amountPages, $datos, $amountCourses, $filter);
-      
+        $amountPages = ceil($amountCourses/4); //ceil redondea a entero, hacia arriba
+        $categories = $this->modelCategory->getAll();
+        $this->view->showCourses($courses, $categories, $numPage, $amountPages, $datos, $amountCourses, $filter);
     }
     /**
      * Obtiene un curso por ID con el nombre de categoría relacionado y manda a mostrar.

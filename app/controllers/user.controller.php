@@ -98,7 +98,6 @@ class UserController
             if ($this->model->update($id, $_POST['email'], password_hash($_POST['pass'], PASSWORD_DEFAULT), $_POST['nombre'], $_POST['telefono'])) {
                 session_destroy();
                 $this->view->showEditUser(false, true);
-                // $this->logout();
             } else {
                 $this->view->showEditUser(false, false);
             }
@@ -129,7 +128,13 @@ class UserController
         $this->authHelper->checkUserIsManager($this->view);
         $user = $this->model->getUser($id);
         $email = $user->email;
-        $this->view->confirmUserRemove($id, $email);
+        //si el administrador se quiere autoeliminar le pasa true al tpl y muestra msg
+        if($id == $this->authHelper->getId()){
+            $this->view->confirmUserRemove($id, $email, true);
+        }
+        else{
+            $this->view->confirmUserRemove($id, $email);
+        }
     }
 
     /**
@@ -138,7 +143,9 @@ class UserController
     function removeUser($id)
     {
         $this->authHelper->checkUserIsManager($this->view);
-        $this->model->remove($id);
+        if($id != $this->authHelper->getId()){
+            $this->model->remove($id);
+        }
         header('Location: ' . BASE_URL . 'usuarios/administrar');
     }
 
@@ -147,8 +154,7 @@ class UserController
      */
     function logout()
     {
-        session_destroy();
-        header('Location: ' . BASE_URL . 'inicio');
+        $this->authHelper->logout();
     }
 
     /**

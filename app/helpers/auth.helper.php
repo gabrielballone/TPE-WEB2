@@ -62,4 +62,13 @@ class AuthHelper
     {
         return $_SESSION['ID'];
     }
+
+     /**
+     * Desloguea al usuario destruyendo la sesion actual
+     */
+    public function logout()
+    {
+        session_destroy();
+        header('Location: ' . BASE_URL . 'inicio');
+    }
 }

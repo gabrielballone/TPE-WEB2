@@ -54,11 +54,12 @@ class CourseView
     /**
      * Recibe como parametro id de curso a eliminar y nombre de curso a eliminar.
      */
-    function confirmCourseRemove($id, $name)
+    function confirmCourseRemove($id, $name, $equalUser = false)
     {
         $this->smarty->assign('entityToRemove', "cursos");
         $this->smarty->assign('name', $name);
         $this->smarty->assign('id', $id);
+        $this->smarty->assign('equalUser', $equalUser);
         $this->smarty->display('templates/confirmation_remove.tpl');
     }
     /**
